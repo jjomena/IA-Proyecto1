@@ -6,8 +6,11 @@
 package ajedrezia;
 
 import ajedrez.juego.Ajedrez;
+import ajedrez.juego.Escaque;
+import ajedrez.juego.Tablero;
 import ajedrez.piezas.Alfil;
 import ajedrez.piezas.Caballo;
+import ajedrez.piezas.NoPieza;
 import ajedrez.piezas.Peon;
 import ajedrez.piezas.Pieza;
 import ajedrez.piezas.Reina;
@@ -16,7 +19,11 @@ import ajedrez.piezas.Torre;
 import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.Image;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import javax.swing.BorderFactory;
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.border.Border;
@@ -25,25 +32,25 @@ import javax.swing.border.Border;
  *
  * @author Joaquin
  */
-public class Tablero extends javax.swing.JFrame {
+public class TableroGUI extends javax.swing.JFrame {
 
-    private ImageIcon[] imagenPeon;
-    private ImageIcon[] imagenTorre;
-    private ImageIcon[] imagenAlfil;
-    private ImageIcon[] imagenReina;
-    private ImageIcon[] imagenRey;
-    private ImageIcon[] imagenCaballo;
     
-    private JLabel escaques[][];
+    private JLabel escaques[][] = new JLabel[8][8];
     private final byte TAMANIO = 8;
+    public Icon ImageIcon;
+    private boolean isSelected = false;
+    private Escaque[][] casillas;
+    private int selectX;
+    private int selectY;
     
-    Ajedrez miAjedrez;
+    
+    
     
 
     /**
      * Creates new form Tablero
      */
-    public Tablero() {  
+    public TableroGUI() {  
         initComponents();
     }
     
@@ -62,7 +69,7 @@ public class Tablero extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        Tablero = new javax.swing.JPanel();
+        TableroJuego = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         alfilBlanco = new javax.swing.JLabel();
         caballoBlanco = new javax.swing.JLabel();
@@ -77,24 +84,28 @@ public class Tablero extends javax.swing.JFrame {
         reinaOscuro = new javax.swing.JLabel();
         reyOscuro = new javax.swing.JLabel();
         torreOscuro = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        labelPieza = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        labelEscaque = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        Tablero.setBackground(new java.awt.Color(0, 153, 153));
-        Tablero.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
-        Tablero.setAlignmentX(0.0F);
-        Tablero.setAlignmentY(0.0F);
-        Tablero.setAutoscrolls(true);
-        Tablero.setPreferredSize(new java.awt.Dimension(800, 800));
+        TableroJuego.setBackground(new java.awt.Color(0, 153, 153));
+        TableroJuego.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+        TableroJuego.setAlignmentX(0.0F);
+        TableroJuego.setAlignmentY(0.0F);
+        TableroJuego.setAutoscrolls(true);
+        TableroJuego.setPreferredSize(new java.awt.Dimension(800, 800));
 
-        javax.swing.GroupLayout TableroLayout = new javax.swing.GroupLayout(Tablero);
-        Tablero.setLayout(TableroLayout);
-        TableroLayout.setHorizontalGroup(
-            TableroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout TableroJuegoLayout = new javax.swing.GroupLayout(TableroJuego);
+        TableroJuego.setLayout(TableroJuegoLayout);
+        TableroJuegoLayout.setHorizontalGroup(
+            TableroJuegoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 496, Short.MAX_VALUE)
         );
-        TableroLayout.setVerticalGroup(
-            TableroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        TableroJuegoLayout.setVerticalGroup(
+            TableroJuegoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 496, Short.MAX_VALUE)
         );
 
@@ -193,26 +204,56 @@ public class Tablero extends javax.swing.JFrame {
         alfilOscuro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/alfilotro.png"))); // NOI18N
         alfilOscuro.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         alfilOscuro.setPreferredSize(new java.awt.Dimension(68, 68));
+        alfilOscuro.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                alfilOscuroMouseClicked(evt);
+            }
+        });
 
         caballoOscuro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/caballootro.png"))); // NOI18N
         caballoOscuro.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         caballoOscuro.setPreferredSize(new java.awt.Dimension(68, 68));
+        caballoOscuro.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                caballoOscuroMouseClicked(evt);
+            }
+        });
 
         peonOscuro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/peonotro.png"))); // NOI18N
         peonOscuro.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         peonOscuro.setPreferredSize(new java.awt.Dimension(68, 68));
+        peonOscuro.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                peonOscuroMouseClicked(evt);
+            }
+        });
 
         reinaOscuro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/reinaotra.png"))); // NOI18N
         reinaOscuro.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         reinaOscuro.setPreferredSize(new java.awt.Dimension(68, 68));
+        reinaOscuro.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                reinaOscuroMouseClicked(evt);
+            }
+        });
 
         reyOscuro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/reyotro.png"))); // NOI18N
         reyOscuro.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         reyOscuro.setPreferredSize(new java.awt.Dimension(68, 68));
+        reyOscuro.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                reyOscuroMouseClicked(evt);
+            }
+        });
 
         torreOscuro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/torreotra.png"))); // NOI18N
         torreOscuro.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         torreOscuro.setPreferredSize(new java.awt.Dimension(68, 68));
+        torreOscuro.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                torreOscuroMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -247,17 +288,37 @@ public class Tablero extends javax.swing.JFrame {
                 .addContainerGap(38, Short.MAX_VALUE))
         );
 
+        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel1.setText("Pieza seleccionada: ");
+
+        labelPieza.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+
+        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel2.setText("Escaque:");
+
+        labelEscaque.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        labelEscaque.setText("jLabel3");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(Tablero, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(TableroJuego, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 491, Short.MAX_VALUE)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 491, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 491, Short.MAX_VALUE)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 491, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(labelPieza))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(labelEscaque)))
                 .addContainerGap(37, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -266,12 +327,20 @@ public class Tablero extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(Tablero, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(TableroJuego, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(83, 83, 83)
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(27, 27, 27)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel1)
+                            .addComponent(labelPieza))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel2)
+                            .addComponent(labelEscaque))))
                 .addContainerGap(26, Short.MAX_VALUE))
         );
 
@@ -280,33 +349,75 @@ public class Tablero extends javax.swing.JFrame {
 
     private void alfilBlancoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_alfilBlancoMouseClicked
         // TODO add your handling code here:
-        activarDesactivarPiezas(alfilBlanco);   
+        activarDesactivarPiezas(alfilBlanco); 
+        labelPieza.setText("Alfil Blanco");
     }//GEN-LAST:event_alfilBlancoMouseClicked
 
     private void caballoBlancoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_caballoBlancoMouseClicked
         // TODO add your handling code here:
         activarDesactivarPiezas(caballoBlanco); 
+        labelPieza.setText("Caballo Blanco");
     }//GEN-LAST:event_caballoBlancoMouseClicked
 
     private void peonBlancoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_peonBlancoMouseClicked
         // TODO add your handling code here:
         activarDesactivarPiezas(peonBlanco); 
+        labelPieza.setText("Peon Blanco");
     }//GEN-LAST:event_peonBlancoMouseClicked
 
     private void reinaBlancoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_reinaBlancoMouseClicked
         // TODO add your handling code here:
-        activarDesactivarPiezas(reinaBlanco); 
+        activarDesactivarPiezas(reinaBlanco);
+        labelPieza.setText("Reina Blanco");
     }//GEN-LAST:event_reinaBlancoMouseClicked
 
     private void reyBlancoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_reyBlancoMouseClicked
         // TODO add your handling code here:
         activarDesactivarPiezas(reyBlanco); 
+        labelPieza.setText("Rey Blanco");
     }//GEN-LAST:event_reyBlancoMouseClicked
 
     private void torreBlancoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_torreBlancoMouseClicked
         // TODO add your handling code here:
         activarDesactivarPiezas(torreBlanco); 
+        labelPieza.setText("Torre Blanco");
     }//GEN-LAST:event_torreBlancoMouseClicked
+
+    private void alfilOscuroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_alfilOscuroMouseClicked
+        // TODO add your handling code here:
+        activarDesactivarPiezas(alfilOscuro); 
+        labelPieza.setText("Alfil Oscuro");
+    }//GEN-LAST:event_alfilOscuroMouseClicked
+
+    private void caballoOscuroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_caballoOscuroMouseClicked
+        // TODO add your handling code here:
+        activarDesactivarPiezas(caballoOscuro); 
+        labelPieza.setText("Caballo Oscuro");
+    }//GEN-LAST:event_caballoOscuroMouseClicked
+
+    private void peonOscuroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_peonOscuroMouseClicked
+        // TODO add your handling code here:
+        activarDesactivarPiezas(peonOscuro); 
+        labelPieza.setText("Peon Oscuro");
+    }//GEN-LAST:event_peonOscuroMouseClicked
+
+    private void reinaOscuroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_reinaOscuroMouseClicked
+        // TODO add your handling code here:
+        activarDesactivarPiezas(reinaOscuro); 
+        labelPieza.setText("Reina Oscuro");
+    }//GEN-LAST:event_reinaOscuroMouseClicked
+
+    private void reyOscuroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_reyOscuroMouseClicked
+        // TODO add your handling code here:
+        activarDesactivarPiezas(reyOscuro); 
+        labelPieza.setText("Rey Oscuro");
+    }//GEN-LAST:event_reyOscuroMouseClicked
+
+    private void torreOscuroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_torreOscuroMouseClicked
+        // TODO add your handling code here:
+        activarDesactivarPiezas(torreOscuro); 
+        labelPieza.setText("Torre Oscuro");
+    }//GEN-LAST:event_torreOscuroMouseClicked
 
    
     public void activarDesactivarPiezas(JLabel pieza){
@@ -327,110 +438,57 @@ public class Tablero extends javax.swing.JFrame {
         //
         Border borderActivo = BorderFactory.createLineBorder(Color.YELLOW, 3);
         pieza.setBorder(borderActivo);
+        ImageIcon = pieza.getIcon();
+        isSelected = true;
     }
     
     
     public void generarTablero(){
         GridLayout tb = new GridLayout(8,8);
-        
-        
         boolean colorNegro = false;
-        escaques = new JLabel[TAMANIO][TAMANIO];
-        for (JLabel[] escaque : escaques) {
-            for (int j = 0; j < escaque.length; j++) {
-                escaque[j] = new JLabel();
-                escaque[j].setOpaque(true);
-                if (colorNegro) {
-                    escaque[j].setBackground(Color.black);
-                } else {
-                    escaque[j].setBackground(Color.white);
+        //escaques = new JLabel[TAMANIO][TAMANIO];
+        for (int i = 0; i < escaques.length; i++) {
+            for (int j = 0; j < escaques.length; j++) {
+                escaques[i][j] = new JLabel();
+                escaques[i][j].setOpaque(true);
+                if(colorNegro){
+                    escaques[i][j].setBackground(Color.black);
                 }
+                else{
+                    escaques[i][j].setBackground(Color.white);
+                } 
                 colorNegro = !colorNegro;
-                Tablero.add(escaque[j]);
-                //escaques[i][j].addMouseListener(
-                //new ManejadorDeClics(miAjedrez.getTablero().getCasillas()[j][7-i]));
+                String X = Integer.toString(i);
+                String Y = Integer.toString(j);
+                String posicion = "X: "+i+" "+"Y: "+j; 
+                TableroJuego.add(escaques[i][j]);
+                escaques[i][j].addMouseListener(new MouseAdapter() {
+                    @Override
+                    public void mouseClicked(MouseEvent e) {
+                        //System.out.println("Posicion: "+posicion+i);
+                        agregarPieza(X,Y);
+                    }
+                });
             }
             colorNegro = !colorNegro;
-            Tablero.setLayout(tb);
+            TableroJuego.setLayout(tb);
             super.revalidate();
             super.repaint();
-        }
-    }
-    
-    private void cargarImagenes(){
-        //Crea una imagen a partir de la imagen "imagenes/caballo.png" escalándola
-        //a un tamaño de 50x50 px
-
-        
-        Image img = (new ImageIcon(getClass().getResource("/peon.png"))).getImage().getScaledInstance(50, 50, Image.SCALE_DEFAULT);
-        //Se crea un ImageIcon a partir de la imagen de arriba
-        imagenPeon[0] = new ImageIcon(img);
-
-        img = (new ImageIcon(getClass().getResource("/torre.png"))).getImage().getScaledInstance(50, 50, Image.SCALE_DEFAULT);
-        imagenTorre[0] = new ImageIcon(img);
-        img = (new ImageIcon(getClass().getResource("/alfil.png"))).getImage().getScaledInstance(50, 50, Image.SCALE_DEFAULT);
-        imagenAlfil[0] = new ImageIcon(img);
-        img = (new ImageIcon(getClass().getResource("/reina.png"))).getImage().getScaledInstance(50, 50, Image.SCALE_DEFAULT);
-        imagenReina[0] = new ImageIcon(img);
-        img = (new ImageIcon(getClass().getResource("/rey.png"))).getImage().getScaledInstance(50, 50, Image.SCALE_DEFAULT);
-        imagenRey[0] = new ImageIcon(img);
-        img = (new ImageIcon(getClass().getResource("/caballo.png"))).getImage().getScaledInstance(50, 50, Image.SCALE_DEFAULT);
-        imagenCaballo[0] = new ImageIcon(img);
-
-        img = (new ImageIcon(getClass().getResource("/torreotra.png"))).getImage().getScaledInstance(50, 50, Image.SCALE_DEFAULT);
-        imagenTorre[1] = new ImageIcon(img);
-        img = (new ImageIcon(getClass().getResource("/alfilotro.png"))).getImage().getScaledInstance(50, 50, Image.SCALE_DEFAULT);
-        imagenAlfil[1] = new ImageIcon(img);
-        img = (new ImageIcon(getClass().getResource("/reinaotra.png"))).getImage().getScaledInstance(50, 50, Image.SCALE_DEFAULT);
-        imagenReina[1] = new ImageIcon(img);
-        img = (new ImageIcon(getClass().getResource("/reyotro.png"))).getImage().getScaledInstance(50, 50, Image.SCALE_DEFAULT);
-        imagenRey[1] = new ImageIcon(img);
-        img = (new ImageIcon(getClass().getResource("/peonotro.png"))).getImage().getScaledInstance(50, 50, Image.SCALE_DEFAULT);
-        imagenPeon[1] = new ImageIcon(img);
-        img = (new ImageIcon(getClass().getResource("/caballootro.png"))).getImage().getScaledInstance(50, 50, Image.SCALE_DEFAULT);
-        imagenCaballo[1] = new ImageIcon(img);
-
-    }
-    
-    private void pintarTablero(){
-        //inicializarComponentes();
-        for (JLabel[] escaque : escaques) {
-            for (JLabel escaque1 : escaque) {
-                escaque1.setIcon(null);
-            }
-        }
-        super.revalidate();
-        super.repaint();
-//        System.out.println("todos a null");        
-        
-        for (int i = 0; i<8; i++){
-            for (int j=0; j<8; j++){
-                
-                Pieza pieza = miAjedrez.getTablero().getCasillas()[j][7-i].getPieza();
-                int blancoOnegro = 0;
-                if (pieza.isEquipo())
-                    blancoOnegro = 1;
-                
-                if(pieza instanceof Torre )
-                    escaques[i][j].setIcon(imagenTorre[blancoOnegro]);                    
-                if(pieza instanceof Peon )
-                    escaques[i][j].setIcon(imagenPeon[blancoOnegro]);                    
-                if(pieza instanceof Alfil )
-                    escaques[i][j].setIcon(imagenAlfil[blancoOnegro]);                    
-                if(pieza instanceof Reina )
-                    escaques[i][j].setIcon(imagenReina[blancoOnegro]);                    
-                if(pieza instanceof Rey )
-                    escaques[i][j].setIcon(imagenRey[blancoOnegro]);                    
-                if(pieza instanceof Caballo )
-                    escaques[i][j].setIcon(imagenCaballo[blancoOnegro]);    
-
-            }
             
         }
         
-        super.revalidate();
-        super.repaint();
     }
+    
+    public final void agregarPieza(String x,String y){ 
+        labelEscaque.setText(x+"--"+y);
+        int i = Integer.parseInt(x);
+        int j= Integer.parseInt(y);
+        if(isSelected){
+            escaques[i][j].setIcon(ImageIcon);
+        }
+    }
+    
+      
     
     /**
      * @param args the command line arguments
@@ -449,32 +507,37 @@ public class Tablero extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Tablero.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TableroGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Tablero.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TableroGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Tablero.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TableroGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Tablero.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TableroGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Tablero().setVisible(true);
+                new TableroGUI().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel Tablero;
+    private javax.swing.JPanel TableroJuego;
     private javax.swing.JLabel alfilBlanco;
     private javax.swing.JLabel alfilOscuro;
     private javax.swing.JLabel caballoBlanco;
     private javax.swing.JLabel caballoOscuro;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JLabel labelEscaque;
+    private javax.swing.JLabel labelPieza;
     private javax.swing.JLabel peonBlanco;
     private javax.swing.JLabel peonOscuro;
     private javax.swing.JLabel reinaBlanco;

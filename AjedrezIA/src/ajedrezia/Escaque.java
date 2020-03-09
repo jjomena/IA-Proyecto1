@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package ajedrez.juego;
+package ajedrezia;
 
 import ajedrez.piezas.NoPieza;
 import ajedrez.piezas.Pieza;
@@ -17,10 +17,6 @@ public class Escaque {
     
     public Escaque(){
         pieza = new NoPieza();
-    }
-
-    public Escaque(int i, int j) {
-        pieza = new NoPieza(i,j);
     }
     public boolean isColor() {
         return color;
