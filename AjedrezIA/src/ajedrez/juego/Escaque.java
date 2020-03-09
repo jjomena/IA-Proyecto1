@@ -18,6 +18,10 @@ public class Escaque {
     public Escaque(){
         pieza = new NoPieza();
     }
+
+    public Escaque(int i, int j) {
+        pieza = new NoPieza(i,j);
+    }
     public boolean isColor() {
         return color;
     }

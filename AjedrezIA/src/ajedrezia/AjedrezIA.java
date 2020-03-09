@@ -11,8 +11,8 @@ public class AjedrezIA {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        Tablero tb = new Tablero();
-        tb.generarTablero();
+        TableroGUI tb = new TableroGUI();
+        tb.agregarComponentes();
         tb.setVisible(true);
     }
     
