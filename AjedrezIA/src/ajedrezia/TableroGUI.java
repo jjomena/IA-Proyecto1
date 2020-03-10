@@ -13,6 +13,7 @@ import ajedrez.piezas.Caballo;
 import ajedrez.piezas.NoPieza;
 import ajedrez.piezas.Peon;
 import ajedrez.piezas.Pieza;
+import ajedrez.piezas.Posicion;
 import ajedrez.piezas.Reina;
 import ajedrez.piezas.Rey;
 import ajedrez.piezas.Torre;
@@ -40,9 +41,11 @@ public class TableroGUI extends javax.swing.JFrame {
     public Icon ImageIcon;
     private boolean isSelected = false;
     private boolean isActive = true;
-    private Escaque[][] casillas;
-    private int selectX;
-    private int selectY;
+    //private Escaque[][] casillas;
+    
+    private String nombrePieza="NoPieza";
+    private boolean equipo;
+    private Tablero tablero;
     
     
     
@@ -57,6 +60,7 @@ public class TableroGUI extends javax.swing.JFrame {
     
     public void agregarComponentes(){
         generarTablero();
+        tablero = new Tablero();
         //cargarImagenes();
         //pintarTablero();
     }
@@ -376,72 +380,96 @@ public class TableroGUI extends javax.swing.JFrame {
         // TODO add your handling code here:
         activarDesactivarPiezas(alfilBlanco); 
         labelPieza.setText("Alfil Blanco");
+        nombrePieza = "Alfil";
+        equipo=false;
     }//GEN-LAST:event_alfilBlancoMouseClicked
 
     private void caballoBlancoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_caballoBlancoMouseClicked
         // TODO add your handling code here:
         activarDesactivarPiezas(caballoBlanco); 
         labelPieza.setText("Caballo Blanco");
+        nombrePieza = "Caballo";
+        equipo=false;
     }//GEN-LAST:event_caballoBlancoMouseClicked
 
     private void peonBlancoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_peonBlancoMouseClicked
         // TODO add your handling code here:
         activarDesactivarPiezas(peonBlanco); 
         labelPieza.setText("Peon Blanco");
+        nombrePieza = "Peon";
+        equipo=false;
     }//GEN-LAST:event_peonBlancoMouseClicked
 
     private void reinaBlancoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_reinaBlancoMouseClicked
         // TODO add your handling code here:
         activarDesactivarPiezas(reinaBlanco);
         labelPieza.setText("Reina Blanco");
+        nombrePieza = "Reina";
+        equipo=false;
     }//GEN-LAST:event_reinaBlancoMouseClicked
 
     private void reyBlancoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_reyBlancoMouseClicked
         // TODO add your handling code here:
         activarDesactivarPiezas(reyBlanco); 
         labelPieza.setText("Rey Blanco");
+        nombrePieza = "Rey";
+        equipo=false;
     }//GEN-LAST:event_reyBlancoMouseClicked
 
     private void torreBlancoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_torreBlancoMouseClicked
         // TODO add your handling code here:
         activarDesactivarPiezas(torreBlanco); 
         labelPieza.setText("Torre Blanco");
+        nombrePieza = "Torre";
+        equipo=false;
     }//GEN-LAST:event_torreBlancoMouseClicked
 
     private void alfilOscuroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_alfilOscuroMouseClicked
         // TODO add your handling code here:
         activarDesactivarPiezas(alfilOscuro); 
         labelPieza.setText("Alfil Oscuro");
+        nombrePieza = "Alfil";
+        equipo=true;
     }//GEN-LAST:event_alfilOscuroMouseClicked
 
     private void caballoOscuroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_caballoOscuroMouseClicked
         // TODO add your handling code here:
         activarDesactivarPiezas(caballoOscuro); 
         labelPieza.setText("Caballo Oscuro");
+        nombrePieza = "Caballo";
+        equipo=true;
     }//GEN-LAST:event_caballoOscuroMouseClicked
 
     private void peonOscuroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_peonOscuroMouseClicked
         // TODO add your handling code here:
         activarDesactivarPiezas(peonOscuro); 
         labelPieza.setText("Peon Oscuro");
+        nombrePieza = "Peon";
+        equipo=true;
     }//GEN-LAST:event_peonOscuroMouseClicked
 
     private void reinaOscuroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_reinaOscuroMouseClicked
         // TODO add your handling code here:
         activarDesactivarPiezas(reinaOscuro); 
         labelPieza.setText("Reina Oscuro");
+        nombrePieza = "Reina";
+        equipo=true;
     }//GEN-LAST:event_reinaOscuroMouseClicked
 
     private void reyOscuroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_reyOscuroMouseClicked
         // TODO add your handling code here:
         activarDesactivarPiezas(reyOscuro); 
         labelPieza.setText("Rey Oscuro");
+        nombrePieza = "Rey";
+        equipo=true;
     }//GEN-LAST:event_reyOscuroMouseClicked
 
     private void torreOscuroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_torreOscuroMouseClicked
         // TODO add your handling code here:
         activarDesactivarPiezas(torreOscuro); 
         labelPieza.setText("Torre Oscuro");
+        nombrePieza = "Torre";
+        equipo=true;
     }//GEN-LAST:event_torreOscuroMouseClicked
 
     private void btnJugarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnJugarActionPerformed
@@ -475,7 +503,7 @@ public class TableroGUI extends javax.swing.JFrame {
             Border borderActivo = BorderFactory.createLineBorder(Color.YELLOW, 3);
             pieza.setBorder(borderActivo);
             ImageIcon = pieza.getIcon();
-            isSelected = true;
+            isSelected = true;       
         }
     }
     
@@ -570,10 +598,51 @@ public class TableroGUI extends javax.swing.JFrame {
         int j= Integer.parseInt(y);
         if(isSelected && isActive){
             escaques[i][j].setIcon(ImageIcon);
+            tablero.getCasillas()[i][j].setPieza(crearPieza(i,j));
         }
         else{
             activarDesactivarEscaques(escaques[i][j]);
         }
+    }
+    
+    public Pieza crearPieza(int x,int y){
+        Posicion pos = new Posicion();
+        pos.setPosicion(x, y);
+        Pieza pieza = null;
+        if( "Alfil".equals(nombrePieza)){
+            Alfil alfil = new Alfil();
+            pieza  = alfil;
+        }
+        if( "Caballo".equals(nombrePieza)){
+            Caballo caballo = new Caballo();
+            pieza  = caballo;
+        }
+        if( "Peon".equals(nombrePieza)){
+            Peon peon = new Peon();
+            pieza  = peon;
+        }
+        if( "Reina".equals(nombrePieza)){
+            Reina reina = new Reina();
+            pieza  = reina;
+        }
+        if( "Rey".equals(nombrePieza)){
+            Rey rey = new Rey();
+            pieza  = rey;
+        }
+        if( "Torre".equals(nombrePieza)){
+            Torre torre = new Torre();
+            pieza  = torre;
+        }
+        else{
+            NoPieza nopieza= new NoPieza();
+            pieza  = nopieza;
+            
+        }
+        
+        pieza.setEquipo(equipo);
+        pieza.setPosicion(pos);
+        
+        return pieza;
     }
     
       
