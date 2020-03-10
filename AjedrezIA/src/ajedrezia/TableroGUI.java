@@ -13,6 +13,7 @@ import ajedrez.piezas.Caballo;
 import ajedrez.piezas.NoPieza;
 import ajedrez.piezas.Peon;
 import ajedrez.piezas.Pieza;
+import ajedrez.piezas.Posicion;
 import ajedrez.piezas.Reina;
 import ajedrez.piezas.Rey;
 import ajedrez.piezas.Torre;
@@ -39,9 +40,12 @@ public class TableroGUI extends javax.swing.JFrame {
     private final byte TAMANIO = 8;
     public Icon ImageIcon;
     private boolean isSelected = false;
-    private Escaque[][] casillas;
-    private int selectX;
-    private int selectY;
+    private boolean isActive = true;
+    //private Escaque[][] casillas;
+    
+    private String nombrePieza="NoPieza";
+    private boolean equipo;
+    private Tablero tablero;
     
     
     
@@ -56,6 +60,7 @@ public class TableroGUI extends javax.swing.JFrame {
     
     public void agregarComponentes(){
         generarTablero();
+        tablero = new Tablero();
         //cargarImagenes();
         //pintarTablero();
     }
@@ -70,14 +75,14 @@ public class TableroGUI extends javax.swing.JFrame {
     private void initComponents() {
 
         TableroJuego = new javax.swing.JPanel();
-        jPanel1 = new javax.swing.JPanel();
+        fichas1 = new javax.swing.JPanel();
         alfilBlanco = new javax.swing.JLabel();
         caballoBlanco = new javax.swing.JLabel();
         peonBlanco = new javax.swing.JLabel();
         reinaBlanco = new javax.swing.JLabel();
         reyBlanco = new javax.swing.JLabel();
         torreBlanco = new javax.swing.JLabel();
-        jPanel2 = new javax.swing.JPanel();
+        fichas2 = new javax.swing.JPanel();
         alfilOscuro = new javax.swing.JLabel();
         caballoOscuro = new javax.swing.JLabel();
         peonOscuro = new javax.swing.JLabel();
@@ -88,6 +93,8 @@ public class TableroGUI extends javax.swing.JFrame {
         labelPieza = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         labelEscaque = new javax.swing.JLabel();
+        btnJugar = new javax.swing.JButton();
+        btnJuegoNuevo = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -109,8 +116,8 @@ public class TableroGUI extends javax.swing.JFrame {
             .addGap(0, 496, Short.MAX_VALUE)
         );
 
-        jPanel1.setBackground(new java.awt.Color(153, 153, 153));
-        jPanel1.setPreferredSize(new java.awt.Dimension(345, 150));
+        fichas1.setBackground(new java.awt.Color(153, 153, 153));
+        fichas1.setPreferredSize(new java.awt.Dimension(345, 150));
 
         alfilBlanco.setIcon(new javax.swing.ImageIcon(getClass().getResource("/alfil.png"))); // NOI18N
         alfilBlanco.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -165,11 +172,11 @@ public class TableroGUI extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        javax.swing.GroupLayout fichas1Layout = new javax.swing.GroupLayout(fichas1);
+        fichas1.setLayout(fichas1Layout);
+        fichas1Layout.setHorizontalGroup(
+            fichas1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(fichas1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(alfilBlanco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -184,11 +191,11 @@ public class TableroGUI extends javax.swing.JFrame {
                 .addComponent(torreBlanco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        fichas1Layout.setVerticalGroup(
+            fichas1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(fichas1Layout.createSequentialGroup()
                 .addGap(27, 27, 27)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                .addGroup(fichas1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(alfilBlanco, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(peonBlanco, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(reinaBlanco, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -198,8 +205,8 @@ public class TableroGUI extends javax.swing.JFrame {
                 .addContainerGap(55, Short.MAX_VALUE))
         );
 
-        jPanel2.setBackground(new java.awt.Color(153, 153, 153));
-        jPanel2.setPreferredSize(new java.awt.Dimension(345, 150));
+        fichas2.setBackground(new java.awt.Color(153, 153, 153));
+        fichas2.setPreferredSize(new java.awt.Dimension(345, 150));
 
         alfilOscuro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/alfilotro.png"))); // NOI18N
         alfilOscuro.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -255,11 +262,11 @@ public class TableroGUI extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
+        javax.swing.GroupLayout fichas2Layout = new javax.swing.GroupLayout(fichas2);
+        fichas2.setLayout(fichas2Layout);
+        fichas2Layout.setHorizontalGroup(
+            fichas2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(fichas2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(alfilOscuro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -274,11 +281,11 @@ public class TableroGUI extends javax.swing.JFrame {
                 .addComponent(torreOscuro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(43, Short.MAX_VALUE))
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
+        fichas2Layout.setVerticalGroup(
+            fichas2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(fichas2Layout.createSequentialGroup()
                 .addGap(42, 42, 42)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(fichas2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(alfilOscuro, javax.swing.GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE)
                     .addComponent(peonOscuro, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(caballoOscuro, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -299,6 +306,20 @@ public class TableroGUI extends javax.swing.JFrame {
         labelEscaque.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         labelEscaque.setText("jLabel3");
 
+        btnJugar.setText("JUGAR");
+        btnJugar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnJugarActionPerformed(evt);
+            }
+        });
+
+        btnJuegoNuevo.setText("NUEVO JUEGO");
+        btnJuegoNuevo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnJuegoNuevoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -309,8 +330,8 @@ public class TableroGUI extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 491, Short.MAX_VALUE)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 491, Short.MAX_VALUE))
+                        .addComponent(fichas1, javax.swing.GroupLayout.DEFAULT_SIZE, 491, Short.MAX_VALUE)
+                        .addComponent(fichas2, javax.swing.GroupLayout.DEFAULT_SIZE, 491, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -318,7 +339,11 @@ public class TableroGUI extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(labelEscaque)))
+                        .addComponent(labelEscaque))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnJugar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnJuegoNuevo)))
                 .addContainerGap(37, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -329,10 +354,14 @@ public class TableroGUI extends javax.swing.JFrame {
                         .addContainerGap()
                         .addComponent(TableroJuego, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(83, 83, 83)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(33, 33, 33)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnJugar)
+                            .addComponent(btnJuegoNuevo))
+                        .addGap(27, 27, 27)
+                        .addComponent(fichas1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(fichas2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(27, 27, 27)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel1)
@@ -351,96 +380,180 @@ public class TableroGUI extends javax.swing.JFrame {
         // TODO add your handling code here:
         activarDesactivarPiezas(alfilBlanco); 
         labelPieza.setText("Alfil Blanco");
+        nombrePieza = "Alfil";
+        equipo=false;
     }//GEN-LAST:event_alfilBlancoMouseClicked
 
     private void caballoBlancoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_caballoBlancoMouseClicked
         // TODO add your handling code here:
         activarDesactivarPiezas(caballoBlanco); 
         labelPieza.setText("Caballo Blanco");
+        nombrePieza = "Caballo";
+        equipo=false;
     }//GEN-LAST:event_caballoBlancoMouseClicked
 
     private void peonBlancoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_peonBlancoMouseClicked
         // TODO add your handling code here:
         activarDesactivarPiezas(peonBlanco); 
         labelPieza.setText("Peon Blanco");
+        nombrePieza = "Peon";
+        equipo=false;
     }//GEN-LAST:event_peonBlancoMouseClicked
 
     private void reinaBlancoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_reinaBlancoMouseClicked
         // TODO add your handling code here:
         activarDesactivarPiezas(reinaBlanco);
         labelPieza.setText("Reina Blanco");
+        nombrePieza = "Reina";
+        equipo=false;
     }//GEN-LAST:event_reinaBlancoMouseClicked
 
     private void reyBlancoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_reyBlancoMouseClicked
         // TODO add your handling code here:
         activarDesactivarPiezas(reyBlanco); 
         labelPieza.setText("Rey Blanco");
+        nombrePieza = "Rey";
+        equipo=false;
     }//GEN-LAST:event_reyBlancoMouseClicked
 
     private void torreBlancoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_torreBlancoMouseClicked
         // TODO add your handling code here:
         activarDesactivarPiezas(torreBlanco); 
         labelPieza.setText("Torre Blanco");
+        nombrePieza = "Torre";
+        equipo=false;
     }//GEN-LAST:event_torreBlancoMouseClicked
 
     private void alfilOscuroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_alfilOscuroMouseClicked
         // TODO add your handling code here:
         activarDesactivarPiezas(alfilOscuro); 
         labelPieza.setText("Alfil Oscuro");
+        nombrePieza = "Alfil";
+        equipo=true;
     }//GEN-LAST:event_alfilOscuroMouseClicked
 
     private void caballoOscuroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_caballoOscuroMouseClicked
         // TODO add your handling code here:
         activarDesactivarPiezas(caballoOscuro); 
         labelPieza.setText("Caballo Oscuro");
+        nombrePieza = "Caballo";
+        equipo=true;
     }//GEN-LAST:event_caballoOscuroMouseClicked
 
     private void peonOscuroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_peonOscuroMouseClicked
         // TODO add your handling code here:
         activarDesactivarPiezas(peonOscuro); 
         labelPieza.setText("Peon Oscuro");
+        nombrePieza = "Peon";
+        equipo=true;
     }//GEN-LAST:event_peonOscuroMouseClicked
 
     private void reinaOscuroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_reinaOscuroMouseClicked
         // TODO add your handling code here:
         activarDesactivarPiezas(reinaOscuro); 
         labelPieza.setText("Reina Oscuro");
+        nombrePieza = "Reina";
+        equipo=true;
     }//GEN-LAST:event_reinaOscuroMouseClicked
 
     private void reyOscuroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_reyOscuroMouseClicked
         // TODO add your handling code here:
         activarDesactivarPiezas(reyOscuro); 
         labelPieza.setText("Rey Oscuro");
+        nombrePieza = "Rey";
+        equipo=true;
     }//GEN-LAST:event_reyOscuroMouseClicked
 
     private void torreOscuroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_torreOscuroMouseClicked
         // TODO add your handling code here:
         activarDesactivarPiezas(torreOscuro); 
         labelPieza.setText("Torre Oscuro");
+        nombrePieza = "Torre";
+        equipo=true;
     }//GEN-LAST:event_torreOscuroMouseClicked
+
+    private void btnJugarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnJugarActionPerformed
+        // TODO add your handling code here:
+        desactivarFichas();
+    }//GEN-LAST:event_btnJugarActionPerformed
+
+    private void btnJuegoNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnJuegoNuevoActionPerformed
+        // TODO add your handling code here:
+        activarFichas();
+    }//GEN-LAST:event_btnJuegoNuevoActionPerformed
 
    
     public void activarDesactivarPiezas(JLabel pieza){
-        Border borderDesactivo = BorderFactory.createLineBorder(Color.BLACK, 1);
-        alfilBlanco.setBorder(borderDesactivo);
-        caballoBlanco.setBorder(borderDesactivo);
-        peonBlanco.setBorder(borderDesactivo);
-        reinaBlanco.setBorder(borderDesactivo);
-        reyBlanco.setBorder(borderDesactivo);
-        torreBlanco.setBorder(borderDesactivo);
-        //
-        alfilOscuro.setBorder(borderDesactivo);
-        caballoOscuro.setBorder(borderDesactivo);
-        peonOscuro.setBorder(borderDesactivo);
-        reinaOscuro.setBorder(borderDesactivo);
-        reyOscuro.setBorder(borderDesactivo);
-        torreOscuro.setBorder(borderDesactivo);
-        //
-        Border borderActivo = BorderFactory.createLineBorder(Color.YELLOW, 3);
-        pieza.setBorder(borderActivo);
-        ImageIcon = pieza.getIcon();
-        isSelected = true;
+        if(isActive){
+            Border borderDesactivo = BorderFactory.createLineBorder(Color.BLACK, 1);
+            alfilBlanco.setBorder(borderDesactivo);
+            caballoBlanco.setBorder(borderDesactivo);
+            peonBlanco.setBorder(borderDesactivo);
+            reinaBlanco.setBorder(borderDesactivo);
+            reyBlanco.setBorder(borderDesactivo);
+            torreBlanco.setBorder(borderDesactivo);
+            //
+            alfilOscuro.setBorder(borderDesactivo);
+            caballoOscuro.setBorder(borderDesactivo);
+            peonOscuro.setBorder(borderDesactivo);
+            reinaOscuro.setBorder(borderDesactivo);
+            reyOscuro.setBorder(borderDesactivo);
+            torreOscuro.setBorder(borderDesactivo);
+            //
+            Border borderActivo = BorderFactory.createLineBorder(Color.YELLOW, 3);
+            pieza.setBorder(borderActivo);
+            ImageIcon = pieza.getIcon();
+            isSelected = true;       
+        }
     }
+    
+    public void activarDesactivarEscaques(JLabel escaque){
+        Border borderDesactivo = BorderFactory.createLineBorder(Color.BLACK, 1);
+        for (int i = 0; i < escaques.length; i++) {
+            for (int j = 0; j < escaques.length; j++) {
+                escaques[i][j].setBorder(borderDesactivo);
+            }
+        }
+        Border borderActivo = BorderFactory.createLineBorder(Color.YELLOW, 3);
+        escaque.setBorder(borderActivo);  
+    }
+    
+    public void desactivarFichas(){
+        isActive = false;
+        alfilBlanco.setEnabled(false);
+        caballoBlanco.setEnabled(false);
+        peonBlanco.setEnabled(false);
+        reinaBlanco.setEnabled(false);
+        reyBlanco.setEnabled(false);
+        torreBlanco.setEnabled(false);
+        //
+        alfilOscuro.setEnabled(false);
+        caballoOscuro.setEnabled(false);
+        peonOscuro.setEnabled(false);
+        reinaOscuro.setEnabled(false);
+        reyOscuro.setEnabled(false);
+        torreOscuro.setEnabled(false);
+        
+    }
+    
+    public void activarFichas(){
+        isActive = true;
+        alfilBlanco.setEnabled(true);
+        caballoBlanco.setEnabled(true);
+        peonBlanco.setEnabled(true);
+        reinaBlanco.setEnabled(true);
+        reyBlanco.setEnabled(true);
+        torreBlanco.setEnabled(true);
+        //
+        alfilOscuro.setEnabled(true);
+        caballoOscuro.setEnabled(true);
+        peonOscuro.setEnabled(true);
+        reinaOscuro.setEnabled(true);
+        reyOscuro.setEnabled(true);
+        torreOscuro.setEnabled(true);   
+    }
+    
+    
     
     
     public void generarTablero(){
@@ -483,9 +596,53 @@ public class TableroGUI extends javax.swing.JFrame {
         labelEscaque.setText(x+"--"+y);
         int i = Integer.parseInt(x);
         int j= Integer.parseInt(y);
-        if(isSelected){
+        if(isSelected && isActive){
             escaques[i][j].setIcon(ImageIcon);
+            tablero.getCasillas()[i][j].setPieza(crearPieza(i,j));
         }
+        else{
+            activarDesactivarEscaques(escaques[i][j]);
+        }
+    }
+    
+    public Pieza crearPieza(int x,int y){
+        Posicion pos = new Posicion();
+        pos.setPosicion(x, y);
+        Pieza pieza = null;
+        if( "Alfil".equals(nombrePieza)){
+            Alfil alfil = new Alfil();
+            pieza  = alfil;
+        }
+        if( "Caballo".equals(nombrePieza)){
+            Caballo caballo = new Caballo();
+            pieza  = caballo;
+        }
+        if( "Peon".equals(nombrePieza)){
+            Peon peon = new Peon();
+            pieza  = peon;
+        }
+        if( "Reina".equals(nombrePieza)){
+            Reina reina = new Reina();
+            pieza  = reina;
+        }
+        if( "Rey".equals(nombrePieza)){
+            Rey rey = new Rey();
+            pieza  = rey;
+        }
+        if( "Torre".equals(nombrePieza)){
+            Torre torre = new Torre();
+            pieza  = torre;
+        }
+        else{
+            NoPieza nopieza= new NoPieza();
+            pieza  = nopieza;
+            
+        }
+        
+        pieza.setEquipo(equipo);
+        pieza.setPosicion(pos);
+        
+        return pieza;
     }
     
       
@@ -530,12 +687,14 @@ public class TableroGUI extends javax.swing.JFrame {
     private javax.swing.JPanel TableroJuego;
     private javax.swing.JLabel alfilBlanco;
     private javax.swing.JLabel alfilOscuro;
+    private javax.swing.JButton btnJuegoNuevo;
+    private javax.swing.JButton btnJugar;
     private javax.swing.JLabel caballoBlanco;
     private javax.swing.JLabel caballoOscuro;
+    private javax.swing.JPanel fichas1;
+    private javax.swing.JPanel fichas2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JLabel labelEscaque;
     private javax.swing.JLabel labelPieza;
     private javax.swing.JLabel peonBlanco;
