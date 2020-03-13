@@ -592,10 +592,12 @@ public class TableroGUI extends javax.swing.JFrame {
         
     }
     
-    public final void agregarPieza(String x,String y){ 
+    public final void agregarPieza(String x,String y){
+        System.err.println(x + " " + y+" "+isSelected+" "+isActive + " "+ImageIcon);
         labelEscaque.setText(x+"--"+y);
         int i = Integer.parseInt(x);
         int j= Integer.parseInt(y);
+        
         if(isSelected && isActive){
             escaques[i][j].setIcon(ImageIcon);
             tablero.getCasillas()[i][j].setPieza(crearPieza(i,j));
@@ -603,6 +605,79 @@ public class TableroGUI extends javax.swing.JFrame {
         else{
             activarDesactivarEscaques(escaques[i][j]);
         }
+    }
+    
+    
+    public final void addPieceFile(char color, char piece, int y, int x){
+        alfilBlanco.setEnabled(true);
+        caballoBlanco.setEnabled(true);
+        peonBlanco.setEnabled(true);
+        reinaBlanco.setEnabled(true);
+        reyBlanco.setEnabled(true);
+        torreBlanco.setEnabled(true);
+        //
+        alfilOscuro.setEnabled(true);
+        caballoOscuro.setEnabled(true);
+        peonOscuro.setEnabled(true);
+        reinaOscuro.setEnabled(true);
+        reyOscuro.setEnabled(true);
+        torreOscuro.setEnabled(true);  
+        switch(piece)
+        {
+           case 'R' :
+              nombrePieza = "Rey";
+              if(color == 'B'){
+                  ImageIcon = reyBlanco.getIcon(); 
+              } else{
+                  ImageIcon = reyOscuro.getIcon(); 
+              }
+              break;
+           case 'D' :
+              nombrePieza = "Reina";
+              if(color == 'B'){
+                  ImageIcon = reinaBlanco.getIcon(); 
+              } else{
+                  ImageIcon = reinaOscuro.getIcon(); 
+              }
+              break;
+           case 'T' :
+              nombrePieza = "Torre";
+              if(color == 'B'){
+                  ImageIcon = torreBlanco.getIcon(); 
+              } else{
+                  ImageIcon = torreOscuro.getIcon(); 
+              }
+              break;
+           case 'A' :
+              nombrePieza = "Alfil";
+              if(color == 'B'){
+                  ImageIcon = alfilBlanco.getIcon(); 
+              } else{
+                  ImageIcon = alfilOscuro.getIcon(); 
+              }
+              break;
+           case 'C' :
+              nombrePieza = "Caballo";
+              if(color == 'B'){
+                  ImageIcon = caballoBlanco.getIcon(); 
+              } else{
+                  ImageIcon = caballoOscuro.getIcon(); 
+              }
+              break;
+           case 'P' :
+              nombrePieza = "Peon";
+              if(color == 'B'){
+                  ImageIcon = peonBlanco.getIcon(); 
+              } else{
+                  ImageIcon = peonOscuro.getIcon(); 
+              }
+              break;
+           default : 
+              // Declaraciones
+        }
+        //falta decir de que equipo es (lo del color)
+        escaques[x][y].setIcon(ImageIcon);
+        tablero.getCasillas()[x][y].setPieza(crearPieza(x,y));
     }
     
     public Pieza crearPieza(int x,int y){
