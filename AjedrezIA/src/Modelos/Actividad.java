@@ -10,12 +10,21 @@ package Modelos;
  * @author Joaquin
  */
 public class Actividad {
+    private String idActividad;
     private String usuario;
     private String descripcion;
 
     public Actividad(String usuario, String descripcion) {
         this.usuario = usuario;
         this.descripcion = descripcion;
+    }
+    
+    public String getIdActividad() {
+        return idActividad;
+    }
+
+    public void setIdActividad(String idActividad) {
+        this.idActividad = idActividad;
     }
 
     public String getUsuario() {

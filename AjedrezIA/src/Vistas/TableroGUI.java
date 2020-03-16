@@ -5,11 +5,13 @@
  */
 package Vistas;
 
+import Modelos.Actividad;
 import Modelos.Ajedrez;
 import Modelos.Casilla;
 import Modelos.Tablero;
 import Modelos.Alfil;
 import Modelos.Caballo;
+import Modelos.ModeloRegistrarActividad;
 import Modelos.NoPieza;
 import Modelos.Peon;
 import Modelos.Pieza;
@@ -42,10 +44,13 @@ public class TableroGUI extends javax.swing.JFrame {
     private boolean isSelected = false;
     private boolean isActive = true;
     //private Escaque[][] casillas;
+    private String Jugador;
     
     private String nombrePieza="NoPieza";
     private boolean equipo;
     private Tablero tablero;
+    //
+    ModeloRegistrarActividad modeloActividad = new ModeloRegistrarActividad();
     
     
     
@@ -55,7 +60,9 @@ public class TableroGUI extends javax.swing.JFrame {
      * Creates new form Tablero
      */
     public TableroGUI() {  
+        this.Jugador = "";
         initComponents();
+        LogJuego.setModel(modeloActividad);
     }
     
     public void agregarComponentes(){
@@ -329,11 +336,7 @@ public class TableroGUI extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
-        LogJuego.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
+        LogJuego.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jScrollPane1.setViewportView(LogJuego);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -342,7 +345,7 @@ public class TableroGUI extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -561,7 +564,7 @@ public class TableroGUI extends javax.swing.JFrame {
         }
     }
     
-    public void activarDesactivarEscaques(JLabel escaque){
+    public void activarDesactivarCasillas(JLabel escaque){
         Border borderDesactivo = BorderFactory.createLineBorder(Color.BLACK, 1);
         for (int i = 0; i < escaques.length; i++) {
             for (int j = 0; j < escaques.length; j++) {
@@ -581,6 +584,7 @@ public class TableroGUI extends javax.swing.JFrame {
     }
     
     public void agregarJugador(String jugador){
+        Jugador = jugador;
         labelJugador.setText(jugador);
     }
     
@@ -630,9 +634,12 @@ public class TableroGUI extends javax.swing.JFrame {
         if(isSelected && isActive){
             escaques[i][j].setIcon(ImageIcon);
             tablero.getCasillas()[i][j].setPieza(crearPieza(i,j));
+            String descripcion = "Se agrego "+nombrePieza;
+            agregarActividad(Jugador,descripcion);
+            
         }
         else{
-            activarDesactivarEscaques(escaques[i][j]);
+            activarDesactivarCasillas(escaques[i][j]);
         }
     }
     
@@ -707,6 +714,8 @@ public class TableroGUI extends javax.swing.JFrame {
         //falta decir de que equipo es (lo del color)
         escaques[x][y].setIcon(ImageIcon);
         tablero.getCasillas()[x][y].setPieza(crearPieza(x,y));
+        String descripcion = "Se agrego "+nombrePieza;
+        agregarActividad("Sistema",descripcion);
     }
     
     public Pieza crearPieza(int x,int y){
@@ -747,6 +756,19 @@ public class TableroGUI extends javax.swing.JFrame {
         pieza.setPosicion(pos);
         
         return pieza;
+    }
+    
+    public void agregarActividad(String usuario, String descripcion){
+        Actividad actividad = new Actividad(usuario,descripcion);
+        modeloActividad.agregarActividad(actividad);
+    }
+    
+    public void eliminarActividad(int index){
+        modeloActividad.eliminarActividad(index);
+    }
+    
+    public void limpiarActividades(){
+        modeloActividad.eliminarTodasActividades();
     }
     
       
