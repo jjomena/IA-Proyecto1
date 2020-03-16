@@ -5,8 +5,9 @@
  */
 package Vistas;
 
-import Modelos.ReadFile;
+import Modelos.LeerArchivo;
 import ajedrezia.AjedrezIA;
+import Controladores.ControladorInicio;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -23,8 +24,14 @@ public class InicioGUI extends javax.swing.JFrame {
     /**
      * Creates new form InicioGUI
      */
+    
+    public String jugador;
+    
     public InicioGUI() {
         initComponents();
+        
+        btnGroup.add(opc_Archivo);
+        btnGroup.add(opc_Manual);
     }
 
     /**
@@ -36,64 +43,68 @@ public class InicioGUI extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        buttonGroup1 = new javax.swing.ButtonGroup();
-        jPanel2 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
+        btnGroup = new javax.swing.ButtonGroup();
+        PantallaInicio = new javax.swing.JPanel();
+        labelNombre = new javax.swing.JLabel();
         txtjugador = new javax.swing.JTextField();
-        btnCargarManual = new javax.swing.JButton();
-        btnCargarArchivo = new javax.swing.JButton();
+        opc_Archivo = new javax.swing.JRadioButton();
+        opc_Manual = new javax.swing.JRadioButton();
+        btnIngresar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+        PantallaInicio.setBackground(new java.awt.Color(255, 255, 255));
+        PantallaInicio.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
 
-        jLabel1.setText("INGRESE SU NOMBRE: ");
+        labelNombre.setText("INGRESE SU NOMBRE: ");
 
-        btnCargarManual.setText("Agregar Manualmente");
-        btnCargarManual.addActionListener(new java.awt.event.ActionListener() {
+        opc_Archivo.setText("Cargar desde Archivo");
+
+        opc_Manual.setText("Cargar Manualmente");
+
+        btnIngresar.setText("INGRESAR");
+        btnIngresar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCargarManualActionPerformed(evt);
+                btnIngresarActionPerformed(evt);
             }
         });
 
-        btnCargarArchivo.setText("Cargar Archivo");
-        btnCargarArchivo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCargarArchivoActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(90, 90, 90)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnCargarManual)
-                            .addComponent(btnCargarArchivo, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
+        javax.swing.GroupLayout PantallaInicioLayout = new javax.swing.GroupLayout(PantallaInicio);
+        PantallaInicio.setLayout(PantallaInicioLayout);
+        PantallaInicioLayout.setHorizontalGroup(
+            PantallaInicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PantallaInicioLayout.createSequentialGroup()
+                .addGroup(PantallaInicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(PantallaInicioLayout.createSequentialGroup()
                         .addGap(35, 35, 35)
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtjugador, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(48, Short.MAX_VALUE))
+                        .addGroup(PantallaInicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(PantallaInicioLayout.createSequentialGroup()
+                                .addComponent(opc_Archivo)
+                                .addGap(18, 18, 18)
+                                .addComponent(opc_Manual))
+                            .addGroup(PantallaInicioLayout.createSequentialGroup()
+                                .addComponent(labelNombre)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtjugador, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(PantallaInicioLayout.createSequentialGroup()
+                        .addGap(118, 118, 118)
+                        .addComponent(btnIngresar)))
+                .addContainerGap(30, Short.MAX_VALUE))
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
+        PantallaInicioLayout.setVerticalGroup(
+            PantallaInicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PantallaInicioLayout.createSequentialGroup()
                 .addGap(56, 56, 56)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
+                .addGroup(PantallaInicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(labelNombre)
                     .addComponent(txtjugador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
-                .addComponent(btnCargarArchivo)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnCargarManual)
-                .addGap(65, 65, 65))
+                .addGap(18, 18, 18)
+                .addGroup(PantallaInicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(opc_Archivo)
+                    .addComponent(opc_Manual))
+                .addGap(37, 37, 37)
+                .addComponent(btnIngresar)
+                .addContainerGap(57, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -102,86 +113,56 @@ public class InicioGUI extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(PantallaInicio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(PantallaInicio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnCargarArchivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCargarArchivoActionPerformed
+    
+    private void btnIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarActionPerformed
         // TODO add your handling code here:
-        File selectedFile = null;
-        String jugador = txtjugador.getText();
-        JFileChooser fileChooser = new JFileChooser();
-        fileChooser.setCurrentDirectory(new File("./src/ajedrez/files"));
-        int result = fileChooser.showOpenDialog(this);
-        if (result == JFileChooser.APPROVE_OPTION) {
-            selectedFile = fileChooser.getSelectedFile();
-            System.out.println("Selected file: " + selectedFile.getAbsolutePath());
-        }
-        ArrayList<String> comandos = new ArrayList<>();
-        ReadFile read = new ReadFile();
-        try {
-            comandos = read.readFile(selectedFile.getAbsolutePath());
-        } catch (IOException ex) {
-            Logger.getLogger(AjedrezIA.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        TableroGUI tb = new TableroGUI();
-        tb.agregarComponentes();
-        tb.setVisible(true);
-        tb.desactivarFichas();
-        tb.agregarJugador(jugador);
-        //
-        for (String comando : comandos) {
-            int row = 0;
-            switch(comando.charAt(3)){
-                case 'A':
-                    row = 0;
-                    break;
-                case 'B':
-                    row = 1;
-                    break;
-                case 'C':
-                    row = 2;
-                    break;
-                case 'D':
-                    row = 3;
-                    break;
-                case 'E':
-                    row = 4;
-                    break;
-                case 'F':
-                    row = 5;
-                    break;
-                case 'G':
-                    row = 6;
-                    break;
-                case 'H':
-                    row = 7;
-                    break;
+        jugador = txtjugador.getText();
+        if(!"".equals(jugador)){
+            if(opc_Archivo.isSelected()){
+                
+                File selectedFile = null;
+                JFileChooser fileChooser = new JFileChooser();
+                fileChooser.setCurrentDirectory(new File("./src/Files"));
+                int result = fileChooser.showOpenDialog(this);
+                if (result == JFileChooser.APPROVE_OPTION) {
+                    selectedFile = fileChooser.getSelectedFile();
+                    System.out.println("Selected file: " + selectedFile.getAbsolutePath());
+                }
+                ArrayList<String> comandos = new ArrayList<>();
+                LeerArchivo read = new LeerArchivo();
+                try {
+                    comandos = read.readFile(selectedFile.getAbsolutePath());
+                } catch (IOException ex) {
+                    Logger.getLogger(AjedrezIA.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                
+                ControladorInicio.CargarArchivo(jugador,comandos);
             }
-            tb.addPieceFile(comando.charAt(0), comando.charAt(1), Integer.parseInt(comando.charAt(2)+""), row);
+            else if(opc_Manual.isSelected()){
+                ControladorInicio.CargarManual(jugador);
+            }
+            else{
+                System.out.println("Seleccione el modo de Inicio Juego");
+            }
         }
-    }//GEN-LAST:event_btnCargarArchivoActionPerformed
-
-    private void btnCargarManualActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCargarManualActionPerformed
-        // TODO add your handling code here:
-        String jugador = txtjugador.getText();
-        TableroGUI tb = new TableroGUI();
-        tb.agregarComponentes();
-        tb.setVisible(true);
-        tb.activarFichas();
-        tb.agregarJugador(jugador);
-    }//GEN-LAST:event_btnCargarManualActionPerformed
+        else{
+            System.out.println("Debe ingresar el nombre del Jugador");
+        }
+    }//GEN-LAST:event_btnIngresarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -219,11 +200,12 @@ public class InicioGUI extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnCargarArchivo;
-    private javax.swing.JButton btnCargarManual;
-    private javax.swing.ButtonGroup buttonGroup1;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel PantallaInicio;
+    private javax.swing.ButtonGroup btnGroup;
+    private javax.swing.JButton btnIngresar;
+    private javax.swing.JLabel labelNombre;
+    private javax.swing.JRadioButton opc_Archivo;
+    private javax.swing.JRadioButton opc_Manual;
     private javax.swing.JTextField txtjugador;
     // End of variables declaration//GEN-END:variables
 }

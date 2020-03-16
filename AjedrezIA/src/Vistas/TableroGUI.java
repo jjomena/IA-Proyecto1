@@ -6,7 +6,7 @@
 package Vistas;
 
 import Modelos.Ajedrez;
-import Modelos.Escaque;
+import Modelos.Casilla;
 import Modelos.Tablero;
 import Modelos.Alfil;
 import Modelos.Caballo;

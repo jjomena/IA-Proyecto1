@@ -1,7 +1,8 @@
 package ajedrezia;
 
 import Vistas.TableroGUI;
-import Modelos.ReadFile;
+import Modelos.LeerArchivo;
+import Vistas.InicioGUI;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -18,9 +19,12 @@ public class AjedrezIA {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        TableroGUI tb = new TableroGUI();
-        tb.agregarComponentes();
-        tb.setVisible(true);
+        //TableroGUI tb = new TableroGUI();
+        //tb.agregarComponentes();
+        //tb.setVisible(true);
+        //
+        InicioGUI inicio = new InicioGUI();
+        inicio.setVisible(true);
     }
     
 }
