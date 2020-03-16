@@ -16,7 +16,7 @@ import java.util.ArrayList;
  *
  * @author kristalduran
  */
-public class ReadFile {
+public class LeerArchivo {
     
     /**
      *  Read the file with the configuration

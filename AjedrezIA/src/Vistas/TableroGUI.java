@@ -5,11 +5,13 @@
  */
 package Vistas;
 
+import Modelos.Actividad;
 import Modelos.Ajedrez;
-import Modelos.Escaque;
+import Modelos.Casilla;
 import Modelos.Tablero;
 import Modelos.Alfil;
 import Modelos.Caballo;
+import Modelos.ModeloRegistrarActividad;
 import Modelos.NoPieza;
 import Modelos.Peon;
 import Modelos.Pieza;
@@ -42,10 +44,13 @@ public class TableroGUI extends javax.swing.JFrame {
     private boolean isSelected = false;
     private boolean isActive = true;
     //private Escaque[][] casillas;
+    private String Jugador;
     
     private String nombrePieza="NoPieza";
     private boolean equipo;
     private Tablero tablero;
+    //
+    ModeloRegistrarActividad modeloActividad = new ModeloRegistrarActividad();
     
     
     
@@ -55,14 +60,14 @@ public class TableroGUI extends javax.swing.JFrame {
      * Creates new form Tablero
      */
     public TableroGUI() {  
+        this.Jugador = "";
         initComponents();
+        LogJuego.setModel(modeloActividad);
     }
     
     public void agregarComponentes(){
         generarTablero();
         tablero = new Tablero();
-        //cargarImagenes();
-        //pintarTablero();
     }
     
     /**
@@ -97,7 +102,7 @@ public class TableroGUI extends javax.swing.JFrame {
         btnJuegoNuevo = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList<>();
+        LogJuego = new javax.swing.JList<>();
         etJugador = new javax.swing.JLabel();
         labelJugador = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
@@ -331,12 +336,8 @@ public class TableroGUI extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
-        jList1.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
-        jScrollPane1.setViewportView(jList1);
+        LogJuego.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jScrollPane1.setViewportView(LogJuego);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -344,7 +345,7 @@ public class TableroGUI extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -367,9 +368,9 @@ public class TableroGUI extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(28, 28, 28)
                 .addComponent(TableroJuego, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(31, 31, 31)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
@@ -379,20 +380,19 @@ public class TableroGUI extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btnJuegoNuevo))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(labelPieza))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(labelEscaque))
-                            .addGroup(layout.createSequentialGroup()
                                 .addComponent(etJugador)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel6)
-                                    .addComponent(labelJugador))))
-                        .addGap(0, 19, Short.MAX_VALUE)))
+                                    .addComponent(labelJugador)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(labelEscaque)
+                                .addGap(108, 108, 108)
+                                .addComponent(labelPieza))
+                            .addComponent(jLabel1))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addGap(18, 18, 18)
                 .addComponent(panelFichas, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(32, 32, 32))
@@ -418,12 +418,12 @@ public class TableroGUI extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel1)
                             .addComponent(labelPieza))
-                        .addGap(18, 18, 18)
+                        .addGap(36, 36, 36)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel2)
                             .addComponent(labelEscaque)))
                     .addComponent(TableroJuego, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(43, Short.MAX_VALUE))
+                .addContainerGap(76, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(panelFichas, javax.swing.GroupLayout.PREFERRED_SIZE, 480, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -564,7 +564,7 @@ public class TableroGUI extends javax.swing.JFrame {
         }
     }
     
-    public void activarDesactivarEscaques(JLabel escaque){
+    public void activarDesactivarCasillas(JLabel escaque){
         Border borderDesactivo = BorderFactory.createLineBorder(Color.BLACK, 1);
         for (int i = 0; i < escaques.length; i++) {
             for (int j = 0; j < escaques.length; j++) {
@@ -584,6 +584,7 @@ public class TableroGUI extends javax.swing.JFrame {
     }
     
     public void agregarJugador(String jugador){
+        Jugador = jugador;
         labelJugador.setText(jugador);
     }
     
@@ -633,9 +634,12 @@ public class TableroGUI extends javax.swing.JFrame {
         if(isSelected && isActive){
             escaques[i][j].setIcon(ImageIcon);
             tablero.getCasillas()[i][j].setPieza(crearPieza(i,j));
+            String descripcion = "Se agrego "+nombrePieza;
+            agregarActividad(Jugador,descripcion);
+            
         }
         else{
-            activarDesactivarEscaques(escaques[i][j]);
+            activarDesactivarCasillas(escaques[i][j]);
         }
     }
     
@@ -710,6 +714,8 @@ public class TableroGUI extends javax.swing.JFrame {
         //falta decir de que equipo es (lo del color)
         escaques[x][y].setIcon(ImageIcon);
         tablero.getCasillas()[x][y].setPieza(crearPieza(x,y));
+        String descripcion = "Se agrego "+nombrePieza;
+        agregarActividad("Sistema",descripcion);
     }
     
     public Pieza crearPieza(int x,int y){
@@ -752,6 +758,19 @@ public class TableroGUI extends javax.swing.JFrame {
         return pieza;
     }
     
+    public void agregarActividad(String usuario, String descripcion){
+        Actividad actividad = new Actividad(usuario,descripcion);
+        modeloActividad.agregarActividad(actividad);
+    }
+    
+    public void eliminarActividad(int index){
+        modeloActividad.eliminarActividad(index);
+    }
+    
+    public void limpiarActividades(){
+        modeloActividad.eliminarTodasActividades();
+    }
+    
       
     
     /**
@@ -791,6 +810,7 @@ public class TableroGUI extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JList<String> LogJuego;
     private javax.swing.JPanel TableroJuego;
     private javax.swing.JLabel alfilBlanco;
     private javax.swing.JLabel alfilOscuro;
@@ -803,7 +823,6 @@ public class TableroGUI extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JList<String> jList1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel labelEscaque;

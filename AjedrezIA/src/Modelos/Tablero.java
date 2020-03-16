@@ -4,33 +4,33 @@
  */
 package Modelos;
 import  Modelos.NoPieza;
-import Modelos.Escaque;
+import Modelos.Casilla;
 /**
  *
  * @author actuaria
  */
 public class Tablero {
-    private Escaque [][] casillas;
+    private Casilla [][] casillas;
     
     public Tablero(){
-        casillas = new Escaque[8][8];
+        casillas = new Casilla[8][8];
         for (int i=0; i<8; i++){
             for(int j=0;j<8;j++){
-                casillas[i][j] = new Escaque();
+                casillas[i][j] = new Casilla();
             }
         }
-        for (Escaque[] escaques : casillas) {
-            for (Escaque escaque : escaques) {
+        for (Casilla[] escaques : casillas) {
+            for (Casilla escaque : escaques) {
                 escaque.setPieza( new NoPieza());
             }
         }
     }
 
-    public Escaque[][] getCasillas() {
+    public Casilla[][] getCasillas() {
         return casillas;
     }
 
-    public void setCasillas(Escaque[][] casillas) {
+    public void setCasillas(Casilla[][] casillas) {
         this.casillas = casillas;
     }
     

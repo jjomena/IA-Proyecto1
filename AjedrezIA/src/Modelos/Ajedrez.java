@@ -16,7 +16,7 @@ import Modelos.Torre;
 import Excepciones.ExcepcionMovimientoInvalido;
 import Excepciones.ExcepcionMovimientoSuicida;
 import Excepciones.ExcepcionTurnoEquivocado;
-import Modelos.Escaque;
+import Modelos.Casilla;
 
 /**
  *
@@ -104,7 +104,7 @@ public class Ajedrez {
             equipoEnTurno = !equipoEnTurno;
         }
         
-        public void moverPieza(Escaque escaqueActual, Escaque escaqueDestino){
+        public void moverPieza(Casilla escaqueActual, Casilla escaqueDestino){
          
             Pieza piezaAMover = escaqueActual.getPieza();
             Pieza piezaAReemplazar = escaqueDestino.getPieza();
@@ -193,7 +193,7 @@ public class Ajedrez {
             return false;
         }
         
-        public boolean movimientoAJaque (Escaque escaqueActual, Escaque escaqueDestino){
+        public boolean movimientoAJaque (Casilla escaqueActual, Casilla escaqueDestino){
             Pieza piezaAMover = escaqueActual.getPieza();
             Pieza piezaAReemplazar = escaqueDestino.getPieza();
             Posicion posicionActual = piezaAMover.getPosicion();
@@ -233,12 +233,12 @@ public class Ajedrez {
             for(int i=0; i<8; i++){
                 for(int j=0; j<8; j++){
                     if(piezasDelEquipo[i][j]){
-                        Escaque escaqueInicial = tablero.getCasillas()[i][j];
+                        Casilla escaqueInicial = tablero.getCasillas()[i][j];
                         boolean[][] movimientosPosibles = escaqueInicial.getPieza().movimientosPosibles(tablero);
                         for(int n=0; n<8; n++){
                             for(int m=0; m<8; m++){
                                 if(movimientosPosibles[n][m]){
-                                    Escaque escaqueFinal = tablero.getCasillas()[n][m];
+                                    Casilla escaqueFinal = tablero.getCasillas()[n][m];
                                     if(!(movimientoAJaque(escaqueInicial,escaqueFinal))){
                                         jaqueMate = false;
                                     }
