@@ -31,7 +31,7 @@ public class LeerArchivo {
         String st; 
         while ((st = br.readLine()) != null){
           comandos.add(st);
-          System.out.println(st);
+          //System.out.println(st);
         }
         return comandos;
     }

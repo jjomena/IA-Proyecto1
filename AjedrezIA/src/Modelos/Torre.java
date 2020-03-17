@@ -5,17 +5,24 @@
  */
 package Modelos;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author mautematico
  */
 public class Torre extends Pieza {
+    int x=0;
+    int y=0;
+    //
+    int x2=0;
+    int y2=0;
 
     @Override
      boolean[][] posicionesPosibles() {
         boolean [][] posicionesPosibles = new boolean [8][8];
-        int x = this.getPosicion().getX();
-        int y = this.getPosicion().getY();
+        //int x = this.getPosicion().getX();
+        //int y = this.getPosicion().getY();
         for(int i = 0; i < 8; i++){
             for(int j = 0; j < 8; j++){
                 if (i == x || j == y )
@@ -55,11 +62,11 @@ public class Torre extends Pieza {
     
     
     @Override
-    boolean movimientoPosible(Posicion posicionNueva, Tablero tablero){
-           int x1 = getPosicion().getX();
-           int y1 = getPosicion().getY();
-           int x2 = posicionNueva.getX();
-           int y2 = posicionNueva.getY();
+    public boolean movimientoPosible(Posicion posicionInicial,Posicion posicionNueva, Tablero tablero){
+          x=posicionInicial.getX();
+          y=posicionInicial.getY();
+          x2 = posicionNueva.getX();
+          y2 = posicionNueva.getY();
          
            
        if(posicionesPosibles()[x2][y2]== false)
@@ -73,5 +80,56 @@ public class Torre extends Pieza {
                   return false;
         return true;
     }
-    
+
+    @Override
+    public String getNombrePieza() {
+        return "Torre";
+    }
+
+    @Override
+    public ArrayList<Posicion> casillasIntermedias(Posicion posicionInicial, Posicion posicionNueva) {
+        x=posicionInicial.getX();
+        y=posicionInicial.getY();
+        x2= posicionNueva.getX();
+        y2= posicionNueva.getY();
+        Posicion posCambiante = new Posicion();
+        ArrayList<Posicion> intermedias = new ArrayList<>();
+        if(x==x2){
+            if(y<y2){
+                while(y<y2){
+                    posCambiante.setX(x);
+                    posCambiante.setY(y+1);
+                    y+=1;
+                    intermedias.add(posCambiante);
+                }
+            }
+            else{
+                while(y2<y){
+                    posCambiante.setX(x);
+                    posCambiante.setY(y-1);
+                    y-=1;
+                    intermedias.add(posCambiante);
+                }
+            }
+        }
+        else if(y==y2){
+            if(x<x2){
+                while(x<x2){
+                    posCambiante.setX(x+1);
+                    posCambiante.setY(y);
+                    x+=1;
+                    intermedias.add(posCambiante);
+                }
+            }
+            else{
+                while(x2<x){
+                    posCambiante.setX(x-1);
+                    posCambiante.setY(y);
+                    x-=1;
+                    intermedias.add(posCambiante);
+                }
+            }
+        }
+        return intermedias;
+    }  
 }

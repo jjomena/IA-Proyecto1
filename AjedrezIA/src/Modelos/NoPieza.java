@@ -5,19 +5,21 @@
  */
 package Modelos;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author mautematico
  */
 public class NoPieza extends Pieza {
-    public NoPieza(){
-        this(-1,-1);
-    }
-    public NoPieza(int x, int y){
-        Posicion pos = new Posicion();
-        pos.setPosicion(x, y);
-        setPosicion(pos);
-    }
+//    public NoPieza(){
+//        this(-1,-1);
+//    }
+//    public NoPieza(int x, int y){
+//        Posicion pos = new Posicion();
+//        pos.setPosicion(x, y);
+//        setPosicion(pos);
+//    }
     
 
     @Override
@@ -25,8 +27,18 @@ public class NoPieza extends Pieza {
         return new boolean[8][8]; 
     }
     @Override
-    boolean movimientoPosible( Posicion posicionNueva, Tablero tablero){
+    public boolean movimientoPosible(Posicion posicionInicial,Posicion posicionNueva, Tablero tablero){
         return false;
+    }
+
+    @Override
+    public String getNombrePieza() {
+        return "NoPieza";
+    }
+
+    @Override
+    public ArrayList<Posicion> casillasIntermedias(Posicion posicionInicial, Posicion posicionNueva) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     
