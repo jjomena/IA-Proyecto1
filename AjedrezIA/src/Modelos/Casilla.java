@@ -12,17 +12,17 @@ import Modelos.Pieza;
  * @author actuaria
  */
 public class Casilla {
-    private boolean color;
+    private char color;
     private Pieza pieza;
     
     public Casilla(){
         pieza = new NoPieza();
     }
-    public boolean isColor() {
+    public char isColor() {
         return color;
     }
 
-    public void setColor(boolean color) {
+    public void setColor(char color) {
         this.color = color;
     }
 

@@ -92,47 +92,49 @@ public class Alfil extends Pieza {
         y=posicionInicial.getY();
         x2= posicionNueva.getX();
         y2= posicionNueva.getY();
-        Posicion posCambiante = new Posicion();
         ArrayList<Posicion> intermedias = new ArrayList<>();
         
         if(x2<x && y2<y){
             while(x2<x){
+                Posicion posCambiante = new Posicion();
                 posCambiante.setX(x-1);
                 posCambiante.setY(y-1);
                 x-=1;
+                y-=1;
                 intermedias.add(posCambiante);
             }
         }
         
         else if(x2<x && y<y2){
-            while(x2<x){
+            while(y<y2){
+                Posicion posCambiante = new Posicion();
                 posCambiante.setX(x-1);
                 posCambiante.setY(y+1);
                 x-=1;
                 y+=1;
-                x2+=1;
                 intermedias.add(posCambiante);
             }
         }
         else if(x<x2 && y2<y){
             while(x<x2){
+                Posicion posCambiante = new Posicion();
                 posCambiante.setX(x+1);
                 posCambiante.setY(y-1);
                 x+=1;
                 y-=1;
-                x+=1;
                 intermedias.add(posCambiante);
             }
         }
         else if(x<x2 && y<y2){
             while(x<x2){
+                Posicion posCambiante = new Posicion();
                 posCambiante.setX(x+1);
                 posCambiante.setY(y+1);
                 x+=1;
+                y+=1;
                 intermedias.add(posCambiante);
             }
-        }
-        
+        }      
         return intermedias;
     }
  

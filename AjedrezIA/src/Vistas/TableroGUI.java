@@ -30,7 +30,6 @@ public class TableroGUI extends javax.swing.JFrame {
     public Icon ImageIcon;
     private boolean isSelected = false;
     private boolean isActive = true;
-    //private Escaque[][] casillas;
     private String Jugador;
     
     private String nombrePieza="NoPieza";

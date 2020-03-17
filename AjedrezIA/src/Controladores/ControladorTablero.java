@@ -98,7 +98,7 @@ public class ControladorTablero {
                         System.out.println("Movimiento valido");
                         estadoInicio=false;
                         ArrayList<Posicion> movimientos = piezaContenida.casillasIntermedias(casillaInicio, casillaFin);
-                        //simularMovimiento(movimientos);
+                        simularMovimiento(movimientos);
                         
                         
                     }

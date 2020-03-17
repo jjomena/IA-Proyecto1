@@ -92,11 +92,11 @@ public class Torre extends Pieza {
         y=posicionInicial.getY();
         x2= posicionNueva.getX();
         y2= posicionNueva.getY();
-        Posicion posCambiante = new Posicion();
         ArrayList<Posicion> intermedias = new ArrayList<>();
         if(x==x2){
             if(y<y2){
                 while(y<y2){
+                    Posicion posCambiante = new Posicion();
                     posCambiante.setX(x);
                     posCambiante.setY(y+1);
                     y+=1;
@@ -105,6 +105,7 @@ public class Torre extends Pieza {
             }
             else{
                 while(y2<y){
+                    Posicion posCambiante = new Posicion();
                     posCambiante.setX(x);
                     posCambiante.setY(y-1);
                     y-=1;
@@ -115,6 +116,7 @@ public class Torre extends Pieza {
         else if(y==y2){
             if(x<x2){
                 while(x<x2){
+                    Posicion posCambiante = new Posicion();
                     posCambiante.setX(x+1);
                     posCambiante.setY(y);
                     x+=1;
@@ -123,6 +125,7 @@ public class Torre extends Pieza {
             }
             else{
                 while(x2<x){
+                    Posicion posCambiante = new Posicion();
                     posCambiante.setX(x-1);
                     posCambiante.setY(y);
                     x-=1;

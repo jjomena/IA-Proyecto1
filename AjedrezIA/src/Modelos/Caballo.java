@@ -72,15 +72,16 @@ public class Caballo extends Pieza {
         y=posicionInicial.getY();
         x2= posicionNueva.getX();
         y2= posicionNueva.getY();
-        Posicion posCambiante = new Posicion();
         ArrayList<Posicion> intermedias = new ArrayList<>();
         if(x<x2){
             while(x<x2){
+                Posicion posCambiante = new Posicion();
                 posCambiante.setX(x+1);
                 posCambiante.setY(y);
                 x+=1;
                 intermedias.add(posCambiante);
             }
+            Posicion posCambiante = new Posicion();
             posCambiante.setX(x);
             posCambiante.setY(y2);
             intermedias.add(posCambiante);
@@ -88,11 +89,13 @@ public class Caballo extends Pieza {
         }
         else{
             while(y<y2){
+                Posicion posCambiante = new Posicion();
                 posCambiante.setX(x);
                 posCambiante.setY(y+1);
                 y+=1;
                 intermedias.add(posCambiante);
             }
+            Posicion posCambiante = new Posicion();
             posCambiante.setX(x2);
             posCambiante.setY(y);
             intermedias.add(posCambiante);
