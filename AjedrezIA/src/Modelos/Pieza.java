@@ -5,18 +5,21 @@
  */
 package Modelos;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author mautematico
  */
 public abstract class Pieza {
     private Posicion posicion;
-    private boolean equipo;
+    private char equipo;
+    
 
     public Pieza(){
-        this(false);        
+        this('B');        
     }
-    public Pieza(boolean equipo) {
+    public Pieza(char equipo) {
         this.equipo = equipo;
         posicion = new Posicion();
     }
@@ -30,17 +33,18 @@ public abstract class Pieza {
         this.posicion = posicion;
     }
 
-    public boolean isEquipo() {
+    public char isEquipo() {
         return equipo;
     }
 
-    public void setEquipo(boolean equipo) {
+    public void setEquipo(char equipo) {
         this.equipo = equipo;
     }
     
-    
    abstract boolean[][] posicionesPosibles();
-   abstract boolean movimientoPosible( Posicion posicionNueva, Tablero tablero);
+   abstract public boolean movimientoPosible(Posicion posicionInicio,Posicion posicionNueva, Tablero tablero);
+   abstract public String getNombrePieza();
+   abstract public ArrayList<Posicion> casillasIntermedias(Posicion posicionInicial,Posicion posicionNueva);
    
    public boolean [][] piezasDelMismoEquipo(Tablero tablero){
         boolean [][] piezasDelMismoEquipo = new boolean [8][8];
@@ -70,7 +74,7 @@ public abstract class Pieza {
        
         for(int i = 0; i < 8; i++){
             for(int j = 0; j < 8; j++){
-                if (movimientoPosible(tablero.getCasillas()[i][j].getPieza().getPosicion(), tablero))
+                if (movimientoPosible(tablero.getCasillas()[i][j].getPieza().getPosicion(),tablero.getCasillas()[i][j].getPieza().getPosicion(), tablero))
                     movimientosPosibles[i][j] = true;                
             }
         } 
