@@ -73,7 +73,36 @@ public class Caballo extends Pieza {
         x2= posicionNueva.getX();
         y2= posicionNueva.getY();
         ArrayList<Posicion> intermedias = new ArrayList<>();
-        if(x<x2){
+        if((x2<x) && (y2<y) && (x-x2==2)){
+            while(x2<x){
+                Posicion posCambiante = new Posicion();
+                posCambiante.setX(x-1);
+                posCambiante.setY(y);
+                x-=1;
+                intermedias.add(posCambiante);
+            }
+            Posicion posCambiante = new Posicion();
+            posCambiante.setX(x);
+            posCambiante.setY(y-1);    
+
+            intermedias.add(posCambiante);
+        }
+        
+        else if((x2<x)&&(y<y2) && (x-x2==2)){
+            while(x2<x){
+                Posicion posCambiante = new Posicion();
+                posCambiante.setX(x-1);
+                posCambiante.setY(y);
+                x-=1;
+                intermedias.add(posCambiante);
+            }
+            Posicion posCambiante = new Posicion();
+            posCambiante.setX(x);
+            posCambiante.setY(y+1);    
+
+            intermedias.add(posCambiante);
+        }
+        else if((x<x2)&&(y2<y) && (x2-x==2)){
             while(x<x2){
                 Posicion posCambiante = new Posicion();
                 posCambiante.setX(x+1);
@@ -83,11 +112,26 @@ public class Caballo extends Pieza {
             }
             Posicion posCambiante = new Posicion();
             posCambiante.setX(x);
-            posCambiante.setY(y2);
+            posCambiante.setY(y-1);    
+
             intermedias.add(posCambiante);
-           
         }
-        else{
+        else if((x<x2)&&(y<y2) && (x2-x==2)){
+            while(x<x2){
+                Posicion posCambiante = new Posicion();
+                posCambiante.setX(x+1);
+                posCambiante.setY(y);
+                x+=1;
+                intermedias.add(posCambiante);
+            }
+            Posicion posCambiante = new Posicion();
+            posCambiante.setX(x);
+            posCambiante.setY(y+1);    
+
+            intermedias.add(posCambiante);
+        }
+        
+        else if((y<y2) &&(x2<x) &&(y2-y==2)){
             while(y<y2){
                 Posicion posCambiante = new Posicion();
                 posCambiante.setX(x);
@@ -96,10 +140,55 @@ public class Caballo extends Pieza {
                 intermedias.add(posCambiante);
             }
             Posicion posCambiante = new Posicion();
-            posCambiante.setX(x2);
+            posCambiante.setX(x-1);
             posCambiante.setY(y);
-            intermedias.add(posCambiante);
             
+            intermedias.add(posCambiante);
+        }
+        
+        else if((y<y2) &&(x<x2) && (y2-y==2)){
+            while(y<y2){
+                Posicion posCambiante = new Posicion();
+                posCambiante.setX(x);
+                posCambiante.setY(y+1);
+                y+=1;
+                intermedias.add(posCambiante);
+            }
+            Posicion posCambiante = new Posicion();
+            posCambiante.setX(x+1);
+            posCambiante.setY(y);
+            
+            intermedias.add(posCambiante);
+        }
+        
+        else if((y2<y) &&(x2<x) &&(y-y2==2)){
+            while(y2<y){
+                Posicion posCambiante = new Posicion();
+                posCambiante.setX(x);
+                posCambiante.setY(y-1);
+                y-=1;
+                intermedias.add(posCambiante);
+            }
+            Posicion posCambiante = new Posicion();
+            posCambiante.setX(x-1);
+            posCambiante.setY(y);
+            
+            intermedias.add(posCambiante);
+        }
+        
+        else if((y2<y) &&(x<x2) && (y-y2==2)){
+            while(y2<y){
+                Posicion posCambiante = new Posicion();
+                posCambiante.setX(x);
+                posCambiante.setY(y-1);
+                y-=1;
+                intermedias.add(posCambiante);
+            }
+            Posicion posCambiante = new Posicion();
+            posCambiante.setX(x+1);
+            posCambiante.setY(y);
+            
+            intermedias.add(posCambiante);
         }
         return intermedias;  
     }   
