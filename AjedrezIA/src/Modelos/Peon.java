@@ -98,4 +98,9 @@ public class Peon extends Pieza {
         intermedias.add(posicionNueva);
         return intermedias;
     }
+
+    @Override
+    public char getCaracterPieza() {
+        return 'P';
+    }
 }

@@ -192,4 +192,9 @@ public class Caballo extends Pieza {
         }
         return intermedias;  
     }   
+
+    @Override
+    public char getCaracterPieza() {
+        return 'C';
+    }
 }

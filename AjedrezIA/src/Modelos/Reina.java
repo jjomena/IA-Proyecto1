@@ -153,5 +153,10 @@ public class Reina extends Pieza {
         }
         return intermedias;
     }
+
+    @Override
+    public char getCaracterPieza() {
+        return 'D';
+    }
 }
 

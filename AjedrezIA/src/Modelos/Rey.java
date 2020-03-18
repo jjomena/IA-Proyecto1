@@ -67,4 +67,9 @@ public class Rey extends Pieza {
         intermedias.add(posicionNueva);
         return intermedias;  
     } 
+
+    @Override
+    public char getCaracterPieza() {
+        return 'R';
+    }
 }

@@ -137,6 +137,11 @@ public class Alfil extends Pieza {
         }      
         return intermedias;
     }
+
+    @Override
+    public char getCaracterPieza() {
+        return 'A';
+    }
  
 }
                

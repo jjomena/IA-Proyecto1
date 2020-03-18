@@ -135,4 +135,9 @@ public class Torre extends Pieza {
         }
         return intermedias;
     }  
+
+    @Override
+    public char getCaracterPieza() {
+        return 'T';
+    }
 }

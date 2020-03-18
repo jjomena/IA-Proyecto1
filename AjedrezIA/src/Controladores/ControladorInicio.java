@@ -49,7 +49,7 @@ public class ControladorInicio {
                     row = 7;
                     break;
             }
-            tb.addPieceFile(comando.charAt(0), comando.charAt(1), Integer.parseInt(comando.charAt(2)+""), row);
+            tb.PintarPieza(comando.charAt(0), comando.charAt(1), Integer.parseInt(comando.charAt(2)+""), row);
         }
     }
     

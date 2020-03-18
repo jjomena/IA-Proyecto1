@@ -41,9 +41,14 @@ public abstract class Pieza {
         this.equipo = equipo;
     }
     
+    public char getEquipo(){
+        return equipo;
+    }
+    
    abstract boolean[][] posicionesPosibles();
    abstract public boolean movimientoPosible(Posicion posicionInicio,Posicion posicionNueva, Tablero tablero);
    abstract public String getNombrePieza();
+   abstract public char getCaracterPieza();
    abstract public ArrayList<Posicion> casillasIntermedias(Posicion posicionInicial,Posicion posicionNueva);
    
    public boolean [][] piezasDelMismoEquipo(Tablero tablero){
