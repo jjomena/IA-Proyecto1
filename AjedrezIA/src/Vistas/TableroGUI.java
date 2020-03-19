@@ -615,7 +615,7 @@ public class TableroGUI extends javax.swing.JFrame {
             char equipo = pieza.getEquipo();
             //System.out.println("TIPO PIEZA: "+tipopieza);
             //System.out.println("nombre PIEZA: "+pieza.getNombrePieza());
-            //PintarPieza('B','N',pieza.getPosicion().getX(),pieza.getPosicion().getY());
+            PintarPieza('B','N',pieza.getPosicion().getX(),pieza.getPosicion().getY());
             tablero.getCasillas()[i][j]
                     .setPieza(ctrTablero.crearPieza(i,j,"NoPieza",pieza.getEquipo()));
             Posicion posTemporal = new Posicion();
@@ -625,7 +625,7 @@ public class TableroGUI extends javax.swing.JFrame {
                 posTemporal = movimientos.get(h);
                 posFinalx = posTemporal.getX();
                 posFinaly = posTemporal.getY();
-                PintarPieza(equipo,tipopieza,posFinalx,posFinaly); 
+                //PintarPieza(equipo,tipopieza,posFinalx,posFinaly); 
             }
             PintarPieza(equipo,tipopieza,posFinalx,posFinaly);
             tablero.getCasillas()[posFinalx][posFinaly]

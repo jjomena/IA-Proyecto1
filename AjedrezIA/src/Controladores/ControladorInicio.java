@@ -14,7 +14,7 @@ import javax.swing.JFileChooser;
  */
 public class ControladorInicio {
     
-    public static void CargarArchivo(String Jugador,ArrayList<String> comandos,String colorJuego){
+    public static void CargarArchivo(String Jugador,ArrayList<String> comandos,String colorJuego,String usuarioInicio){
         TableroGUI tb = new TableroGUI();
         tb.agregarComponentes();
         tb.setVisible(true);
@@ -53,7 +53,7 @@ public class ControladorInicio {
         }
     }
     
-    public static void CargarManual(String Jugador,String colorJuego){
+    public static void CargarManual(String Jugador,String colorJuego,String usuarioInicio){
         TableroGUI tb = new TableroGUI();
         tb.agregarComponentes();
         tb.setVisible(true);
