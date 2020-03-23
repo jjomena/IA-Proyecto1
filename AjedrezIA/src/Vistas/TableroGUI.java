@@ -490,6 +490,7 @@ public class TableroGUI extends javax.swing.JFrame {
         // TODO add your handling code here:
         desactivarFichas();
         isActive=false;
+        ctrTablero.imprimirTablero(tablero);
     }//GEN-LAST:event_btnJugarActionPerformed
 
     private void btnJuegoNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnJuegoNuevoActionPerformed

@@ -55,7 +55,6 @@ public class Peon extends Pieza {
                 }
             }
         }
-
         posicionesPosibles[x][y] = false;
         return posicionesPosibles;
     }

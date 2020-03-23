@@ -162,4 +162,20 @@ public class ControladorTablero {
         return estadoFinal;
     }
     
+    public void imprimirTablero(Tablero tablero){
+        char caracter;
+        for(int i=0;i<8;i++){
+            System.out.println("\n");
+            for(int j=0;j<8;j++){
+                caracter = tablero.getCasillas()[i][j].getPieza().getCaracterPieza();
+                if(caracter == 'N'){
+                    System.out.print("| |");
+                }
+                else{
+                    System.out.print("|"+caracter+"|");
+                }
+            }
+        } 
+    }
+    
 }
