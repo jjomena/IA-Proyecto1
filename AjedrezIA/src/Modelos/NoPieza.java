@@ -23,11 +23,11 @@ public class NoPieza extends Pieza {
     
 
     @Override
-    boolean[][] posicionesPosibles() {
+    public boolean[][] posicionesPosibles(int x,int y,Tablero tablero) {
         return new boolean[8][8]; 
     }
     @Override
-    public boolean movimientoPosible(Posicion posicionInicial,Posicion posicionNueva, Tablero tablero){
+    public boolean validarMovimiento(Posicion posicionInicial,Posicion posicionNueva, Tablero tablero){
         return false;
     }
 
@@ -41,5 +41,8 @@ public class NoPieza extends Pieza {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    
+    @Override
+    public char getCaracterPieza() {
+        return 'N';
+    }    
 }

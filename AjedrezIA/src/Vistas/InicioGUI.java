@@ -27,6 +27,7 @@ public class InicioGUI extends javax.swing.JFrame {
     
     public String jugador;
     public String colorJuego;
+    public String usuarioInicio;
     
     
     public InicioGUI() {
@@ -39,6 +40,10 @@ public class InicioGUI extends javax.swing.JFrame {
         ColorPieza.add(opc_blanca);
         ColorPieza.add(opc_oscura);
         opc_blanca.setSelected(true);
+        
+        btnIniciar.add(opc_Usuario);
+        btnIniciar.add(opc_Computador);
+        opc_Usuario.setSelected(true);
     }
 
     /**
@@ -52,6 +57,7 @@ public class InicioGUI extends javax.swing.JFrame {
 
         btnGroup = new javax.swing.ButtonGroup();
         ColorPieza = new javax.swing.ButtonGroup();
+        btnIniciar = new javax.swing.ButtonGroup();
         PantallaInicio = new javax.swing.JPanel();
         labelNombre = new javax.swing.JLabel();
         txtjugador = new javax.swing.JTextField();
@@ -62,15 +68,23 @@ public class InicioGUI extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         opc_blanca = new javax.swing.JRadioButton();
         opc_oscura = new javax.swing.JRadioButton();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jPanel4 = new javax.swing.JPanel();
+        opc_Usuario = new javax.swing.JRadioButton();
+        opc_Computador = new javax.swing.JRadioButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         PantallaInicio.setBackground(new java.awt.Color(255, 255, 255));
         PantallaInicio.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
 
+        labelNombre.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         labelNombre.setText("INGRESE SU NOMBRE: ");
 
-        btnIngresar.setText("INGRESAR");
+        txtjugador.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+
+        btnIngresar.setText("ACEPTAR Y INGRESAR");
         btnIngresar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnIngresarActionPerformed(evt);
@@ -86,20 +100,20 @@ public class InicioGUI extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(16, 16, 16)
-                .addComponent(opc_Archivo)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(opc_Manual)
-                .addContainerGap(33, Short.MAX_VALUE))
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(opc_Archivo)
+                    .addComponent(opc_Manual))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(opc_Archivo)
-                    .addComponent(opc_Manual))
-                .addContainerGap())
+                .addContainerGap()
+                .addComponent(opc_Archivo)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(opc_Manual)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         opc_blanca.setText("Jugar Piezas Blancas");
@@ -112,19 +126,48 @@ public class InicioGUI extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(18, 18, 18)
-                .addComponent(opc_blanca)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(opc_oscura)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(opc_oscura)
+                    .addComponent(opc_blanca))
+                .addContainerGap(21, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(opc_oscura)
-                    .addComponent(opc_blanca))
-                .addContainerGap(10, Short.MAX_VALUE))
+                .addComponent(opc_blanca)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(opc_oscura)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jLabel2.setText("Inicio de Juego");
+
+        jLabel3.setText("Seleccionar Equipo del Usuario");
+
+        opc_Usuario.setText("Iniciar Usuario");
+
+        opc_Computador.setText("Inicar Computador");
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGap(17, 17, 17)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(opc_Computador)
+                    .addComponent(opc_Usuario))
+                .addContainerGap(38, Short.MAX_VALUE))
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGap(15, 15, 15)
+                .addComponent(opc_Usuario)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(opc_Computador)
+                .addContainerGap(27, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout PantallaInicioLayout = new javax.swing.GroupLayout(PantallaInicio);
@@ -134,18 +177,32 @@ public class InicioGUI extends javax.swing.JFrame {
             .addGroup(PantallaInicioLayout.createSequentialGroup()
                 .addGroup(PantallaInicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(PantallaInicioLayout.createSequentialGroup()
-                        .addGap(128, 128, 128)
-                        .addComponent(btnIngresar))
+                        .addGap(18, 18, 18)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(PantallaInicioLayout.createSequentialGroup()
+                        .addGap(44, 44, 44)
+                        .addComponent(jLabel2)))
+                .addGroup(PantallaInicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(PantallaInicioLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 18, Short.MAX_VALUE))
+                    .addGroup(PantallaInicioLayout.createSequentialGroup()
+                        .addGap(17, 17, 17)
+                        .addComponent(jLabel3))))
+            .addGroup(PantallaInicioLayout.createSequentialGroup()
+                .addGroup(PantallaInicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(PantallaInicioLayout.createSequentialGroup()
                         .addGap(35, 35, 35)
-                        .addGroup(PantallaInicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(PantallaInicioLayout.createSequentialGroup()
-                                .addComponent(labelNombre)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtjugador, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addContainerGap(14, Short.MAX_VALUE))
+                        .addComponent(labelNombre)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtjugador, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(PantallaInicioLayout.createSequentialGroup()
+                        .addGap(180, 180, 180)
+                        .addComponent(btnIngresar)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         PantallaInicioLayout.setVerticalGroup(
             PantallaInicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -154,13 +211,18 @@ public class InicioGUI extends javax.swing.JFrame {
                 .addGroup(PantallaInicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labelNombre)
                     .addComponent(txtjugador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(28, 28, 28)
+                .addGroup(PantallaInicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(39, 39, 39)
+                .addGroup(PantallaInicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(41, 41, 41)
                 .addComponent(btnIngresar)
-                .addContainerGap(23, Short.MAX_VALUE))
+                .addContainerGap(40, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -169,8 +231,8 @@ public class InicioGUI extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(PantallaInicio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(PantallaInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -193,6 +255,14 @@ public class InicioGUI extends javax.swing.JFrame {
         else{
             colorJuego = "Oscura";
         }
+        if(opc_Usuario.isSelected()){
+            usuarioInicio = "Usuario";
+            
+        }
+        else{
+            usuarioInicio = "Computador";
+        }
+        
         if(!"".equals(jugador)){
             if(opc_Archivo.isSelected()){
                 
@@ -212,10 +282,10 @@ public class InicioGUI extends javax.swing.JFrame {
                     Logger.getLogger(AjedrezIA.class.getName()).log(Level.SEVERE, null, ex);
                 }
                 
-                ControladorInicio.CargarArchivo(jugador,comandos,colorJuego);
+                ControladorInicio.CargarArchivo(jugador,comandos,colorJuego,usuarioInicio);
             }
             else if(opc_Manual.isSelected()){
-                ControladorInicio.CargarManual(jugador,colorJuego);
+                ControladorInicio.CargarManual(jugador,colorJuego,usuarioInicio);
             }
             else{
                 System.out.println("Seleccione el modo de Inicio Juego");
@@ -266,11 +336,17 @@ public class InicioGUI extends javax.swing.JFrame {
     private javax.swing.JPanel PantallaInicio;
     private javax.swing.ButtonGroup btnGroup;
     private javax.swing.JButton btnIngresar;
+    private javax.swing.ButtonGroup btnIniciar;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel4;
     private javax.swing.JLabel labelNombre;
     private javax.swing.JRadioButton opc_Archivo;
+    private javax.swing.JRadioButton opc_Computador;
     private javax.swing.JRadioButton opc_Manual;
+    private javax.swing.JRadioButton opc_Usuario;
     private javax.swing.JRadioButton opc_blanca;
     private javax.swing.JRadioButton opc_oscura;
     private javax.swing.JTextField txtjugador;

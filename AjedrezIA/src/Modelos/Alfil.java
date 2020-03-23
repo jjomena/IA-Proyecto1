@@ -11,28 +11,80 @@ import java.util.ArrayList;
  *
  * @author mautematico
  */
-public class Alfil extends Pieza {
-    int x=0;
-    int y=0;
+public class Alfil extends Pieza{
+    int PosInicialX=0;
+    int PosInicialY=0;
     //
-    int x2=0;
-    int y2=0;
+    int PosFinalX=0;
+    int PosFinalY=0;
     
     public Alfil(){
         super();
     }
     
     @Override
-    public boolean[][] posicionesPosibles() {
+    public boolean[][] posicionesPosibles(int x,int y,Tablero tablero) {
         boolean [][] posicionesPosibles = new boolean [8][8];
-        for(int i = 0; i < 8; i++){
-            for(int j = 0; j < 8; j++){
-                if (i-x == j-y|| i-x == y-j )
-                    posicionesPosibles[i][j] = true;
-                                
-            }
-        }
+        String nombrepieza;
+        boolean estado=true;
+//        for(int i = 0; i < 8; i++){
+//            for(int j = 0; j < 8; j++){
+//                if (i-x == j-y || i-x == y-j ){
+//                    posicionesPosibles[i][j] = true; 
+//                }
+//            }
+//        }
+        
         posicionesPosibles[x][y] = false;
+        estado=true;
+        int iterX = x-1;
+        int iterY = y-1;
+        while((iterX>=0) && (iterY>=0)){        
+            nombrepieza = tablero.getCasillas()[iterX][iterY].getPieza().getNombrePieza();
+            posicionesPosibles[iterX][iterY] = estado;
+            if(!"NoPieza".equals(nombrepieza)){
+                estado = false;
+            }
+            iterX-=1;
+            iterY-=1;
+        }
+        
+        estado=true;
+        iterX = x-1;
+        iterY = y+1;
+        while((iterX>=0) && (iterY<=7)){
+            nombrepieza = tablero.getCasillas()[iterX][iterY].getPieza().getNombrePieza();
+            posicionesPosibles[iterX][iterY] = estado;
+            if(nombrepieza != "NoPieza"){
+                estado = false;
+            }
+            iterX-=1;
+            iterY+=1;
+        }
+        estado=true;
+        iterX = x+1;
+        iterY = y-1;
+        while((iterX<=7) && (iterY>=0)){
+            nombrepieza = tablero.getCasillas()[iterX][iterY].getPieza().getNombrePieza();
+            posicionesPosibles[iterX][iterY] = estado;
+            if(nombrepieza != "NoPieza"){
+                estado = false;
+            }
+            iterX+=1;
+            iterY-=1;
+        }
+        estado=true;
+        iterX = x+1;
+        iterY = y+1;
+        while((iterX<=7) && (iterY<=7)){
+            nombrepieza = tablero.getCasillas()[iterX][iterY].getPieza().getNombrePieza();
+            posicionesPosibles[iterX][iterY] = estado;
+            if(nombrepieza != "NoPieza"){
+                estado = false;
+            }
+            iterX+=1;
+            iterY+=1;
+        }
         return posicionesPosibles;
     }
     
@@ -63,17 +115,17 @@ public class Alfil extends Pieza {
     
     
     @Override
-    public boolean movimientoPosible(Posicion posicionInicial,Posicion posicionNueva, Tablero tablero){
-        x=posicionInicial.getX();
-        y=posicionInicial.getY();
-        x2= posicionNueva.getX();
-        y2= posicionNueva.getY();
+    public boolean validarMovimiento(Posicion posicionInicial,Posicion posicionNueva, Tablero tablero){
+        PosInicialX=posicionInicial.getX();
+        PosInicialY=posicionInicial.getY();
+        PosFinalX= posicionNueva.getX();
+        PosFinalY= posicionNueva.getY();
           
-       if(posicionesPosibles()[x2][y2]== false)
+       if(posicionesPosibles(PosInicialX,PosInicialY,tablero)[PosFinalX][PosFinalY]== false)
            return false;
        
        else
-           if (piezasDelMismoEquipo(tablero)[x2][y2])
+           if (piezasDelMismoEquipo(tablero)[PosFinalX][PosFinalY])
                 return false;
            else
               if (casillasIntermediasVacias(posicionNueva, tablero) == false)
@@ -88,56 +140,61 @@ public class Alfil extends Pieza {
 
     @Override
     public ArrayList<Posicion> casillasIntermedias(Posicion posicionInicial, Posicion posicionNueva) {
-        x=posicionInicial.getX();
-        y=posicionInicial.getY();
-        x2= posicionNueva.getX();
-        y2= posicionNueva.getY();
+        PosInicialX=posicionInicial.getX();
+        PosInicialY=posicionInicial.getY();
+        PosFinalX= posicionNueva.getX();
+        PosFinalY= posicionNueva.getY();
         ArrayList<Posicion> intermedias = new ArrayList<>();
         
-        if(x2<x && y2<y){
-            while(x2<x){
+        if(PosFinalX<PosInicialX && PosFinalY<PosInicialY){
+            while(PosFinalX<PosInicialX){
                 Posicion posCambiante = new Posicion();
-                posCambiante.setX(x-1);
-                posCambiante.setY(y-1);
-                x-=1;
-                y-=1;
+                posCambiante.setX(PosInicialX-1);
+                posCambiante.setY(PosInicialY-1);
+                PosInicialX-=1;
+                PosInicialY-=1;
                 intermedias.add(posCambiante);
             }
         }
         
-        else if(x2<x && y<y2){
-            while(y<y2){
+        else if(PosFinalX<PosInicialX && PosInicialY<PosFinalY){
+            while(PosInicialY<PosFinalY){
                 Posicion posCambiante = new Posicion();
-                posCambiante.setX(x-1);
-                posCambiante.setY(y+1);
-                x-=1;
-                y+=1;
+                posCambiante.setX(PosInicialX-1);
+                posCambiante.setY(PosInicialY+1);
+                PosInicialX-=1;
+                PosInicialY+=1;
                 intermedias.add(posCambiante);
             }
         }
-        else if(x<x2 && y2<y){
-            while(x<x2){
+        else if(PosInicialX<PosFinalX && PosFinalY<PosInicialY){
+            while(PosInicialX<PosFinalX){
                 Posicion posCambiante = new Posicion();
-                posCambiante.setX(x+1);
-                posCambiante.setY(y-1);
-                x+=1;
-                y-=1;
+                posCambiante.setX(PosInicialX+1);
+                posCambiante.setY(PosInicialY-1);
+                PosInicialX+=1;
+                PosInicialY-=1;
                 intermedias.add(posCambiante);
             }
         }
-        else if(x<x2 && y<y2){
-            while(x<x2){
+        else if(PosInicialX<PosFinalX && PosInicialY<PosFinalY){
+            while(PosInicialX<PosFinalX){
                 Posicion posCambiante = new Posicion();
-                posCambiante.setX(x+1);
-                posCambiante.setY(y+1);
-                x+=1;
-                y+=1;
+                posCambiante.setX(PosInicialX+1);
+                posCambiante.setY(PosInicialY+1);
+                PosInicialX+=1;
+                PosInicialY+=1;
                 intermedias.add(posCambiante);
             }
         }      
         return intermedias;
     }
- 
+
+    @Override
+    public char getCaracterPieza() {
+        return 'A';
+    }
+
 }
                
                 

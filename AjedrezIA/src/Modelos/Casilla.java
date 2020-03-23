@@ -13,7 +13,7 @@ import Modelos.Pieza;
  */
 public class Casilla {
     private char color;
-    private Pieza pieza;
+    public Pieza pieza;
     
     public Casilla(){
         pieza = new NoPieza();

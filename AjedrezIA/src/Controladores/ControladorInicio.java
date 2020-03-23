@@ -14,7 +14,7 @@ import javax.swing.JFileChooser;
  */
 public class ControladorInicio {
     
-    public static void CargarArchivo(String Jugador,ArrayList<String> comandos,String colorJuego){
+    public static void CargarArchivo(String Jugador,ArrayList<String> comandos,String colorJuego,String usuarioInicio){
         TableroGUI tb = new TableroGUI();
         tb.agregarComponentes();
         tb.setVisible(true);
@@ -49,11 +49,11 @@ public class ControladorInicio {
                     row = 7;
                     break;
             }
-            tb.addPieceFile(comando.charAt(0), comando.charAt(1), Integer.parseInt(comando.charAt(2)+""), row);
+            tb.PintarPieza(comando.charAt(0), comando.charAt(1), Integer.parseInt(comando.charAt(2)+""), row);
         }
     }
     
-    public static void CargarManual(String Jugador,String colorJuego){
+    public static void CargarManual(String Jugador,String colorJuego,String usuarioInicio){
         TableroGUI tb = new TableroGUI();
         tb.agregarComponentes();
         tb.setVisible(true);
