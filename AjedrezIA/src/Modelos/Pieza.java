@@ -45,7 +45,7 @@ public abstract class Pieza {
         return equipo;
     }
     
-   abstract public boolean[][] posicionesPosibles(int x,int y);
+   abstract public boolean[][] posicionesPosibles(int x,int y,Tablero tablero);
    abstract public boolean validarMovimiento(Posicion posicionInicio,Posicion posicionNueva, Tablero tablero);
    abstract public String getNombrePieza();
    abstract public char getCaracterPieza();

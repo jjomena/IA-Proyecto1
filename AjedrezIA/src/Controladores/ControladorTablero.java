@@ -80,7 +80,7 @@ public class ControladorTablero {
         String nombrePieza = pieza.getNombrePieza();
         //System.out.println("Nombre Pieza: "+nombrePieza);
         char caracter = pieza.getCaracterPieza();
-        System.out.println("Caracter pieza: "+caracter);
+        //System.out.println("Caracter pieza: "+caracter);
         if(estadoInicio==false){
             estadoFinal=false;
             casillaInicio=pieza.getPosicion(); 
@@ -91,7 +91,7 @@ public class ControladorTablero {
             else{
                 estadoInicio=true;
                 piezaContenida=pieza;
-                System.out.println("Posicion inicial: "+casillaInicio.getX()+":"+casillaInicio.getY());
+                //System.out.println("Posicion inicial: "+casillaInicio.getX()+":"+casillaInicio.getY());
             }
         }
         else if (estadoInicio){
@@ -123,13 +123,13 @@ public class ControladorTablero {
         boolean [][] posicionesPosibles = new boolean [8][8];
         casillaInicio=pieza.getPosicion();
         if(estadoInicio){   
-            posicionesPosibles = pieza.posicionesPosibles(casillaInicio.getX(), casillaInicio.getY());
+            posicionesPosibles = pieza.posicionesPosibles(casillaInicio.getX(), casillaInicio.getY(),tablero);
             movimientosPosibles = new ArrayList<>();
             for(int i = 0; i < 8; i++){
                 for(int j = 0; j < 8; j++){
                     Posicion posCambiante = new Posicion();
                     if(posicionesPosibles[i][j]){
-                        System.out.println("("+i+","+j+")");
+                        //System.out.println("("+i+","+j+")");
                         posCambiante.setX(i);
                         posCambiante.setY(j);
                         movimientosPosibles.add(posCambiante);
@@ -144,7 +144,7 @@ public class ControladorTablero {
         Posicion posTemporal = new Posicion();
         for(int i=0;i<movimientos.size();i++){
             posTemporal = movimientos.get(i);
-            System.out.println("Movimiento: "+posTemporal.getX()+","+posTemporal.getY());           
+            //System.out.println("Movimiento: "+posTemporal.getX()+","+posTemporal.getY());           
         }
     }
     

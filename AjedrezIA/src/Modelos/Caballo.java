@@ -19,7 +19,7 @@ public class Caballo extends Pieza {
     int PosFinalY=0;
 
     @Override
-    public boolean[][] posicionesPosibles(int x,int y) {
+    public boolean[][] posicionesPosibles(int x,int y,Tablero tablero) {
         boolean [][] posicionesPosibles = new boolean [8][8];
         for(int i = 0; i < 8; i++){
             for(int j = 0; j < 8; j++){
@@ -57,7 +57,7 @@ public class Caballo extends Pieza {
        PosFinalY= posicionNueva.getY();
          
            
-       if(posicionesPosibles(PosInicialX,PosInicialY)[PosFinalX][PosFinalY]== false)
+       if(posicionesPosibles(PosInicialX,PosInicialY,tablero)[PosFinalX][PosFinalY]== false)
            return false;
        
        else

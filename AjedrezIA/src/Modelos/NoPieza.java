@@ -23,7 +23,7 @@ public class NoPieza extends Pieza {
     
 
     @Override
-    public boolean[][] posicionesPosibles(int x,int y) {
+    public boolean[][] posicionesPosibles(int x,int y,Tablero tablero) {
         return new boolean[8][8]; 
     }
     @Override

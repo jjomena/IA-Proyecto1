@@ -671,7 +671,7 @@ public class TableroGUI extends javax.swing.JFrame {
         int i = Integer.parseInt(x);
         int j= Integer.parseInt(y);
         if(!isActive){
-            System.out.println("Se va mostrar posible movimiento");
+            //System.out.println("Se va mostrar posible movimiento");
             if(!ctrTablero.getEstadoFinal()){
                 movimientosPosibles = ctrTablero.movimientosPosibles(tablero.getCasillas()[i][j].getPieza(), tablero); 
                 activarPosiblesJugadas();

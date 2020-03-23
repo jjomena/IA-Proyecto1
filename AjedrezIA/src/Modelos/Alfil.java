@@ -23,15 +23,68 @@ public class Alfil extends Pieza{
     }
     
     @Override
-    public boolean[][] posicionesPosibles(int x,int y) {
+    public boolean[][] posicionesPosibles(int x,int y,Tablero tablero) {
         boolean [][] posicionesPosibles = new boolean [8][8];
-        for(int i = 0; i < 8; i++){
-            for(int j = 0; j < 8; j++){
-                if (i-x == j-y|| i-x == y-j )
-                    posicionesPosibles[i][j] = true;                 
-            }
-        }
+        String nombrepieza;
+        boolean estado=true;
+//        for(int i = 0; i < 8; i++){
+//            for(int j = 0; j < 8; j++){
+//                if (i-x == j-y || i-x == y-j ){
+//                    posicionesPosibles[i][j] = true; 
+//                }
+//            }
+//        }
+        
         posicionesPosibles[x][y] = false;
+        estado=true;
+        int iterX = x-1;
+        int iterY = y-1;
+        while((iterX>=0) && (iterY>=0)){        
+            nombrepieza = tablero.getCasillas()[iterX][iterY].getPieza().getNombrePieza();
+            posicionesPosibles[iterX][iterY] = estado;
+            if(!"NoPieza".equals(nombrepieza)){
+                estado = false;
+            }
+            iterX-=1;
+            iterY-=1;
+        }
+        
+        estado=true;
+        iterX = x-1;
+        iterY = y+1;
+        while((iterX>=0) && (iterY<=7)){
+            nombrepieza = tablero.getCasillas()[iterX][iterY].getPieza().getNombrePieza();
+            posicionesPosibles[iterX][iterY] = estado;
+            if(nombrepieza != "NoPieza"){
+                estado = false;
+            }
+            iterX-=1;
+            iterY+=1;
+        }
+        estado=true;
+        iterX = x+1;
+        iterY = y-1;
+        while((iterX<=7) && (iterY>=0)){
+            nombrepieza = tablero.getCasillas()[iterX][iterY].getPieza().getNombrePieza();
+            posicionesPosibles[iterX][iterY] = estado;
+            if(nombrepieza != "NoPieza"){
+                estado = false;
+            }
+            iterX+=1;
+            iterY-=1;
+        }
+        estado=true;
+        iterX = x+1;
+        iterY = y+1;
+        while((iterX<=7) && (iterY<=7)){
+            nombrepieza = tablero.getCasillas()[iterX][iterY].getPieza().getNombrePieza();
+            posicionesPosibles[iterX][iterY] = estado;
+            if(nombrepieza != "NoPieza"){
+                estado = false;
+            }
+            iterX+=1;
+            iterY+=1;
+        }
         return posicionesPosibles;
     }
     
@@ -68,7 +121,7 @@ public class Alfil extends Pieza{
         PosFinalX= posicionNueva.getX();
         PosFinalY= posicionNueva.getY();
           
-       if(posicionesPosibles(PosInicialX,PosInicialY)[PosFinalX][PosFinalY]== false)
+       if(posicionesPosibles(PosInicialX,PosInicialY,tablero)[PosFinalX][PosFinalY]== false)
            return false;
        
        else

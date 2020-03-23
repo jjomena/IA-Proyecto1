@@ -19,17 +19,23 @@ public class Peon extends Pieza {
     int PosFinalY=0;
 
     @Override
-    public boolean[][] posicionesPosibles(int x,int y) {
+    public boolean[][] posicionesPosibles(int x,int y,Tablero tablero) {
+        String nombrepieza;
         boolean[][] posicionesPosibles = new boolean[8][8];
         char equipo = this.isEquipo();
         if (equipo=='B') {
             if (0 < x && x  <= 7) {
-                posicionesPosibles[x-1][y] = true;
+                nombrepieza = tablero.getCasillas()[x-1][y].getPieza().getNombrePieza();
+                if("NoPieza".equals(nombrepieza)){
+                    posicionesPosibles[x-1][y] = true;
+                }
             }
         } else {
-            
             if (0 <= x  && x  < 7) {
-                posicionesPosibles[x+1][y] = true;
+                nombrepieza = tablero.getCasillas()[x+1][y].getPieza().getNombrePieza();
+                if("NoPieza".equals(nombrepieza)){
+                    posicionesPosibles[x+1][y] = true;
+                }
             }
         }
 
@@ -74,7 +80,7 @@ public class Peon extends Pieza {
          PosFinalY = posicionNueva.getY();
          
            
-       if(posicionesPosibles(PosInicialX,PosInicialY)[PosFinalX][PosFinalY] && (tablero.getCasillas()[PosFinalX][PosFinalY].getPieza() instanceof NoPieza))
+       if(posicionesPosibles(PosInicialX,PosInicialY,tablero)[PosFinalX][PosFinalY] && (tablero.getCasillas()[PosFinalX][PosFinalY].getPieza() instanceof NoPieza))
            return true;
        
       if (posicionesParaComer()[PosFinalX][PosFinalY] && piezasDelEquipoContrario(tablero)[PosFinalX][PosFinalY])
