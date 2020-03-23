@@ -12,14 +12,14 @@ import java.util.ArrayList;
  * @author mautematico
  */
 public class Peon extends Pieza {
-    int x=0;
-    int y=0;
+    int PosInicialX=0;
+    int PosInicialY=0;
     //
-    int x2=0;
-    int y2=0;
+    int PosFinalX=0;
+    int PosFinalY=0;
 
     @Override
-    boolean[][] posicionesPosibles() {
+    public boolean[][] posicionesPosibles(int x,int y) {
         boolean[][] posicionesPosibles = new boolean[8][8];
         char equipo = this.isEquipo();
         if (equipo=='B') {
@@ -67,21 +67,21 @@ public class Peon extends Pieza {
     }
     
      @Override
-     public boolean movimientoPosible(Posicion posicionInicial,Posicion posicionNueva, Tablero tablero){
-         x=posicionInicial.getX();
-         y=posicionInicial.getY();
-         x2 = posicionNueva.getX();
-         y2 = posicionNueva.getY();
+     public boolean validarMovimiento(Posicion posicionInicial,Posicion posicionNueva, Tablero tablero){
+         PosInicialX=posicionInicial.getX();
+         PosInicialY=posicionInicial.getY();
+         PosFinalX = posicionNueva.getX();
+         PosFinalY = posicionNueva.getY();
          
            
-       if(posicionesPosibles()[x2][y2] && (tablero.getCasillas()[x2][y2].getPieza() instanceof NoPieza))
+       if(posicionesPosibles(PosInicialX,PosInicialY)[PosFinalX][PosFinalY] && (tablero.getCasillas()[PosFinalX][PosFinalY].getPieza() instanceof NoPieza))
            return true;
        
-      if (posicionesParaComer()[x2][y2] && piezasDelEquipoContrario(tablero)[x2][y2])
+      if (posicionesParaComer()[PosFinalX][PosFinalY] && piezasDelEquipoContrario(tablero)[PosFinalX][PosFinalY])
            return true;
-      if(this.isEquipo()=='N' && y==1 && y2 == 3 && y == x )
+      if(this.isEquipo()=='N' && PosInicialY==1 && PosFinalY == 3 && PosInicialY == PosInicialX )
           return true;
-      if(this.isEquipo()=='B' && y==6 && y2 == 4 && y == x )
+      if(this.isEquipo()=='B' && PosInicialY==6 && PosFinalY == 4 && PosInicialY == PosInicialX )
           return true;
       
         return false;

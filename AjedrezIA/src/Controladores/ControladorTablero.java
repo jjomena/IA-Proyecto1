@@ -26,7 +26,8 @@ public class ControladorTablero {
     public static boolean estadoInicio=false;
     public static boolean estadoFinal=false;
     //
-    public static ArrayList<Posicion> movimientos;
+    public static ArrayList<Posicion> movimientos; //Movimientos a Ralizar
+    public static ArrayList<Posicion> movimientosPosibles=null;
     
     
     
@@ -95,12 +96,11 @@ public class ControladorTablero {
         }
         else if (estadoInicio){
             casillaFin=pieza.getPosicion();
-            System.out.println("Posicion final: "+casillaFin.getX()+":"+casillaFin.getY());
             if("NoPieza".equals(pieza.getNombrePieza())){
                 //String piezaacumulada = piezaContenida.getNombrePieza();
                 if(casillaInicio.getX() != casillaFin.getX() || 
                     casillaInicio.getY() != casillaFin.getY()){
-                    if(piezaContenida.movimientoPosible(casillaInicio,casillaFin, tablero)){
+                    if(piezaContenida.validarMovimiento(casillaInicio,casillaFin, tablero)){
                         System.out.println("Movimiento valido");
                         estadoInicio=false;
                         movimientos = piezaContenida.casillasIntermedias(casillaInicio, casillaFin);
@@ -119,6 +119,27 @@ public class ControladorTablero {
         }
     }
     
+    public ArrayList<Posicion> movimientosPosibles(Pieza pieza,Tablero tablero){
+        boolean [][] posicionesPosibles = new boolean [8][8];
+        casillaInicio=pieza.getPosicion();
+        if(estadoInicio){   
+            posicionesPosibles = pieza.posicionesPosibles(casillaInicio.getX(), casillaInicio.getY());
+            movimientosPosibles = new ArrayList<>();
+            for(int i = 0; i < 8; i++){
+                for(int j = 0; j < 8; j++){
+                    Posicion posCambiante = new Posicion();
+                    if(posicionesPosibles[i][j]){
+                        System.out.println("("+i+","+j+")");
+                        posCambiante.setX(i);
+                        posCambiante.setY(j);
+                        movimientosPosibles.add(posCambiante);
+                    }
+                }
+            }
+        }
+         return movimientosPosibles;  
+    }
+    
     public void simularMovimiento(ArrayList<Posicion> movimientos){
         Posicion posTemporal = new Posicion();
         for(int i=0;i<movimientos.size();i++){
@@ -130,6 +151,7 @@ public class ControladorTablero {
     public static ArrayList<Posicion> getMovimientos(){
         return movimientos;
     }
+    
     
     public boolean getEstadoFinal(){
         return estadoFinal;

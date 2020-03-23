@@ -23,11 +23,11 @@ public class NoPieza extends Pieza {
     
 
     @Override
-    boolean[][] posicionesPosibles() {
+    public boolean[][] posicionesPosibles(int x,int y) {
         return new boolean[8][8]; 
     }
     @Override
-    public boolean movimientoPosible(Posicion posicionInicial,Posicion posicionNueva, Tablero tablero){
+    public boolean validarMovimiento(Posicion posicionInicial,Posicion posicionNueva, Tablero tablero){
         return false;
     }
 
@@ -44,7 +44,5 @@ public class NoPieza extends Pieza {
     @Override
     public char getCaracterPieza() {
         return 'N';
-    }
-
-    
+    }    
 }

@@ -12,14 +12,14 @@ import java.util.ArrayList;
  * @author mautematico
  */
 public class Rey extends Pieza {
-    int x=0;
-    int y=0;
+    int PosInicialX=0;
+    int PosInicialY=0;
     //
-    int x2=0;
-    int y2=0;
+    int PosFinalX=0;
+    int PosFinalY=0;
 
     @Override
-    boolean[][] posicionesPosibles() {
+    public boolean[][] posicionesPosibles(int x,int y) {
         boolean [][] posicionesPosibles = new boolean [8][8];
         //int x = this.getPosicion().getX();
         //int y = this.getPosicion().getY();
@@ -36,21 +36,21 @@ public class Rey extends Pieza {
     }
     
     @Override
-     public boolean movimientoPosible(Posicion posicionInicial,Posicion posicionNueva, Tablero tablero){
-         x=posicionInicial.getX();
-         y=posicionInicial.getY();
-         x2 = posicionNueva.getX();
-         y2 = posicionNueva.getY();
+     public boolean validarMovimiento(Posicion posicionInicial,Posicion posicionNueva, Tablero tablero){
+         PosInicialX=posicionInicial.getX();
+         PosInicialY=posicionInicial.getY();
+         PosFinalX = posicionNueva.getX();
+         PosFinalY = posicionNueva.getY();
          
-         System.out.println("Posicion Inicial:"+x+":"+y);
-         System.out.println("Posicion Final:"+x2+":"+y2);
+         System.out.println("Posicion Inicial:"+PosInicialX+":"+PosInicialY);
+         System.out.println("Posicion Final:"+PosFinalX+":"+PosFinalY);
          
          
            
-       if(!posicionesPosibles()[x2][y2]){
+       if(!posicionesPosibles(PosInicialX,PosInicialY)[PosFinalX][PosFinalY]){
            return false;
        }
-       if (piezasDelMismoEquipo(tablero)[x2][y2]){
+       if (piezasDelMismoEquipo(tablero)[PosFinalX][PosFinalY]){
            return false;
        }
         return true;
@@ -72,4 +72,5 @@ public class Rey extends Pieza {
     public char getCaracterPieza() {
         return 'R';
     }
+
 }

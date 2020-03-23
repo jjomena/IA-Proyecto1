@@ -45,8 +45,8 @@ public abstract class Pieza {
         return equipo;
     }
     
-   abstract boolean[][] posicionesPosibles();
-   abstract public boolean movimientoPosible(Posicion posicionInicio,Posicion posicionNueva, Tablero tablero);
+   abstract public boolean[][] posicionesPosibles(int x,int y);
+   abstract public boolean validarMovimiento(Posicion posicionInicio,Posicion posicionNueva, Tablero tablero);
    abstract public String getNombrePieza();
    abstract public char getCaracterPieza();
    abstract public ArrayList<Posicion> casillasIntermedias(Posicion posicionInicial,Posicion posicionNueva);
@@ -79,7 +79,7 @@ public abstract class Pieza {
        
         for(int i = 0; i < 8; i++){
             for(int j = 0; j < 8; j++){
-                if (movimientoPosible(tablero.getCasillas()[i][j].getPieza().getPosicion(),tablero.getCasillas()[i][j].getPieza().getPosicion(), tablero))
+                if (validarMovimiento(tablero.getCasillas()[i][j].getPieza().getPosicion(),tablero.getCasillas()[i][j].getPieza().getPosicion(), tablero))
                     movimientosPosibles[i][j] = true;                
             }
         } 
@@ -107,18 +107,18 @@ public abstract class Pieza {
        }
        return false;
    }
-   public void imprimirPosicionesPosibles(){
-       boolean [][] posicionesPosibles = posicionesPosibles();
-                      
-       for (int j = 7; j>=0; j--) {
-           for (int i = 0; i<8; i++) {
-               if(posicionesPosibles[i][j]){
-                   System.out.print("|("+i+","+j+")|");
-                   continue;
-               }
-               System.out.print("| |");
-           }
-           System.out.println("");
-       }
-   }
+//   public void imprimirPosicionesPosibles(){
+//       boolean [][] posicionesPosibles = posicionesPosibles();
+//                      
+//       for (int j = 7; j>=0; j--) {
+//           for (int i = 0; i<8; i++) {
+//               if(posicionesPosibles[i][j]){
+//                   System.out.print("|("+i+","+j+")|");
+//                   continue;
+//               }
+//               System.out.print("| |");
+//           }
+//           System.out.println("");
+//       }
+//   }
 }

@@ -12,32 +12,36 @@ import java.util.ArrayList;
  * @author mautematico
  */
 public class Caballo extends Pieza {
-    int x=0;
-    int y=0;
+    int PosInicialX=0;
+    int PosInicialY=0;
     //
-    int x2=0;
-    int y2=0;
+    int PosFinalX=0;
+    int PosFinalY=0;
 
     @Override
-    boolean[][] posicionesPosibles() {
+    public boolean[][] posicionesPosibles(int x,int y) {
         boolean [][] posicionesPosibles = new boolean [8][8];
         for(int i = 0; i < 8; i++){
             for(int j = 0; j < 8; j++){
                 if (i == x+2){
-                    if(j == y+1 || j == y-1)
+                    if(j == y+1 || j == y-1){
                         posicionesPosibles[i][j] = true;
+                    }
                 }   
                 if (i == x+1){
-                    if(j == y+2 || j == y-2)
+                    if(j == y+2 || j == y-2){
                         posicionesPosibles[i][j] = true;
+                    }
                 }
                 if (i == x-1){
-                    if(j == y+2 || j == y-2)
+                    if(j == y+2 || j == y-2){
                         posicionesPosibles[i][j] = true;
+                    }
                 }
                 if (i == x-2){
-                    if(j == y+1 || j == y-1)
+                    if(j == y+1 || j == y-1){
                         posicionesPosibles[i][j] = true;
+                    }
                 }
             }
         }
@@ -46,18 +50,18 @@ public class Caballo extends Pieza {
     }
     
     @Override
-   public boolean movimientoPosible(Posicion posicionInicial,Posicion posicionNueva, Tablero tablero){
-       x=posicionInicial.getX();
-       y=posicionInicial.getY();
-       x2= posicionNueva.getX();
-       y2= posicionNueva.getY();
+   public boolean validarMovimiento(Posicion posicionInicial,Posicion posicionNueva, Tablero tablero){
+       PosInicialX=posicionInicial.getX();
+       PosInicialY=posicionInicial.getY();
+       PosFinalX= posicionNueva.getX();
+       PosFinalY= posicionNueva.getY();
          
            
-       if(posicionesPosibles()[x2][y2]== false)
+       if(posicionesPosibles(PosInicialX,PosInicialY)[PosFinalX][PosFinalY]== false)
            return false;
        
        else
-           if (piezasDelMismoEquipo(tablero)[x2][y2])
+           if (piezasDelMismoEquipo(tablero)[PosFinalX][PosFinalY])
                 return false;
         return true;
     }
@@ -68,125 +72,125 @@ public class Caballo extends Pieza {
     }
     
     public ArrayList<Posicion> casillasIntermedias(Posicion posicionInicial,Posicion posicionNueva){
-        x=posicionInicial.getX();
-        y=posicionInicial.getY();
-        x2= posicionNueva.getX();
-        y2= posicionNueva.getY();
+        PosInicialX=posicionInicial.getX();
+        PosInicialY=posicionInicial.getY();
+        PosFinalX= posicionNueva.getX();
+        PosFinalY= posicionNueva.getY();
         ArrayList<Posicion> intermedias = new ArrayList<>();
-        if((x2<x) && (y2<y) && (x-x2==2)){
-            while(x2<x){
+        if((PosFinalX<PosInicialX) && (PosFinalY<PosInicialY) && (PosInicialX-PosFinalX==2)){
+            while(PosFinalX<PosInicialX){
                 Posicion posCambiante = new Posicion();
-                posCambiante.setX(x-1);
-                posCambiante.setY(y);
-                x-=1;
+                posCambiante.setX(PosInicialX-1);
+                posCambiante.setY(PosInicialY);
+                PosInicialX-=1;
                 intermedias.add(posCambiante);
             }
             Posicion posCambiante = new Posicion();
-            posCambiante.setX(x);
-            posCambiante.setY(y-1);    
+            posCambiante.setX(PosInicialX);
+            posCambiante.setY(PosInicialY-1);    
 
             intermedias.add(posCambiante);
         }
         
-        else if((x2<x)&&(y<y2) && (x-x2==2)){
-            while(x2<x){
+        else if((PosFinalX<PosInicialX)&&(PosInicialY<PosFinalY) && (PosInicialX-PosFinalX==2)){
+            while(PosFinalX<PosInicialX){
                 Posicion posCambiante = new Posicion();
-                posCambiante.setX(x-1);
-                posCambiante.setY(y);
-                x-=1;
+                posCambiante.setX(PosInicialX-1);
+                posCambiante.setY(PosInicialY);
+                PosInicialX-=1;
                 intermedias.add(posCambiante);
             }
             Posicion posCambiante = new Posicion();
-            posCambiante.setX(x);
-            posCambiante.setY(y+1);    
+            posCambiante.setX(PosInicialX);
+            posCambiante.setY(PosInicialY+1);    
 
             intermedias.add(posCambiante);
         }
-        else if((x<x2)&&(y2<y) && (x2-x==2)){
-            while(x<x2){
+        else if((PosInicialX<PosFinalX)&&(PosFinalY<PosInicialY) && (PosFinalX-PosInicialX==2)){
+            while(PosInicialX<PosFinalX){
                 Posicion posCambiante = new Posicion();
-                posCambiante.setX(x+1);
-                posCambiante.setY(y);
-                x+=1;
+                posCambiante.setX(PosInicialX+1);
+                posCambiante.setY(PosInicialY);
+                PosInicialX+=1;
                 intermedias.add(posCambiante);
             }
             Posicion posCambiante = new Posicion();
-            posCambiante.setX(x);
-            posCambiante.setY(y-1);    
+            posCambiante.setX(PosInicialX);
+            posCambiante.setY(PosInicialY-1);    
 
             intermedias.add(posCambiante);
         }
-        else if((x<x2)&&(y<y2) && (x2-x==2)){
-            while(x<x2){
+        else if((PosInicialX<PosFinalX)&&(PosInicialY<PosFinalY) && (PosFinalX-PosInicialX==2)){
+            while(PosInicialX<PosFinalX){
                 Posicion posCambiante = new Posicion();
-                posCambiante.setX(x+1);
-                posCambiante.setY(y);
-                x+=1;
+                posCambiante.setX(PosInicialX+1);
+                posCambiante.setY(PosInicialY);
+                PosInicialX+=1;
                 intermedias.add(posCambiante);
             }
             Posicion posCambiante = new Posicion();
-            posCambiante.setX(x);
-            posCambiante.setY(y+1);    
+            posCambiante.setX(PosInicialX);
+            posCambiante.setY(PosInicialY+1);    
 
             intermedias.add(posCambiante);
         }
         
-        else if((y<y2) &&(x2<x) &&(y2-y==2)){
-            while(y<y2){
+        else if((PosInicialY<PosFinalY) &&(PosFinalX<PosInicialX) &&(PosFinalY-PosInicialY==2)){
+            while(PosInicialY<PosFinalY){
                 Posicion posCambiante = new Posicion();
-                posCambiante.setX(x);
-                posCambiante.setY(y+1);
-                y+=1;
+                posCambiante.setX(PosInicialX);
+                posCambiante.setY(PosInicialY+1);
+                PosInicialY+=1;
                 intermedias.add(posCambiante);
             }
             Posicion posCambiante = new Posicion();
-            posCambiante.setX(x-1);
-            posCambiante.setY(y);
+            posCambiante.setX(PosInicialX-1);
+            posCambiante.setY(PosInicialY);
             
             intermedias.add(posCambiante);
         }
         
-        else if((y<y2) &&(x<x2) && (y2-y==2)){
-            while(y<y2){
+        else if((PosInicialY<PosFinalY) &&(PosInicialX<PosFinalX) && (PosFinalY-PosInicialY==2)){
+            while(PosInicialY<PosFinalY){
                 Posicion posCambiante = new Posicion();
-                posCambiante.setX(x);
-                posCambiante.setY(y+1);
-                y+=1;
+                posCambiante.setX(PosInicialX);
+                posCambiante.setY(PosInicialY+1);
+                PosInicialY+=1;
                 intermedias.add(posCambiante);
             }
             Posicion posCambiante = new Posicion();
-            posCambiante.setX(x+1);
-            posCambiante.setY(y);
+            posCambiante.setX(PosInicialX+1);
+            posCambiante.setY(PosInicialY);
             
             intermedias.add(posCambiante);
         }
         
-        else if((y2<y) &&(x2<x) &&(y-y2==2)){
-            while(y2<y){
+        else if((PosFinalY<PosInicialY) &&(PosFinalX<PosInicialX) &&(PosInicialY-PosFinalY==2)){
+            while(PosFinalY<PosInicialY){
                 Posicion posCambiante = new Posicion();
-                posCambiante.setX(x);
-                posCambiante.setY(y-1);
-                y-=1;
+                posCambiante.setX(PosInicialX);
+                posCambiante.setY(PosInicialY-1);
+                PosInicialY-=1;
                 intermedias.add(posCambiante);
             }
             Posicion posCambiante = new Posicion();
-            posCambiante.setX(x-1);
-            posCambiante.setY(y);
+            posCambiante.setX(PosInicialX-1);
+            posCambiante.setY(PosInicialY);
             
             intermedias.add(posCambiante);
         }
         
-        else if((y2<y) &&(x<x2) && (y-y2==2)){
-            while(y2<y){
+        else if((PosFinalY<PosInicialY) &&(PosInicialX<PosFinalX) && (PosInicialY-PosFinalY==2)){
+            while(PosFinalY<PosInicialY){
                 Posicion posCambiante = new Posicion();
-                posCambiante.setX(x);
-                posCambiante.setY(y-1);
-                y-=1;
+                posCambiante.setX(PosInicialX);
+                posCambiante.setY(PosInicialY-1);
+                PosInicialY-=1;
                 intermedias.add(posCambiante);
             }
             Posicion posCambiante = new Posicion();
-            posCambiante.setX(x+1);
-            posCambiante.setY(y);
+            posCambiante.setX(PosInicialX+1);
+            posCambiante.setY(PosInicialY);
             
             intermedias.add(posCambiante);
         }
