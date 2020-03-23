@@ -96,7 +96,7 @@ public class ControladorTablero {
         }
         else if (estadoInicio){
             casillaFin=pieza.getPosicion();
-            if("NoPieza".equals(pieza.getNombrePieza())){
+            //if("NoPieza".equals(pieza.getNombrePieza())){
                 //String piezaacumulada = piezaContenida.getNombrePieza();
                 if(casillaInicio.getX() != casillaFin.getX() || 
                     casillaInicio.getY() != casillaFin.getY()){
@@ -108,13 +108,18 @@ public class ControladorTablero {
                         estadoFinal=true;
                         
                     }
-                }
-            }
-            else{
-                JOptionPane.showMessageDialog(null, "Movimiento Invalido", "Validar Movimiento"
+                    else{
+                        JOptionPane.showMessageDialog(null, "Movimiento Invalido", "Validar Movimiento"
                         , JOptionPane.WARNING_MESSAGE);
-                estadoInicio=false;
-            }
+                        estadoInicio=false;
+                    }
+                }
+            //}
+//            else{
+//                JOptionPane.showMessageDialog(null, "Movimiento Invalido", "Validar Movimiento"
+//                        , JOptionPane.WARNING_MESSAGE);
+//                estadoInicio=false;
+//            }
 
         }
     }

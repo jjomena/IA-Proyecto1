@@ -27,14 +27,6 @@ public class Alfil extends Pieza{
         boolean [][] posicionesPosibles = new boolean [8][8];
         String nombrepieza;
         boolean estado=true;
-//        for(int i = 0; i < 8; i++){
-//            for(int j = 0; j < 8; j++){
-//                if (i-x == j-y || i-x == y-j ){
-//                    posicionesPosibles[i][j] = true; 
-//                }
-//            }
-//        }
-        
         posicionesPosibles[x][y] = false;
         estado=true;
         int iterX = x-1;

@@ -29,12 +29,29 @@ public class Peon extends Pieza {
                 if("NoPieza".equals(nombrepieza)){
                     posicionesPosibles[x-1][y] = true;
                 }
+                nombrepieza = tablero.getCasillas()[x-1][y-1].getPieza().getNombrePieza();
+                if(!"NoPieza".equals(nombrepieza)){
+                    posicionesPosibles[x-1][y-1] = true;
+                }
+                nombrepieza = tablero.getCasillas()[x-1][y+1].getPieza().getNombrePieza();
+                if(!"NoPieza".equals(nombrepieza)){
+                    posicionesPosibles[x-1][y+1] = true;
+                }
+                
             }
         } else {
             if (0 <= x  && x  < 7) {
                 nombrepieza = tablero.getCasillas()[x+1][y].getPieza().getNombrePieza();
                 if("NoPieza".equals(nombrepieza)){
                     posicionesPosibles[x+1][y] = true;
+                }
+                nombrepieza = tablero.getCasillas()[x+1][y-1].getPieza().getNombrePieza();
+                if(!"NoPieza".equals(nombrepieza)){
+                    posicionesPosibles[x+1][y-1] = true;
+                }
+                nombrepieza = tablero.getCasillas()[x+1][y+1].getPieza().getNombrePieza();
+                if(!"NoPieza".equals(nombrepieza)){
+                    posicionesPosibles[x+1][y+1] = true;
                 }
             }
         }
