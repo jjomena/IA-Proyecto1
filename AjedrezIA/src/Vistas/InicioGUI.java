@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -26,8 +27,8 @@ public class InicioGUI extends javax.swing.JFrame {
      */
     
     public String jugador;
-    public String colorJuego;
-    public String usuarioInicio;
+    public char colorJugador;
+    public boolean usuarioInicio;
     
     
     public InicioGUI() {
@@ -250,20 +251,23 @@ public class InicioGUI extends javax.swing.JFrame {
         // TODO add your handling code here:
         jugador = txtjugador.getText();
         if(opc_blanca.isSelected()){
-          colorJuego =  "Blanca"; 
+          colorJugador =  'B'; 
         }
         else{
-            colorJuego = "Oscura";
+            colorJugador = 'N';
         }
         if(opc_Usuario.isSelected()){
-            usuarioInicio = "Usuario";
+            usuarioInicio = true;
             
         }
         else{
-            usuarioInicio = "Computador";
+            usuarioInicio = false;
         }
         
         if(!"".equals(jugador)){
+            /*
+            *INGRESO VÍA ARCHIVO DE LAS PIEZAS
+            */
             if(opc_Archivo.isSelected()){
                 
                 File selectedFile = null;
@@ -282,17 +286,24 @@ public class InicioGUI extends javax.swing.JFrame {
                     Logger.getLogger(AjedrezIA.class.getName()).log(Level.SEVERE, null, ex);
                 }
                 
-                ControladorInicio.CargarArchivo(jugador,comandos,colorJuego,usuarioInicio);
+                ControladorInicio.CargarArchivo(jugador,comandos,colorJugador,usuarioInicio);
             }
+            /*
+            *INGRESO VÍA MANUAL DE LAS PIEZAS
+            */
             else if(opc_Manual.isSelected()){
-                ControladorInicio.CargarManual(jugador,colorJuego,usuarioInicio);
+                ControladorInicio.CargarManual(jugador,colorJugador,usuarioInicio);
             }
             else{
                 System.out.println("Seleccione el modo de Inicio Juego");
             }
         }
+        /*
+        *ERROR: NO SE INGRESA EL NOMBRE DE USUARIO
+        */
         else{
-            System.out.println("Debe ingresar el nombre del Jugador");
+            JOptionPane.showMessageDialog(null, "Debe ingresar nombre de Jugador", "Nombre Jugador"
+                        , JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_btnIngresarActionPerformed
 

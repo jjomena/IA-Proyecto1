@@ -27,7 +27,7 @@ public class ControladorTablero {
     public static boolean estadoFinal=false;
     //
     public static ArrayList<Posicion> movimientos; //Movimientos a Ralizar
-    public static ArrayList<Posicion> movimientosPosibles=null;
+    public ArrayList<Posicion> movimientosPosibles;
     
     
     
@@ -153,7 +153,7 @@ public class ControladorTablero {
         }
     }
     
-    public static ArrayList<Posicion> getMovimientos(){
+    public ArrayList<Posicion> getMovimientos(){
         return movimientos;
     }
     
@@ -162,8 +162,13 @@ public class ControladorTablero {
         return estadoFinal;
     }
     
+    public void setEstadoInicio(){
+        estadoInicio = true;
+    }
+    
     public void imprimirTablero(Tablero tablero){
         char caracter;
+        System.out.println("--------------------------");
         for(int i=0;i<8;i++){
             System.out.println("\n");
             for(int j=0;j<8;j++){
@@ -175,7 +180,17 @@ public class ControladorTablero {
                     System.out.print("|"+caracter+"|");
                 }
             }
-        } 
+        }
+        System.out.println("\n");
     }
     
+    public Tablero copiarTablero(Tablero tablero){
+        Tablero copiaTablero = new Tablero();
+        for(int i=0;i<8;i++){
+            for(int j=0;j<8;j++){
+                copiaTablero.getCasillas()[i][j] = tablero.getCasillas()[i][j];
+            }
+        }
+        return copiaTablero; 
+    }   
 }

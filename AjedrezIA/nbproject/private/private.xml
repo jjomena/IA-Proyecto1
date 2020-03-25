@@ -5,8 +5,7 @@
         <group>
             <file>file:/C:/Users/joaqu/Documents/IA/IA-Proyecto1/AjedrezIA/src/Controladores/ControladorTablero.java</file>
             <file>file:/C:/Users/joaqu/Documents/IA/IA-Proyecto1/AjedrezIA/src/Vistas/TableroGUI.java</file>
-            <file>file:/C:/Users/joaqu/Documents/IA/IA-Proyecto1/AjedrezIA/src/Modelos/Caballo.java</file>
-            <file>file:/C:/Users/joaqu/Documents/IA/IA-Proyecto1/AjedrezIA/src/Modelos/Pieza.java</file>
+            <file>file:/C:/Users/joaqu/Documents/IA/IA-Proyecto1/AjedrezIA/src/Controladores/ControladorArbol.java</file>
         </group>
     </open-files>
 </project-private>
