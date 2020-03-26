@@ -17,6 +17,8 @@ public class Rey extends Pieza {
     //
     int PosFinalX=0;
     int PosFinalY=0;
+    //
+    int valorPieza=900;
 
     @Override
     public boolean[][] posicionesPosibles(int x,int y,Tablero tablero) {
@@ -28,10 +30,11 @@ public class Rey extends Pieza {
             for(int j = 0; j < 8; j++){
                 if (i == x || i == x+1 || i == x-1){
                     if(j == y || j == y+1 || j == y-1){
-                        nombrepieza = tablero.getCasillas()[i][j].getPieza().getNombrePieza();
-                        if("NoPieza".equals(nombrepieza)){
-                            posicionesPosibles[i][j] = true;
-                        }
+                        posicionesPosibles[i][j] = true;
+//                        nombrepieza = tablero.getCasillas()[i][j].getPieza().getNombrePieza();
+//                        if("NoPieza".equals(nombrepieza)){
+//                            posicionesPosibles[i][j] = true;
+//                        }
                     }
                 }                   
             }
@@ -76,6 +79,11 @@ public class Rey extends Pieza {
     @Override
     public char getCaracterPieza() {
         return 'R';
+    }
+
+    @Override
+    public int getValorPieza() {
+        return valorPieza;
     }
 
 }

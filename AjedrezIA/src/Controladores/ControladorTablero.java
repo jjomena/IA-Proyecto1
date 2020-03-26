@@ -104,7 +104,6 @@ public class ControladorTablero {
                         System.out.println("Movimiento valido");
                         estadoInicio=false;
                         movimientos = piezaContenida.casillasIntermedias(casillaInicio, casillaFin);
-                        //simularMovimiento(movimientos);   
                         estadoFinal=true;
                         
                     }
@@ -114,12 +113,6 @@ public class ControladorTablero {
                         estadoInicio=false;
                     }
                 }
-            //}
-//            else{
-//                JOptionPane.showMessageDialog(null, "Movimiento Invalido", "Validar Movimiento"
-//                        , JOptionPane.WARNING_MESSAGE);
-//                estadoInicio=false;
-//            }
 
         }
     }
@@ -145,13 +138,13 @@ public class ControladorTablero {
          return movimientosPosibles;  
     }
     
-    public void simularMovimiento(ArrayList<Posicion> movimientos){
-        Posicion posTemporal = new Posicion();
-        for(int i=0;i<movimientos.size();i++){
-            posTemporal = movimientos.get(i);
-            //System.out.println("Movimiento: "+posTemporal.getX()+","+posTemporal.getY());           
-        }
-    }
+//    public void simularMovimiento(ArrayList<Posicion> movimientos){
+//        Posicion posTemporal = new Posicion();
+//        for(int i=0;i<movimientos.size();i++){
+//            posTemporal = movimientos.get(i);
+//            //System.out.println("Movimiento: "+posTemporal.getX()+","+posTemporal.getY());           
+//        }
+//    }
     
     public ArrayList<Posicion> getMovimientos(){
         return movimientos;
@@ -164,6 +157,10 @@ public class ControladorTablero {
     
     public void setEstadoInicio(){
         estadoInicio = true;
+    }
+    
+    public void restablecerEstadoInicio(){
+        estadoInicio = false;
     }
     
     public void imprimirTablero(Tablero tablero){

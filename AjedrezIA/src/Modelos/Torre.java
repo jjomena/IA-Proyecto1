@@ -17,6 +17,8 @@ public class Torre extends Pieza {
     //
     int PosFinalX=0;
     int PosFinalY=0;
+    //
+    int valorPieza=50;
 
     @Override
      public boolean[][] posicionesPosibles(int x,int y,Tablero tablero) {
@@ -178,4 +180,8 @@ public class Torre extends Pieza {
         return 'T';
     }
 
+    @Override
+    public int getValorPieza() {
+        return valorPieza;
+    }
 }

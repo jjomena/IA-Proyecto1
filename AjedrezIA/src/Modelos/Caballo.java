@@ -17,6 +17,8 @@ public class Caballo extends Pieza {
     //
     int PosFinalX=0;
     int PosFinalY=0;
+    //
+    int valorPieza=30;
 
     @Override
     public boolean[][] posicionesPosibles(int x,int y,Tablero tablero) {
@@ -201,4 +203,10 @@ public class Caballo extends Pieza {
     public char getCaracterPieza() {
         return 'C';
     }
+
+    @Override
+    public int getValorPieza() {
+        return valorPieza;
+    }
+    
 }

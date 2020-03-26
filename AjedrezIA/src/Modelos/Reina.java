@@ -17,6 +17,8 @@ public class Reina extends Pieza {
     //
     int PosFinalX=0;
     int PosFinalY=0;
+    //
+    int valorPieza=90;
    
     @Override
     public boolean[][] posicionesPosibles(int x,int y,Tablero tablero) {
@@ -237,6 +239,11 @@ public class Reina extends Pieza {
     @Override
     public char getCaracterPieza() {
         return 'D';
+    }
+
+    @Override
+    public int getValorPieza() {
+        return valorPieza;
     }
 
 

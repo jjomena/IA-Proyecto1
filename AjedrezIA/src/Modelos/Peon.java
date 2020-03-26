@@ -17,6 +17,8 @@ public class Peon extends Pieza {
     //
     int PosFinalX=0;
     int PosFinalY=0;
+    //
+    int valorPieza=10;
 
     @Override
     public boolean[][] posicionesPosibles(int x,int y,Tablero tablero) {
@@ -95,18 +97,11 @@ public class Peon extends Pieza {
          PosFinalX = posicionNueva.getX();
          PosFinalY = posicionNueva.getY();
          
+         if(posicionesPosibles(PosInicialX,PosInicialY,tablero)[PosFinalX][PosFinalY]== false){
+             return false;
+         }
            
-       if(posicionesPosibles(PosInicialX,PosInicialY,tablero)[PosFinalX][PosFinalY] && (tablero.getCasillas()[PosFinalX][PosFinalY].getPieza() instanceof NoPieza))
-           return true;
-       
-      if (posicionesParaComer()[PosFinalX][PosFinalY] && piezasDelEquipoContrario(tablero)[PosFinalX][PosFinalY])
-           return true;
-      if(this.isEquipo()=='N' && PosInicialY==1 && PosFinalY == 3 && PosInicialY == PosInicialX )
-          return true;
-      if(this.isEquipo()=='B' && PosInicialY==6 && PosFinalY == 4 && PosInicialY == PosInicialX )
-          return true;
-      
-        return false;
+       return true;
     }
 
     @Override
@@ -124,5 +119,10 @@ public class Peon extends Pieza {
     @Override
     public char getCaracterPieza() {
         return 'P';
+    }
+
+    @Override
+    public int getValorPieza() {
+        return valorPieza;
     }
 }

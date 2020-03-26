@@ -7,6 +7,7 @@ import Modelos.Pieza;
 import Modelos.Posicion;
 import Modelos.Tablero;
 import java.util.ArrayList;
+import java.util.Random;
 
 /**
  *
@@ -20,20 +21,27 @@ public class ControladorArbol {
     public int profundidad = 2;
     public int nivelActual = 1;
     public char equipoEnJuego;
+    public Posicion posicionGenerada;
+    public Jugada movimientoPieza;
+    public int maximoNivel=2;
     
     public ControladorArbol(){
     }
     
-    public void crearArbol(){
-        
-        arbol = new Arbol();
-    }
+//    public void crearArbol(){
+//        
+//        arbol = new Arbol();
+//    }
+//    
+//    public void agregarNodoRaiz(Tablero tablero){
+//        arbol.setRaiz(tablero);
+//    }
+//    
+//    public Nodo getNodoRaiz(){
+//        return arbol.getRaiz();
+//    }
     
-    public void agregarNodoRaiz(Tablero tablero){
-        arbol.setRaiz(tablero);
-    }
-    
-    public void calcularMovimientos(Tablero tablero,char equipo,int nivel){
+    public void calcularMovimientos(Tablero tablero,char equipo,Nodo padre){
         char equipoPieza;
         Pieza pieza;
         ctrTablero.setEstadoInicio();
@@ -52,18 +60,15 @@ public class ControladorArbol {
                         movimientosPosibles = ctrTablero.movimientosPosibles(pieza, tablero);
                         Jugada jugada = new Jugada(pieza,movimientosPosibles,tablero);
                         jugadas.add(jugada);
-                        //activarPosiblesJugadas();
-                        //Tablero copiaTablero = (Tablero)tablero.clone();
-                        //generarNodosHijos(tablero,i,j,pieza);
-                        //movimientosPosibles.clear();
                     }
                 }
             }
         }
-        verPosiblesJugadas(nivel);
+        verPosiblesJugadas(padre);    
+        //generarRandom();
     }
     
-    public void verPosiblesJugadas(int nivel){
+    public void verPosiblesJugadas(Nodo padre){
         int posX;
         int posY;
         Jugada movimientoPieza;
@@ -80,7 +85,7 @@ public class ControladorArbol {
             posY = pieza.getPosicion().getY();
             //
             for(int i=0;i<movimientos.size();i++){
-                generarNodosHijos(tableroJuego,posX,posY,pieza,movimientos.get(i),nivel);
+                generarNodosHijos(tableroJuego,posX,posY,pieza,movimientos.get(i),padre);
                 posX = movimientos.get(i).getX();
                 posY =  movimientos.get(i).getY();
             }
@@ -92,7 +97,6 @@ public class ControladorArbol {
                     .setPieza(ctrTablero.crearPieza(posX,posY,pieza.getNombrePieza(),pieza.getEquipo()));
             System.out.println("-------FIN DE PIEZA--------\n");
         }
-        nivelActual+=1;
     }
     
     public void activarPosiblesJugadas(){
@@ -110,11 +114,9 @@ public class ControladorArbol {
         System.out.println("\n");
     }
     
-    public void generarNodosHijos(Tablero tab,int posX,int posY,Pieza pieza,Posicion mover,int nivel){
+    public void generarNodosHijos(Tablero tab,int posX,int posY,Pieza pieza,Posicion mover,Nodo padre){
         int movX;
         int movY;
-        Tablero copia = new Tablero();
-        copia = copiarTablero(tab);
         movX = mover.getX();
         movY = mover.getY();
         tab.getCasillas()[posX][posY]
@@ -122,15 +124,21 @@ public class ControladorArbol {
         tab.getCasillas()[movX][movY]
                     .setPieza(ctrTablero.crearPieza(movX,movY,pieza.getNombrePieza(),pieza.getEquipo()));
         ctrTablero.imprimirTablero(tab);
-        if(nivel < profundidad){
+        int profundidad = padre.getNivel();
+        profundidad+=1;
+        Nodo nodoHijo = new Nodo(tab);
+        nodoHijo.setNivel(profundidad);
+        nodoHijo.setNodoPadre(padre);
+        padre.agregarNodoHijo(nodoHijo);
+        nodoHijo.setIsMax(!padre.isMax());
+        if(profundidad < maximoNivel){
             if(equipoEnJuego == 'B'){
                 equipoEnJuego = 'N';
             }
             else{
                 equipoEnJuego = 'B';
             }
-            calcularMovimientos(tab,equipoEnJuego,nivel);
-            
+            calcularMovimientos(tab,equipoEnJuego,nodoHijo);
         }
     }
     
@@ -143,5 +151,30 @@ public class ControladorArbol {
             }
         }
         return copiaTablero; 
-    }   
+    }
+    
+    public void generarRandom(){
+        int cantPiezas = jugadas.size();
+        int piezaJugar;
+        ArrayList<Posicion> movimientos = null;
+        int jugadaRealizar;
+        int cantMovimientos;
+        
+        piezaJugar = (int) Math.floor(Math.random()*cantPiezas);
+        System.out.println("ValorRandom: "+piezaJugar);
+        movimientoPieza = jugadas.get(piezaJugar);
+        movimientos = movimientoPieza.getMovimientos();
+        
+        cantMovimientos = movimientos.size();
+        jugadaRealizar = (int) Math.floor(Math.random()*cantMovimientos);
+        posicionGenerada = movimientos.get(jugadaRealizar);
+    }
+    
+    public Posicion getPosicionGenerada(){
+        return posicionGenerada; 
+    }
+    
+    public Jugada getJugadaGenerada(){
+        return movimientoPieza;
+    }
 }

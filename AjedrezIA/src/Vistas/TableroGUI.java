@@ -10,6 +10,9 @@ import Modelos.Actividad;
 import Modelos.Tablero;
 import Modelos.ModeloRegistrarActividad;
 import Controladores.ControladorTablero;
+import Modelos.Arbol;
+import Modelos.Jugada;
+import Modelos.Nodo;
 import Modelos.Pieza;
 import Modelos.Posicion;
 import java.awt.Color;
@@ -41,7 +44,8 @@ public class TableroGUI extends javax.swing.JFrame {
     private String nombrePieza="NoPieza";
     private char equipo; //Tipo de pieza
     public Tablero tablero;
-    
+    public Arbol arbol;
+    public Nodo nodoRaiz;
     /*variables del Jugador*/
     private String Jugador;
     private char colorJugador;
@@ -499,16 +503,26 @@ public class TableroGUI extends javax.swing.JFrame {
         // TODO add your handling code here:
         activarDesactivarPanelFichas(false);
         isActive=false;
-        ctrArbol.crearArbol();
-        ctrArbol.agregarNodoRaiz(tablero);
+        arbol = new Arbol(tablero);
+        nodoRaiz = arbol.getRaiz();
+        nodoRaiz.setNivel(0);
+        nodoRaiz.setIsMax(true);
+        //ctrArbol.crearArbol();
+        //ctrArbol.agregarNodoRaiz(tablero);
         //ctrTablero.imprimirTablero(tablero);
         if(!turnoUsuario){
             if(colorJugador == 'B'){
-                ctrArbol.calcularMovimientos(tablero, 'N',1);
+                ctrArbol.calcularMovimientos(tablero, 'N',nodoRaiz);
             }
             else{
-                ctrArbol.calcularMovimientos(tablero, 'B',1);
+                ctrArbol.calcularMovimientos(tablero, 'B',nodoRaiz);
             }
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(TableroGUI.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            //simularMovimientoComputador();
         }
     }//GEN-LAST:event_btnJugarActionPerformed
 
@@ -683,21 +697,56 @@ public class TableroGUI extends javax.swing.JFrame {
             PintarPieza(equipo,tipopieza,posFinalx,posFinaly);
             tablero.getCasillas()[posFinalx][posFinaly]
                     .setPieza(ctrTablero.crearPieza(posFinalx,posFinaly,pieza.getNombrePieza(),pieza.getEquipo()));
+            intercambiarTurnoUsuario();
         }
     }
     
-    public void mostrarPosiblesMovimientos(String x,String y)throws InterruptedException{
-        int i = Integer.parseInt(x);
-        int j= Integer.parseInt(y);
-        if(!isActive){
-            //System.out.println("Se va mostrar posible movimiento");
-            if(!ctrTablero.getEstadoFinal()){
-                movimientosPosibles = ctrTablero.movimientosPosibles(tablero.getCasillas()[i][j].getPieza(), tablero); 
-                activarPosiblesJugadas();
+    public void simularMovimientoComputador(){
+        Jugada jugadaGenerada;
+        Pieza pieza;
+        Posicion movimiento;
+        jugadaGenerada = ctrArbol.getJugadaGenerada();
+        pieza = jugadaGenerada.getPieza();
+        char tipopieza = pieza.getCaracterPieza();
+        char equipo = pieza.getEquipo();
+        int i = pieza.getPosicion().getX() ;
+        int j = pieza.getPosicion().getY();
+        PintarPieza('B','N',i,j);
+        tablero.getCasillas()[i][j].setPieza(ctrTablero.crearPieza(i,j,"NoPieza",'X'));
+        movimiento = ctrArbol.getPosicionGenerada();
+        int posFinalx=0;
+        int posFinaly=0;
+        posFinalx = movimiento.getX();
+        posFinaly = movimiento.getY();
+        PintarPieza(equipo,tipopieza,posFinalx,posFinaly);
+        tablero.getCasillas()[posFinalx][posFinaly]
+                    .setPieza(ctrTablero.crearPieza(posFinalx,posFinaly,pieza.getNombrePieza(),pieza.getEquipo()));
+        ctrTablero.restablecerEstadoInicio();
+        intercambiarTurnoUsuario();
+    }
+         
+    public void intercambiarTurnoUsuario(){
+        turnoUsuario = !turnoUsuario; 
+        if(!turnoUsuario){
+            arbol = new Arbol(tablero);
+            nodoRaiz = arbol.getRaiz();
+            nodoRaiz.setNivel(0);
+            nodoRaiz.setIsMax(true);
+//            try {
+//                Thread.sleep(1000);
+//            } catch (InterruptedException ex) {
+//                Logger.getLogger(TableroGUI.class.getName()).log(Level.SEVERE, null, ex);
+//            }
+            if(colorJugador == 'B'){
+                ctrArbol.calcularMovimientos(tablero, 'N',nodoRaiz);
             }
+            else{
+                ctrArbol.calcularMovimientos(tablero, 'B',nodoRaiz);
+            }
+            simularMovimientoComputador();
         }
     }
-     
+    
     public final void PintarPieza(char color, char piece, int x, int y){ 
         switch(piece)
         {

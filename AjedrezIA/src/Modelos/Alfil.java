@@ -17,6 +17,8 @@ public class Alfil extends Pieza{
     //
     int PosFinalX=0;
     int PosFinalY=0;
+    //
+    int valorPieza=30;
     
     public Alfil(){
         super();
@@ -185,6 +187,11 @@ public class Alfil extends Pieza{
     @Override
     public char getCaracterPieza() {
         return 'A';
+    }
+
+    @Override
+    public int getValorPieza() {
+        return valorPieza;
     }
 
 }

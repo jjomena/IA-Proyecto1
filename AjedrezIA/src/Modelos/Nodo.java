@@ -10,6 +10,7 @@ public class Nodo {
     
     public Tablero tablero;
     public boolean isMax;
+    public int nivel;
     public int valor;
     public int alpha;
     public int beta;
@@ -54,7 +55,7 @@ public class Nodo {
         this.tablero = tablero;
     }
 
-    public boolean isIsMax() {
+    public boolean isMax() {
         return isMax;
     }
 
@@ -84,6 +85,14 @@ public class Nodo {
 
     public void setBeta(int beta) {
         this.beta = beta;
+    }
+
+    public int getNivel() {
+        return nivel;
+    }
+
+    public void setNivel(int nivel) {
+        this.nivel = nivel;
     }
     
 }
