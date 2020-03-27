@@ -26,35 +26,46 @@ public class Peon extends Pieza {
         boolean[][] posicionesPosibles = new boolean[8][8];
         char equipo = this.isEquipo();
         if (equipo=='B') {
-            if (0 < x && x  <= 7) {
+            if (x-1 >= 0) {
                 nombrepieza = tablero.getCasillas()[x-1][y].getPieza().getNombrePieza();
                 if("NoPieza".equals(nombrepieza)){
                     posicionesPosibles[x-1][y] = true;
                 }
-                nombrepieza = tablero.getCasillas()[x-1][y-1].getPieza().getNombrePieza();
-                if(!"NoPieza".equals(nombrepieza)){
-                    posicionesPosibles[x-1][y-1] = true;
+                if(0 <= y-1){
+                    nombrepieza = tablero.getCasillas()[x-1][y-1].getPieza().getNombrePieza();
+                    if(!"NoPieza".equals(nombrepieza)){
+                        posicionesPosibles[x-1][y-1] = true;
+                    }
                 }
-                nombrepieza = tablero.getCasillas()[x-1][y+1].getPieza().getNombrePieza();
-                if(!"NoPieza".equals(nombrepieza)){
-                    posicionesPosibles[x-1][y+1] = true;
+                if(y+1 <= 7){
+                    nombrepieza = tablero.getCasillas()[x-1][y+1].getPieza().getNombrePieza();
+                    if(!"NoPieza".equals(nombrepieza)){
+                        posicionesPosibles[x-1][y+1] = true;
+                    }
                 }
-                
+  
             }
         } else {
-            if (0 <= x  && x  < 7) {
+            if (x+1 <= 7) {
                 nombrepieza = tablero.getCasillas()[x+1][y].getPieza().getNombrePieza();
                 if("NoPieza".equals(nombrepieza)){
                     posicionesPosibles[x+1][y] = true;
                 }
-                nombrepieza = tablero.getCasillas()[x+1][y-1].getPieza().getNombrePieza();
-                if(!"NoPieza".equals(nombrepieza)){
-                    posicionesPosibles[x+1][y-1] = true;
+                
+                if(0 <= y-1){
+                    nombrepieza = tablero.getCasillas()[x+1][y-1].getPieza().getNombrePieza();
+                    if(!"NoPieza".equals(nombrepieza)){
+                        posicionesPosibles[x+1][y-1] = true;
+                    }
                 }
-                nombrepieza = tablero.getCasillas()[x+1][y+1].getPieza().getNombrePieza();
-                if(!"NoPieza".equals(nombrepieza)){
-                    posicionesPosibles[x+1][y+1] = true;
+                
+                if(y+1 <= 7){
+                    nombrepieza = tablero.getCasillas()[x+1][y+1].getPieza().getNombrePieza();
+                    if(!"NoPieza".equals(nombrepieza)){
+                        posicionesPosibles[x+1][y+1] = true;
+                    }
                 }
+
             }
         }
         posicionesPosibles[x][y] = false;

@@ -58,13 +58,14 @@ public class ControladorArbol {
                     if(equipoPieza == equipo){
                         System.out.println("Nombre Pieza: "+pieza.getNombrePieza());
                         movimientosPosibles = ctrTablero.movimientosPosibles(pieza, tablero);
+                        activarPosiblesJugadas();
                         Jugada jugada = new Jugada(pieza,movimientosPosibles,tablero);
                         jugadas.add(jugada);
                     }
                 }
             }
         }
-        verPosiblesJugadas(padre);    
+        //verPosiblesJugadas(padre);    
         //generarRandom();
     }
     
@@ -123,7 +124,7 @@ public class ControladorArbol {
                 .setPieza(ctrTablero.crearPieza(posX,posY,"NoPieza",'X'));
         tab.getCasillas()[movX][movY]
                     .setPieza(ctrTablero.crearPieza(movX,movY,pieza.getNombrePieza(),pieza.getEquipo()));
-        ctrTablero.imprimirTablero(tab);
+        //ctrTablero.imprimirTablero(tab);
         int profundidad = padre.getNivel();
         profundidad+=1;
         Nodo nodoHijo = new Nodo(tab);
@@ -140,6 +141,9 @@ public class ControladorArbol {
             }
             calcularMovimientos(tab,equipoEnJuego,nodoHijo);
         }
+//        else{
+//            calcularFuncionEvaluacion(nodoHijo,equipoEnJuego);
+//        }
     }
     
     
@@ -176,5 +180,36 @@ public class ControladorArbol {
     
     public Jugada getJugadaGenerada(){
         return movimientoPieza;
+    }
+    
+    public void calcularFuncionEvaluacion(Nodo nodo,char equipoEnJuego){
+        char equipoPieza;
+        Pieza pieza;
+        String nombre;
+        Tablero tableroCalcula;
+        tableroCalcula = nodo.getTablero();
+        int valorPieza;
+        int ptsFavor=0;
+        int ptsContra=0;
+        int valorFuncion=0;
+        for (int i=0;i<8;i++){
+            for(int j=0;j<8;j++){
+                pieza = tableroCalcula.getCasillas()[i][j].getPieza();
+                nombre = pieza.getNombrePieza();
+                equipoPieza = pieza.getEquipo();
+                if("NoPieza" != nombre){
+                    valorPieza = pieza.getValorPieza();
+                    if(equipoEnJuego == equipoPieza){
+                        ptsFavor = ptsFavor + valorPieza;
+                    }
+                    else{
+                        ptsContra = ptsContra + valorPieza;
+                    }
+                }
+            }
+        }
+        ctrTablero.imprimirTablero(tableroCalcula);
+        valorFuncion = ptsFavor - ptsContra;
+        System.out.println("Funcion Evaluacion: "+valorFuncion);
     }
 }
