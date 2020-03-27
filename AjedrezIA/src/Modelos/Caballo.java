@@ -23,26 +23,47 @@ public class Caballo extends Pieza {
     @Override
     public boolean[][] posicionesPosibles(int x,int y,Tablero tablero) {
         boolean [][] posicionesPosibles = new boolean [8][8];
+        char equipo = this.isEquipo();
         for(int i = 0; i < 8; i++){
             for(int j = 0; j < 8; j++){
                 if (i == x+2){
                     if(j == y+1 || j == y-1){
-                        posicionesPosibles[i][j] = true;
+                        if(tablero.getCasillas()[i][j].getPieza().getEquipo() == equipo ){
+                            posicionesPosibles[i][j] = false;
+                        }
+                        else{
+                            posicionesPosibles[i][j] = true;
+                        }
                     }
                 }   
                 if (i == x+1){
                     if(j == y+2 || j == y-2){
-                        posicionesPosibles[i][j] = true;
+                        if(tablero.getCasillas()[i][j].getPieza().getEquipo() == equipo ){
+                            posicionesPosibles[i][j] = false;
+                        }
+                        else{
+                            posicionesPosibles[i][j] = true;
+                        }
                     }
                 }
                 if (i == x-1){
                     if(j == y+2 || j == y-2){
-                        posicionesPosibles[i][j] = true;
+                        if(tablero.getCasillas()[i][j].getPieza().getEquipo() == equipo ){
+                            posicionesPosibles[i][j] = false;
+                        }
+                        else{
+                            posicionesPosibles[i][j] = true;
+                        }
                     }
                 }
                 if (i == x-2){
                     if(j == y+1 || j == y-1){
-                        posicionesPosibles[i][j] = true;
+                        if(tablero.getCasillas()[i][j].getPieza().getEquipo() == equipo ){
+                            posicionesPosibles[i][j] = false;
+                        }
+                        else{
+                            posicionesPosibles[i][j] = true;
+                        }
                     }
                 }
             }

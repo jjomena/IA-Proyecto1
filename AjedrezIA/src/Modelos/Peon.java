@@ -29,18 +29,34 @@ public class Peon extends Pieza {
             if (x-1 >= 0) {
                 nombrepieza = tablero.getCasillas()[x-1][y].getPieza().getNombrePieza();
                 if("NoPieza".equals(nombrepieza)){
-                    posicionesPosibles[x-1][y] = true;
+                    if(tablero.getCasillas()[x-1][y].getPieza().getEquipo() == equipo ){
+                        posicionesPosibles[x-1][y] = false;
+                    }
+                    else{
+                        posicionesPosibles[x-1][y] = true;
+                    }
                 }
                 if(0 <= y-1){
                     nombrepieza = tablero.getCasillas()[x-1][y-1].getPieza().getNombrePieza();
                     if(!"NoPieza".equals(nombrepieza)){
-                        posicionesPosibles[x-1][y-1] = true;
+                        if(tablero.getCasillas()[x-1][y-1].getPieza().getEquipo() == equipo ){
+                            posicionesPosibles[x-1][y-1] = false;
+                        }
+                        else{
+                            posicionesPosibles[x-1][y-1] = true;
+                        }
+                       
                     }
                 }
                 if(y+1 <= 7){
                     nombrepieza = tablero.getCasillas()[x-1][y+1].getPieza().getNombrePieza();
                     if(!"NoPieza".equals(nombrepieza)){
-                        posicionesPosibles[x-1][y+1] = true;
+                        if(tablero.getCasillas()[x-1][y+1].getPieza().getEquipo() == equipo ){
+                            posicionesPosibles[x-1][y+1] = false;
+                        }
+                        else{
+                            posicionesPosibles[x-1][y+1] = true;
+                        } 
                     }
                 }
   
@@ -49,23 +65,38 @@ public class Peon extends Pieza {
             if (x+1 <= 7) {
                 nombrepieza = tablero.getCasillas()[x+1][y].getPieza().getNombrePieza();
                 if("NoPieza".equals(nombrepieza)){
-                    posicionesPosibles[x+1][y] = true;
+                    if(tablero.getCasillas()[x+1][y].getPieza().getEquipo() == equipo ){
+                            posicionesPosibles[x+1][y] = false;
+                    }
+                    else{
+                        posicionesPosibles[x+1][y] = true;
+                    }
                 }
                 
                 if(0 <= y-1){
                     nombrepieza = tablero.getCasillas()[x+1][y-1].getPieza().getNombrePieza();
                     if(!"NoPieza".equals(nombrepieza)){
-                        posicionesPosibles[x+1][y-1] = true;
+                        if(tablero.getCasillas()[x+1][y-1].getPieza().getEquipo() == equipo ){
+                            posicionesPosibles[x+1][y-1] = false;
+                        }
+                        else{
+                            posicionesPosibles[x+1][y-1] = true;
+                        }
+                        
                     }
                 }
                 
                 if(y+1 <= 7){
                     nombrepieza = tablero.getCasillas()[x+1][y+1].getPieza().getNombrePieza();
                     if(!"NoPieza".equals(nombrepieza)){
-                        posicionesPosibles[x+1][y+1] = true;
+                        if(tablero.getCasillas()[x+1][y+1].getPieza().getEquipo() == equipo ){
+                            posicionesPosibles[x+1][y+1] = false;
+                        }
+                        else{
+                            posicionesPosibles[x+1][y+1] = true;
+                        }
                     }
                 }
-
             }
         }
         posicionesPosibles[x][y] = false;

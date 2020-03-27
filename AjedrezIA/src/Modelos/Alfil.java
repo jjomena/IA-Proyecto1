@@ -31,10 +31,14 @@ public class Alfil extends Pieza{
         boolean estado=true;
         posicionesPosibles[x][y] = false;
         estado=true;
+        char equipo = this.isEquipo();
         int iterX = x-1;
         int iterY = y-1;
         while((iterX>=0) && (iterY>=0)){        
             nombrepieza = tablero.getCasillas()[iterX][iterY].getPieza().getNombrePieza();
+            if(tablero.getCasillas()[iterX][iterY].getPieza().getEquipo() == equipo ){
+                estado = false;
+            }
             posicionesPosibles[iterX][iterY] = estado;
             if(!"NoPieza".equals(nombrepieza)){
                 estado = false;
@@ -48,8 +52,11 @@ public class Alfil extends Pieza{
         iterY = y+1;
         while((iterX>=0) && (iterY<=7)){
             nombrepieza = tablero.getCasillas()[iterX][iterY].getPieza().getNombrePieza();
+            if(tablero.getCasillas()[iterX][iterY].getPieza().getEquipo() == equipo ){
+                estado = false;
+            }
             posicionesPosibles[iterX][iterY] = estado;
-            if(nombrepieza != "NoPieza"){
+            if(!"NoPieza".equals(nombrepieza)){
                 estado = false;
             }
             iterX-=1;
@@ -60,6 +67,9 @@ public class Alfil extends Pieza{
         iterY = y-1;
         while((iterX<=7) && (iterY>=0)){
             nombrepieza = tablero.getCasillas()[iterX][iterY].getPieza().getNombrePieza();
+            if(tablero.getCasillas()[iterX][iterY].getPieza().getEquipo() == equipo ){
+                estado = false;
+            }
             posicionesPosibles[iterX][iterY] = estado;
             if(nombrepieza != "NoPieza"){
                 estado = false;
@@ -72,8 +82,11 @@ public class Alfil extends Pieza{
         iterY = y+1;
         while((iterX<=7) && (iterY<=7)){
             nombrepieza = tablero.getCasillas()[iterX][iterY].getPieza().getNombrePieza();
+            if(tablero.getCasillas()[iterX][iterY].getPieza().getEquipo() == equipo ){
+                estado = false;
+            }
             posicionesPosibles[iterX][iterY] = estado;
-            if(nombrepieza != "NoPieza"){
+            if(!"NoPieza".equals(nombrepieza)){
                 estado = false;
             }
             iterX+=1;
