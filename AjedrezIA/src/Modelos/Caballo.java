@@ -1,4 +1,4 @@
-/*
+ /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -17,30 +17,53 @@ public class Caballo extends Pieza {
     //
     int PosFinalX=0;
     int PosFinalY=0;
+    //
+    int valorPieza=30;
 
     @Override
     public boolean[][] posicionesPosibles(int x,int y,Tablero tablero) {
         boolean [][] posicionesPosibles = new boolean [8][8];
+        char equipo = this.isEquipo();
         for(int i = 0; i < 8; i++){
             for(int j = 0; j < 8; j++){
                 if (i == x+2){
                     if(j == y+1 || j == y-1){
-                        posicionesPosibles[i][j] = true;
+                        if(tablero.getCasillas()[i][j].getPieza().getEquipo() == equipo ){
+                            posicionesPosibles[i][j] = false;
+                        }
+                        else{
+                            posicionesPosibles[i][j] = true;
+                        }
                     }
                 }   
                 if (i == x+1){
                     if(j == y+2 || j == y-2){
-                        posicionesPosibles[i][j] = true;
+                        if(tablero.getCasillas()[i][j].getPieza().getEquipo() == equipo ){
+                            posicionesPosibles[i][j] = false;
+                        }
+                        else{
+                            posicionesPosibles[i][j] = true;
+                        }
                     }
                 }
                 if (i == x-1){
                     if(j == y+2 || j == y-2){
-                        posicionesPosibles[i][j] = true;
+                        if(tablero.getCasillas()[i][j].getPieza().getEquipo() == equipo ){
+                            posicionesPosibles[i][j] = false;
+                        }
+                        else{
+                            posicionesPosibles[i][j] = true;
+                        }
                     }
                 }
                 if (i == x-2){
                     if(j == y+1 || j == y-1){
-                        posicionesPosibles[i][j] = true;
+                        if(tablero.getCasillas()[i][j].getPieza().getEquipo() == equipo ){
+                            posicionesPosibles[i][j] = false;
+                        }
+                        else{
+                            posicionesPosibles[i][j] = true;
+                        }
                     }
                 }
             }
@@ -201,4 +224,10 @@ public class Caballo extends Pieza {
     public char getCaracterPieza() {
         return 'C';
     }
+
+    @Override
+    public int getValorPieza() {
+        return valorPieza;
+    }
+    
 }

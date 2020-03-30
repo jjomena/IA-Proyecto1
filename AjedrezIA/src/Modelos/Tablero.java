@@ -9,7 +9,7 @@ import Modelos.Casilla;
  *
  * @author actuaria
  */
-public class Tablero {
+public class Tablero{
     private Casilla [][] casillas;
     
     public Tablero(){
@@ -33,6 +33,17 @@ public class Tablero {
     public void setCasillas(Casilla[][] casillas) {
         this.casillas = casillas;
     }
-    
+//    
+//    @Override
+//    public Object clone() throws CloneNotSupportedException{
+//        Object obj=null;
+//        try{
+//            obj=super.clone();
+//        }catch(CloneNotSupportedException ex){
+//            System.out.println(" no se puede duplicar");
+//        }
+//        return obj;
+//    }
+//    
     
 }

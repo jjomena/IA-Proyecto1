@@ -17,26 +17,24 @@ public class Reina extends Pieza {
     //
     int PosFinalX=0;
     int PosFinalY=0;
+    //
+    int valorPieza=90;
    
     @Override
     public boolean[][] posicionesPosibles(int x,int y,Tablero tablero) {
         boolean [][] posicionesPosibles = new boolean [8][8];
         String nombrepieza;
         boolean estado=true;
-//        for(int i = 0; i < 8; i++){
-//            for(int j = 0; j < 8; j++){
-//                if (i == x || j == y )
-//                    posicionesPosibles[i][j] = true;
-//                if (i-x == j-y|| i-x == y-j )
-//                    posicionesPosibles[i][j] = true;                
-//            }
-//        }
         posicionesPosibles[x][y] = false;
         estado=true;
+        char equipo = this.isEquipo();
         int iterX = x;
         int iterY = y-1;
         while(iterY>=0){        
             nombrepieza = tablero.getCasillas()[iterX][iterY].getPieza().getNombrePieza();
+            if(tablero.getCasillas()[iterX][iterY].getPieza().getEquipo() == equipo ){
+                estado = false;
+            }
             posicionesPosibles[iterX][iterY] = estado;
             if(!"NoPieza".equals(nombrepieza)){
                 estado = false;
@@ -48,6 +46,9 @@ public class Reina extends Pieza {
         iterY = y+1;
         while(iterY<=7){        
             nombrepieza = tablero.getCasillas()[iterX][iterY].getPieza().getNombrePieza();
+            if(tablero.getCasillas()[iterX][iterY].getPieza().getEquipo() == equipo ){
+                estado = false;
+            }
             posicionesPosibles[iterX][iterY] = estado;
             if(!"NoPieza".equals(nombrepieza)){
                 estado = false;
@@ -59,6 +60,9 @@ public class Reina extends Pieza {
         iterY = y;
         while(iterX>=0){        
             nombrepieza = tablero.getCasillas()[iterX][iterY].getPieza().getNombrePieza();
+            if(tablero.getCasillas()[iterX][iterY].getPieza().getEquipo() == equipo ){
+                estado = false;
+            }
             posicionesPosibles[iterX][iterY] = estado;
             if(!"NoPieza".equals(nombrepieza)){
                 estado = false;
@@ -70,6 +74,9 @@ public class Reina extends Pieza {
         iterY = y;
         while(iterX<=7){        
             nombrepieza = tablero.getCasillas()[iterX][iterY].getPieza().getNombrePieza();
+            if(tablero.getCasillas()[iterX][iterY].getPieza().getEquipo() == equipo ){
+                estado = false;
+            }
             posicionesPosibles[iterX][iterY] = estado;
             if(!"NoPieza".equals(nombrepieza)){
                 estado = false;
@@ -81,6 +88,9 @@ public class Reina extends Pieza {
         iterY = y-1;
         while((iterX>=0) && (iterY>=0)){        
             nombrepieza = tablero.getCasillas()[iterX][iterY].getPieza().getNombrePieza();
+            if(tablero.getCasillas()[iterX][iterY].getPieza().getEquipo() == equipo ){
+                estado = false;
+            }
             posicionesPosibles[iterX][iterY] = estado;
             if(!"NoPieza".equals(nombrepieza)){
                 estado = false;
@@ -94,8 +104,11 @@ public class Reina extends Pieza {
         iterY = y+1;
         while((iterX>=0) && (iterY<=7)){
             nombrepieza = tablero.getCasillas()[iterX][iterY].getPieza().getNombrePieza();
+            if(tablero.getCasillas()[iterX][iterY].getPieza().getEquipo() == equipo ){
+                estado = false;
+            }
             posicionesPosibles[iterX][iterY] = estado;
-            if(nombrepieza != "NoPieza"){
+            if(!"NoPieza".equals(nombrepieza)){
                 estado = false;
             }
             iterX-=1;
@@ -106,6 +119,9 @@ public class Reina extends Pieza {
         iterY = y-1;
         while((iterX<=7) && (iterY>=0)){
             nombrepieza = tablero.getCasillas()[iterX][iterY].getPieza().getNombrePieza();
+            if(tablero.getCasillas()[iterX][iterY].getPieza().getEquipo() == equipo ){
+                estado = false;
+            }
             posicionesPosibles[iterX][iterY] = estado;
             if(nombrepieza != "NoPieza"){
                 estado = false;
@@ -118,6 +134,9 @@ public class Reina extends Pieza {
         iterY = y+1;
         while((iterX<=7) && (iterY<=7)){
             nombrepieza = tablero.getCasillas()[iterX][iterY].getPieza().getNombrePieza();
+            if(tablero.getCasillas()[iterX][iterY].getPieza().getEquipo() == equipo ){
+                estado = false;
+            }
             posicionesPosibles[iterX][iterY] = estado;
             if(nombrepieza != "NoPieza"){
                 estado = false;
@@ -245,6 +264,11 @@ public class Reina extends Pieza {
     @Override
     public char getCaracterPieza() {
         return 'D';
+    }
+
+    @Override
+    public int getValorPieza() {
+        return valorPieza;
     }
 
 

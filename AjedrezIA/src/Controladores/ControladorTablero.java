@@ -27,7 +27,7 @@ public class ControladorTablero {
     public static boolean estadoFinal=false;
     //
     public static ArrayList<Posicion> movimientos; //Movimientos a Ralizar
-    public static ArrayList<Posicion> movimientosPosibles=null;
+    public ArrayList<Posicion> movimientosPosibles;
     
     
     
@@ -96,7 +96,7 @@ public class ControladorTablero {
         }
         else if (estadoInicio){
             casillaFin=pieza.getPosicion();
-            if("NoPieza".equals(pieza.getNombrePieza())){
+            //if("NoPieza".equals(pieza.getNombrePieza())){
                 //String piezaacumulada = piezaContenida.getNombrePieza();
                 if(casillaInicio.getX() != casillaFin.getX() || 
                     casillaInicio.getY() != casillaFin.getY()){
@@ -104,18 +104,15 @@ public class ControladorTablero {
                         System.out.println("Movimiento valido");
                         estadoInicio=false;
                         movimientos = piezaContenida.casillasIntermedias(casillaInicio, casillaFin);
-                        //simularMovimiento(movimientos);   
                         estadoFinal=true;
                         
                     }
-                }
-            }
-            else{
-                JOptionPane.showMessageDialog(null, "Movimiento Invalido", "Validar Movimiento"
+                    else{
+                        JOptionPane.showMessageDialog(null, "Movimiento Invalido", "Validar Movimiento"
                         , JOptionPane.WARNING_MESSAGE);
-                estadoInicio=false;
-            }
-
+                        estadoInicio=false;
+                    }
+                }
         }
     }
     
@@ -140,15 +137,15 @@ public class ControladorTablero {
          return movimientosPosibles;  
     }
     
-    public void simularMovimiento(ArrayList<Posicion> movimientos){
-        Posicion posTemporal = new Posicion();
-        for(int i=0;i<movimientos.size();i++){
-            posTemporal = movimientos.get(i);
-            //System.out.println("Movimiento: "+posTemporal.getX()+","+posTemporal.getY());           
-        }
-    }
+//    public void simularMovimiento(ArrayList<Posicion> movimientos){
+//        Posicion posTemporal = new Posicion();
+//        for(int i=0;i<movimientos.size();i++){
+//            posTemporal = movimientos.get(i);
+//            //System.out.println("Movimiento: "+posTemporal.getX()+","+posTemporal.getY());           
+//        }
+//    }
     
-    public static ArrayList<Posicion> getMovimientos(){
+    public ArrayList<Posicion> getMovimientos(){
         return movimientos;
     }
     
@@ -157,4 +154,41 @@ public class ControladorTablero {
         return estadoFinal;
     }
     
+    public void setEstadoInicio(){
+        estadoInicio = true;
+    }
+    
+    public void restablecerEstadoInicio(){
+        estadoInicio = false;
+    }
+    
+    public void imprimirTablero(Tablero tablero){
+        char caracter;
+        char equipo;
+        System.out.println("--------------------------");
+        for(int i=0;i<8;i++){
+            System.out.println("\n");
+            for(int j=0;j<8;j++){
+                caracter = tablero.getCasillas()[i][j].getPieza().getCaracterPieza();
+                equipo = tablero.getCasillas()[i][j].getPieza().getEquipo();
+                if(caracter == 'N'){
+                    System.out.print("| |");
+                }
+                else{
+                    System.out.print("|"+caracter+equipo+"|");
+                }
+            }
+        }
+        System.out.println("\n");
+    }
+    
+    public Tablero copiarTablero(Tablero tablero){
+        Tablero copiaTablero = new Tablero();
+        for(int i=0;i<8;i++){
+            for(int j=0;j<8;j++){
+                copiaTablero.getCasillas()[i][j] = tablero.getCasillas()[i][j];
+            }
+        }
+        return copiaTablero; 
+    }   
 }

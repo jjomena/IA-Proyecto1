@@ -17,25 +17,24 @@ public class Torre extends Pieza {
     //
     int PosFinalX=0;
     int PosFinalY=0;
+    //
+    int valorPieza=50;
 
     @Override
      public boolean[][] posicionesPosibles(int x,int y,Tablero tablero) {
         boolean [][] posicionesPosibles = new boolean [8][8];
         String nombrepieza;
         boolean estado=true;
-//        for(int i = 0; i < 8; i++){
-//            for(int j = 0; j < 8; j++){
-//                if (i == x || j == y )
-//                    posicionesPosibles[i][j] = true;
-//                                
-//            }
-//        }
         posicionesPosibles[x][y] = false;
         estado=true;
+        char equipo = this.isEquipo();
         int iterX = x;
         int iterY = y-1;
         while(iterY>=0){        
             nombrepieza = tablero.getCasillas()[iterX][iterY].getPieza().getNombrePieza();
+            if(tablero.getCasillas()[iterX][iterY].getPieza().getEquipo() == equipo ){
+                estado = false;
+            }
             posicionesPosibles[iterX][iterY] = estado;
             if(!"NoPieza".equals(nombrepieza)){
                 estado = false;
@@ -47,6 +46,9 @@ public class Torre extends Pieza {
         iterY = y+1;
         while(iterY<=7){        
             nombrepieza = tablero.getCasillas()[iterX][iterY].getPieza().getNombrePieza();
+            if(tablero.getCasillas()[iterX][iterY].getPieza().getEquipo() == equipo ){
+                estado = false;
+            }
             posicionesPosibles[iterX][iterY] = estado;
             if(!"NoPieza".equals(nombrepieza)){
                 estado = false;
@@ -58,6 +60,9 @@ public class Torre extends Pieza {
         iterY = y;
         while(iterX>=0){        
             nombrepieza = tablero.getCasillas()[iterX][iterY].getPieza().getNombrePieza();
+            if(tablero.getCasillas()[iterX][iterY].getPieza().getEquipo() == equipo ){
+                estado = false;
+            }
             posicionesPosibles[iterX][iterY] = estado;
             if(!"NoPieza".equals(nombrepieza)){
                 estado = false;
@@ -69,6 +74,9 @@ public class Torre extends Pieza {
         iterY = y;
         while(iterX<=7){        
             nombrepieza = tablero.getCasillas()[iterX][iterY].getPieza().getNombrePieza();
+            if(tablero.getCasillas()[iterX][iterY].getPieza().getEquipo() == equipo ){
+                estado = false;
+            }
             posicionesPosibles[iterX][iterY] = estado;
             if(!"NoPieza".equals(nombrepieza)){
                 estado = false;
@@ -79,29 +87,29 @@ public class Torre extends Pieza {
     }
     
     
-    private boolean casillasIntermediasVacias(Posicion posicionNueva, Tablero tablero) {
-           int x1 = getPosicion().getX();
-           int y1 = getPosicion().getY();
-           int x2 = posicionNueva.getX();
-           int y2 = posicionNueva.getY();
-           int minX = Math.min(x1, x2);
-           int maxX = Math.max(x1, x2);
-           int minY = Math.min(y1,y2);
-           int maxY = Math.max(y1,y2);
-           
-           if(x1 == x2)
-               for(int i = minY + 1; i< maxY; i++)
-                   if(tablero.getCasillas()[x1][i].getPieza() instanceof NoPieza == false)
-                       return false;
-                  
-           if(y1 == y2)
-               for(int i = minX + 1; i< maxX; i++)
-                   if(tablero.getCasillas()[i][y1].getPieza() instanceof NoPieza == false)
-                       return false;
-                   
-           return true;
-                   
-    }
+//    private boolean casillasIntermediasVacias(Posicion posicionNueva, Tablero tablero) {
+//           int x1 = getPosicion().getX();
+//           int y1 = getPosicion().getY();
+//           int x2 = posicionNueva.getX();
+//           int y2 = posicionNueva.getY();
+//           int minX = Math.min(x1, x2);
+//           int maxX = Math.max(x1, x2);
+//           int minY = Math.min(y1,y2);
+//           int maxY = Math.max(y1,y2);
+//           
+//           if(x1 == x2)
+//               for(int i = minY + 1; i< maxY; i++)
+//                   if(tablero.getCasillas()[x1][i].getPieza() instanceof NoPieza == false)
+//                       return false;
+//                  
+//           if(y1 == y2)
+//               for(int i = minX + 1; i< maxX; i++)
+//                   if(tablero.getCasillas()[i][y1].getPieza() instanceof NoPieza == false)
+//                       return false;
+//                   
+//           return true;
+//                   
+//    }
     
     
     
@@ -116,12 +124,12 @@ public class Torre extends Pieza {
        if(posicionesPosibles(PosInicialX,PosInicialY,tablero)[PosFinalX][PosFinalY]== false)
            return false;
        
-       else
-           if (piezasDelMismoEquipo(tablero)[PosFinalX][PosFinalY])
-                return false;
-           else
-              if (casillasIntermediasVacias(posicionNueva, tablero) == false)
-                  return false;
+//       else
+//           if (piezasDelMismoEquipo(tablero)[PosFinalX][PosFinalY])
+//                return false;
+//           else
+//              if (casillasIntermediasVacias(posicionNueva, tablero) == false)
+//                  return false;
         return true;
     }
 
@@ -185,4 +193,8 @@ public class Torre extends Pieza {
         return 'T';
     }
 
+    @Override
+    public int getValorPieza() {
+        return valorPieza;
+    }
 }

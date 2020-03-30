@@ -14,12 +14,12 @@ import javax.swing.JFileChooser;
  */
 public class ControladorInicio {
     
-    public static void CargarArchivo(String Jugador,ArrayList<String> comandos,String colorJuego,String usuarioInicio){
+    public static void CargarArchivo(String Jugador,ArrayList<String> comandos,char colorJugador,boolean usuarioInicio){
         TableroGUI tb = new TableroGUI();
         tb.agregarComponentes();
         tb.setVisible(true);
-        tb.desactivarFichas();
-        tb.agregarJugador(Jugador,colorJuego);
+        tb.activarDesactivarPanelFichas(false);
+        tb.agregarJugador(Jugador,colorJugador,usuarioInicio);
         //
         for (String comando : comandos) {
             int row = 0;
@@ -53,12 +53,11 @@ public class ControladorInicio {
         }
     }
     
-    public static void CargarManual(String Jugador,String colorJuego,String usuarioInicio){
+    public static void CargarManual(String Jugador,char colorJugador,boolean usuarioInicio){
         TableroGUI tb = new TableroGUI();
         tb.agregarComponentes();
         tb.setVisible(true);
-        tb.activarFichas();
-        tb.agregarJugador(Jugador,colorJuego);
-    }
-    
+        tb.activarDesactivarPanelFichas(true);
+        tb.agregarJugador(Jugador,colorJugador,usuarioInicio);
+    }  
 }

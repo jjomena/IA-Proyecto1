@@ -49,7 +49,9 @@ public abstract class Pieza {
    abstract public boolean validarMovimiento(Posicion posicionInicio,Posicion posicionNueva, Tablero tablero);
    abstract public String getNombrePieza();
    abstract public char getCaracterPieza();
+   abstract public int getValorPieza();
    abstract public ArrayList<Posicion> casillasIntermedias(Posicion posicionInicial,Posicion posicionNueva);
+   
    
    public boolean [][] piezasDelMismoEquipo(Tablero tablero){
         boolean [][] piezasDelMismoEquipo = new boolean [8][8];

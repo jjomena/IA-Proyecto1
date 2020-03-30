@@ -45,4 +45,9 @@ public class NoPieza extends Pieza {
     public char getCaracterPieza() {
         return 'N';
     }    
+
+    @Override
+    public int getValorPieza() {
+        return 0;
+    }
 }

@@ -17,6 +17,8 @@ public class Peon extends Pieza {
     //
     int PosFinalX=0;
     int PosFinalY=0;
+    //
+    int valorPieza=10;
 
     @Override
     public boolean[][] posicionesPosibles(int x,int y,Tablero tablero) {
@@ -24,21 +26,79 @@ public class Peon extends Pieza {
         boolean[][] posicionesPosibles = new boolean[8][8];
         char equipo = this.isEquipo();
         if (equipo=='B') {
-            if (0 < x && x  <= 7) {
+            if (x-1 >= 0) {
                 nombrepieza = tablero.getCasillas()[x-1][y].getPieza().getNombrePieza();
                 if("NoPieza".equals(nombrepieza)){
-                    posicionesPosibles[x-1][y] = true;
+                    if(tablero.getCasillas()[x-1][y].getPieza().getEquipo() == equipo ){
+                        posicionesPosibles[x-1][y] = false;
+                    }
+                    else{
+                        posicionesPosibles[x-1][y] = true;
+                    }
                 }
+                if(0 <= y-1){
+                    nombrepieza = tablero.getCasillas()[x-1][y-1].getPieza().getNombrePieza();
+                    if(!"NoPieza".equals(nombrepieza)){
+                        if(tablero.getCasillas()[x-1][y-1].getPieza().getEquipo() == equipo ){
+                            posicionesPosibles[x-1][y-1] = false;
+                        }
+                        else{
+                            posicionesPosibles[x-1][y-1] = true;
+                        }
+                       
+                    }
+                }
+                if(y+1 <= 7){
+                    nombrepieza = tablero.getCasillas()[x-1][y+1].getPieza().getNombrePieza();
+                    if(!"NoPieza".equals(nombrepieza)){
+                        if(tablero.getCasillas()[x-1][y+1].getPieza().getEquipo() == equipo ){
+                            posicionesPosibles[x-1][y+1] = false;
+                        }
+                        else{
+                            posicionesPosibles[x-1][y+1] = true;
+                        } 
+                    }
+                }
+  
             }
         } else {
-            if (0 <= x  && x  < 7) {
+            if (x+1 <= 7) {
                 nombrepieza = tablero.getCasillas()[x+1][y].getPieza().getNombrePieza();
                 if("NoPieza".equals(nombrepieza)){
-                    posicionesPosibles[x+1][y] = true;
+                    if(tablero.getCasillas()[x+1][y].getPieza().getEquipo() == equipo ){
+                            posicionesPosibles[x+1][y] = false;
+                    }
+                    else{
+                        posicionesPosibles[x+1][y] = true;
+                    }
+                }
+                
+                if(0 <= y-1){
+                    nombrepieza = tablero.getCasillas()[x+1][y-1].getPieza().getNombrePieza();
+                    if(!"NoPieza".equals(nombrepieza)){
+                        if(tablero.getCasillas()[x+1][y-1].getPieza().getEquipo() == equipo ){
+                            posicionesPosibles[x+1][y-1] = false;
+                        }
+                        else{
+                            posicionesPosibles[x+1][y-1] = true;
+                        }
+                        
+                    }
+                }
+                
+                if(y+1 <= 7){
+                    nombrepieza = tablero.getCasillas()[x+1][y+1].getPieza().getNombrePieza();
+                    if(!"NoPieza".equals(nombrepieza)){
+                        if(tablero.getCasillas()[x+1][y+1].getPieza().getEquipo() == equipo ){
+                            posicionesPosibles[x+1][y+1] = false;
+                        }
+                        else{
+                            posicionesPosibles[x+1][y+1] = true;
+                        }
+                    }
                 }
             }
         }
-
         posicionesPosibles[x][y] = false;
         return posicionesPosibles;
     }
@@ -79,18 +139,11 @@ public class Peon extends Pieza {
          PosFinalX = posicionNueva.getX();
          PosFinalY = posicionNueva.getY();
          
+         if(posicionesPosibles(PosInicialX,PosInicialY,tablero)[PosFinalX][PosFinalY]== false){
+             return false;
+         }
            
-       if(posicionesPosibles(PosInicialX,PosInicialY,tablero)[PosFinalX][PosFinalY] && (tablero.getCasillas()[PosFinalX][PosFinalY].getPieza() instanceof NoPieza))
-           return true;
-       
-      if (posicionesParaComer()[PosFinalX][PosFinalY] && piezasDelEquipoContrario(tablero)[PosFinalX][PosFinalY])
-           return true;
-      if(this.isEquipo()=='N' && PosInicialY==1 && PosFinalY == 3 && PosInicialY == PosInicialX )
-          return true;
-      if(this.isEquipo()=='B' && PosInicialY==6 && PosFinalY == 4 && PosInicialY == PosInicialX )
-          return true;
-      
-        return false;
+       return true;
     }
 
     @Override
@@ -108,5 +161,10 @@ public class Peon extends Pieza {
     @Override
     public char getCaracterPieza() {
         return 'P';
+    }
+
+    @Override
+    public int getValorPieza() {
+        return valorPieza;
     }
 }
