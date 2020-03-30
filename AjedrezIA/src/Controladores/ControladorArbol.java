@@ -23,23 +23,18 @@ public class ControladorArbol {
     public char equipoEnJuego;
     public Posicion posicionGenerada;
     public Jugada movimientoPieza=null;
-    public int maximoNivel=1;
+    public int maximoNivel=2;
     
     public ControladorArbol(){
     }
     
-//    public void crearArbol(){
-//        
-//        arbol = new Arbol();
-//    }
-//    
-//    public void agregarNodoRaiz(Tablero tablero){
-//        arbol.setRaiz(tablero);
-//    }
-//    
-//    public Nodo getNodoRaiz(){
-//        return arbol.getRaiz();
-//    }
+    public void crearArbol(Tablero tablero){
+        
+        arbol = new Arbol(tablero);
+    }
+    public Nodo getNodoRaiz(){
+        return arbol.getRaiz();
+    }
     
     public void calcularMovimientos(Tablero tablero,char equipo,Nodo padre){
         char equipoPieza;
@@ -131,6 +126,10 @@ public class ControladorArbol {
     public void generarNodosHijos(Tablero tab,int posX,int posY,Pieza pieza,Posicion mover,Nodo padre){
         int movX;
         int movY;
+        Posicion posInicial = new Posicion();
+        posInicial.setX(posX);
+        posInicial.setY(posY);
+        boolean isMax;
         movX = mover.getX();
         movY = mover.getY();
         tab.getCasillas()[posX][posY]
@@ -144,39 +143,44 @@ public class ControladorArbol {
         nodoHijo.setNodoPadre(padre);
         padre.agregarNodoHijo(nodoHijo);
         nodoHijo.setIsMax(!padre.isMax());
+        nodoHijo.setPieza(pieza);
+        nodoHijo.setPosInicial(posInicial);
+        nodoHijo.setPosFinal(mover);
         System.out.println("TABLERO DESPUES DEL MOVIMIENTO");
-        ctrTablero.imprimirTablero(tab);
-        if(equipoEnJuego == 'B'){
-            equipoEnJuego = 'N';
-        }
-        if(equipoEnJuego == 'N'){
-            equipoEnJuego = 'B';
-        }
+        ctrTablero.imprimirTablero(tab); 
+//        if(equipoEnJuego == 'B'){
+//            equipoEnJuego = 'N';
+//        }
+//        else if(equipoEnJuego == 'N'){
+//            equipoEnJuego = 'B';
+//        }
         if(profundidad <= maximoNivel){
-//            if(equipoEnJuego == 'B'){
-//                equipoEnJuego = 'N';
-//            }
-//            if(equipoEnJuego == 'N'){
-//                equipoEnJuego = 'B';
-//            }
+            if(equipoEnJuego == 'B'){
+                equipoEnJuego = 'N';
+            }
+            else if(equipoEnJuego == 'N'){
+                equipoEnJuego = 'B';
+            }
+            
             calcularMovimientos(tab,equipoEnJuego,nodoHijo);
         }
         else{
-            System.out.println("Fin de la rama");
-            //calcularFuncionEvaluacion(nodoHijo,equipoEnJuego);
+            //System.out.println("Fin de la rama");
+            System.out.println("EQUIPO EN JUEGO "+equipoEnJuego);
+            calcularFuncionEvaluacion(nodoHijo,equipoEnJuego);
         }
     }
     
     
-    public Tablero copiarTablero(Tablero tablero){
-        Tablero copiaTablero = new Tablero();
-        for(int i=0;i<8;i++){
-            for(int j=0;j<8;j++){
-                copiaTablero.getCasillas()[i][j] = tablero.getCasillas()[i][j];
-            }
-        }
-        return copiaTablero; 
-    }
+//    public Tablero copiarTablero(Tablero tablero){
+//        Tablero copiaTablero = new Tablero();
+//        for(int i=0;i<8;i++){
+//            for(int j=0;j<8;j++){
+//                copiaTablero.getCasillas()[i][j] = tablero.getCasillas()[i][j];
+//            }
+//        }
+//        return copiaTablero; 
+//    }
     
 //    public void generarRandom(){
 //        int cantPiezas = jugadas.size();
@@ -218,7 +222,7 @@ public class ControladorArbol {
                 pieza = tableroCalcula.getCasillas()[i][j].getPieza();
                 nombre = pieza.getNombrePieza();
                 equipoPieza = pieza.getEquipo();
-                if("NoPieza" != nombre){
+                if(!"NoPieza".equals(nombre)){
                     valorPieza = pieza.getValorPieza();
                     if(equipoEnJuego == equipoPieza){
                         ptsFavor = ptsFavor + valorPieza;
@@ -229,8 +233,26 @@ public class ControladorArbol {
                 }
             }
         }
-        ctrTablero.imprimirTablero(tableroCalcula);
         valorFuncion = ptsFavor - ptsContra;
+        nodo.setValor(valorFuncion);
         System.out.println("Funcion Evaluacion: "+valorFuncion);
+    }
+    
+    public Nodo ejecutarMovimiento(){
+        int valorCalculado;
+        int valorHijo;
+        Nodo raiz = getNodoRaiz();
+        ArrayList<Nodo> nodosHijos;
+        nodosHijos = raiz.getNodosHijos();
+        Nodo movRealizar = null;
+        valorCalculado = raiz.getValor();
+        for(int i=0;i<nodosHijos.size();i++){
+            movRealizar = nodosHijos.get(i);
+            valorHijo = movRealizar.getValor();
+            if(valorHijo == valorCalculado){
+                return movRealizar;
+            }
+        }
+        return movRealizar;
     }
 }

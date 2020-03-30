@@ -503,10 +503,16 @@ public class TableroGUI extends javax.swing.JFrame {
         // TODO add your handling code here:
         activarDesactivarPanelFichas(false);
         isActive=false;
-        arbol = new Arbol(tablero);
-        nodoRaiz = arbol.getRaiz();
+        ctrArbol.crearArbol(tablero);
+        nodoRaiz = ctrArbol.getNodoRaiz();
         nodoRaiz.setNivel(0);
         nodoRaiz.setIsMax(true);
+        
+        
+        //arbol = new Arbol(tablero);
+//        nodoRaiz = arbol.getRaiz();
+//        nodoRaiz.setNivel(0);
+//        nodoRaiz.setIsMax(true);
         //ctrArbol.crearArbol();
         //ctrArbol.agregarNodoRaiz(tablero);
         //ctrTablero.imprimirTablero(tablero);
@@ -702,23 +708,25 @@ public class TableroGUI extends javax.swing.JFrame {
     }
     
     public void simularMovimientoComputador(){
-        Jugada jugadaGenerada;
+        Nodo jugadaGenerada;
         Pieza pieza;
+        Posicion posInicial;
         Posicion movimiento;
-        jugadaGenerada = ctrArbol.getJugadaGenerada();
+        jugadaGenerada = ctrArbol.ejecutarMovimiento();
         pieza = jugadaGenerada.getPieza();
         char tipopieza = pieza.getCaracterPieza();
-        char equipo = pieza.getEquipo();
-        int i = pieza.getPosicion().getX() ;
-        int j = pieza.getPosicion().getY();
+        char equipoJuego = pieza.getEquipo();
+        posInicial = jugadaGenerada.getPosInicial();
+        int i = posInicial.getX() ;
+        int j = posInicial.getY();
         PintarPieza('B','N',i,j);
         tablero.getCasillas()[i][j].setPieza(ctrTablero.crearPieza(i,j,"NoPieza",'X'));
-        movimiento = ctrArbol.getPosicionGenerada();
-        int posFinalx=0;
-        int posFinaly=0;
+        movimiento = jugadaGenerada.getPosFinal();
+        int posFinalx;
+        int posFinaly;
         posFinalx = movimiento.getX();
         posFinaly = movimiento.getY();
-        PintarPieza(equipo,tipopieza,posFinalx,posFinaly);
+        PintarPieza(equipoJuego,tipopieza,posFinalx,posFinaly);
         tablero.getCasillas()[posFinalx][posFinaly]
                     .setPieza(ctrTablero.crearPieza(posFinalx,posFinaly,pieza.getNombrePieza(),pieza.getEquipo()));
         ctrTablero.restablecerEstadoInicio();
@@ -728,8 +736,8 @@ public class TableroGUI extends javax.swing.JFrame {
     public void intercambiarTurnoUsuario(){
         turnoUsuario = !turnoUsuario; 
         if(!turnoUsuario){
-            arbol = new Arbol(tablero);
-            nodoRaiz = arbol.getRaiz();
+            ctrArbol.crearArbol(tablero);
+            nodoRaiz = ctrArbol.getNodoRaiz();
             nodoRaiz.setNivel(0);
             nodoRaiz.setIsMax(true);
 //            try {

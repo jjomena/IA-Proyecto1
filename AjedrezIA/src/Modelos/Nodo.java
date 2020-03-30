@@ -11,11 +11,38 @@ public class Nodo {
     public Tablero tablero;
     public boolean isMax;
     public int nivel;
-    public int valor;
+    public int valor=0;
     public int alpha;
     public int beta;
     public Nodo nodoPadre=null;
     public ArrayList<Nodo> nodosHijos = new ArrayList<>();
+    public Pieza pieza;
+    public Posicion posInicial;
+
+    public Pieza getPieza() {
+        return pieza;
+    }
+
+    public void setPieza(Pieza pieza) {
+        this.pieza = pieza;
+    }
+
+    public Posicion getPosInicial() {
+        return posInicial;
+    }
+
+    public void setPosInicial(Posicion posInicial) {
+        this.posInicial = posInicial;
+    }
+
+    public Posicion getPosFinal() {
+        return posFinal;
+    }
+
+    public void setPosFinal(Posicion posFinal) {
+        this.posFinal = posFinal;
+    }
+    public Posicion posFinal;
     
     public Nodo(){};
 
@@ -94,5 +121,7 @@ public class Nodo {
     public void setNivel(int nivel) {
         this.nivel = nivel;
     }
+    
+    
     
 }
