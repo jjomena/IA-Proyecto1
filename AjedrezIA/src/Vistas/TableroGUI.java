@@ -58,7 +58,7 @@ public class TableroGUI extends javax.swing.JFrame {
     ModeloRegistrarActividad modeloActividad = new ModeloRegistrarActividad();
     
     /*Variables de controladores*/
-    ControladorTablero ctrTablero = new ControladorTablero();
+    ControladorTablero ctrTablero = ControladorTablero.getInstance();
     ControladorArbol ctrArbol = new ControladorArbol();
 
     
@@ -508,14 +508,6 @@ public class TableroGUI extends javax.swing.JFrame {
         nodoRaiz.setNivel(0);
         nodoRaiz.setIsMax(true);
         
-        
-        //arbol = new Arbol(tablero);
-//        nodoRaiz = arbol.getRaiz();
-//        nodoRaiz.setNivel(0);
-//        nodoRaiz.setIsMax(true);
-        //ctrArbol.crearArbol();
-        //ctrArbol.agregarNodoRaiz(tablero);
-        //ctrTablero.imprimirTablero(tablero);
         if(!turnoUsuario){
             if(colorJugador == 'B'){
                 ctrArbol.calcularMovimientos(tablero, 'N',nodoRaiz);
@@ -523,11 +515,8 @@ public class TableroGUI extends javax.swing.JFrame {
             else{
                 ctrArbol.calcularMovimientos(tablero, 'B',nodoRaiz);
             }
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException ex) {
-                Logger.getLogger(TableroGUI.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            Nodo jugadaGenerada = ctrArbol.ejecutarMovimiento();
+            ctrArbol.imprimirArbol(nodoRaiz, 1);
             //simularMovimientoComputador();
         }
     }//GEN-LAST:event_btnJugarActionPerformed
@@ -691,7 +680,7 @@ public class TableroGUI extends javax.swing.JFrame {
             PintarPieza('B','N',pieza.getPosicion().getX(),pieza.getPosicion().getY());
             tablero.getCasillas()[i][j]
                     .setPieza(ctrTablero.crearPieza(i,j,"NoPieza",'X'));
-            Posicion posTemporal = new Posicion();
+            Posicion posTemporal;
             int posFinalx=0;
             int posFinaly=0;
             for(int h=0;h<movimientos.size();h++){
