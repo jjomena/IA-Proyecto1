@@ -29,6 +29,17 @@ public class ControladorTablero {
     public static ArrayList<Posicion> movimientos; //Movimientos a Ralizar
     public ArrayList<Posicion> movimientosPosibles;
     
+    private static ControladorTablero INSTANCE;
+    
+    private ControladorTablero(){
+    }
+    
+    public static ControladorTablero getInstance(){
+        if(INSTANCE==null){
+            INSTANCE = new ControladorTablero();
+        }
+        return INSTANCE;
+    }
     
     
     public Pieza crearPieza(int x,int y,String nombrePieza,char equipo){
@@ -79,7 +90,7 @@ public class ControladorTablero {
     public void moverPieza(Pieza pieza,Tablero tablero){
         String nombrePieza = pieza.getNombrePieza();
         //System.out.println("Nombre Pieza: "+nombrePieza);
-        char caracter = pieza.getCaracterPieza();
+        //char caracter = pieza.getCaracterPieza();
         //System.out.println("Caracter pieza: "+caracter);
         if(estadoInicio==false){
             estadoFinal=false;
@@ -160,6 +171,7 @@ public class ControladorTablero {
     
     public void restablecerEstadoInicio(){
         estadoInicio = false;
+        estadoFinal = false;
     }
     
     public void imprimirTablero(Tablero tablero){

@@ -18,32 +18,8 @@ public class Nodo {
     public ArrayList<Nodo> nodosHijos = new ArrayList<>();
     public Pieza pieza;
     public Posicion posInicial;
-
-    public Pieza getPieza() {
-        return pieza;
-    }
-
-    public void setPieza(Pieza pieza) {
-        this.pieza = pieza;
-    }
-
-    public Posicion getPosInicial() {
-        return posInicial;
-    }
-
-    public void setPosInicial(Posicion posInicial) {
-        this.posInicial = posInicial;
-    }
-
-    public Posicion getPosFinal() {
-        return posFinal;
-    }
-
-    public void setPosFinal(Posicion posFinal) {
-        this.posFinal = posFinal;
-    }
     public Posicion posFinal;
-    
+
     public Nodo(){};
 
     public Nodo(Tablero tablero){
@@ -121,6 +97,31 @@ public class Nodo {
     public void setNivel(int nivel) {
         this.nivel = nivel;
     }
+    
+        public Pieza getPieza() {
+        return pieza;
+    }
+
+    public void setPieza(Pieza pieza) {
+        this.pieza = pieza;
+    }
+
+    public Posicion getPosInicial() {
+        return posInicial;
+    }
+
+    public void setPosInicial(Posicion posInicial) {
+        this.posInicial = posInicial;
+    }
+
+    public Posicion getPosFinal() {
+        return posFinal;
+    }
+
+    public void setPosFinal(Posicion posFinal) {
+        this.posFinal = posFinal;
+    }
+    
     
     
     
