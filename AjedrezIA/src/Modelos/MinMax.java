@@ -36,6 +36,7 @@ public class MinMax {
         int acumulado=-1500;
         int valorMax;
         int valorFinal;
+        int valorBeta;
         valorFinal = rama.getValor();
         if(profundidad == 0){
             acumulado = valorFinal;
@@ -49,10 +50,21 @@ public class MinMax {
             }
 
             for(int i=0;i<cantHijos;i++){
+                Nodo padre = rama.getNodoPadre(); 
+                if(padre ==  null){
+                    valorBeta = -1;
+                }
+                else{
+                    valorBeta = padre.getBeta();
+                }
                 Nodo nodoHijo = nodosHijos.get(i);
                 valorMax = Min(nodoHijo,profundidad-1);
                 if(valorMax>acumulado){
                     acumulado = valorMax;
+                    rama.setAlpha(acumulado);
+                }
+                if((valorMax>valorBeta) &&(valorBeta != -1)){
+                    break;
                 }
             }
             rama.setValor(acumulado);
@@ -61,10 +73,10 @@ public class MinMax {
     }
     
     public int Min(Nodo rama,int profundidad){
-        //profundidad -=1;
         int acumulado=1500;
-        int valorMin=0;
+        int valorMin;
         int valorFinal;
+        int valorAlfa;
         valorFinal = rama.getValor();
         if(profundidad == 0){
             acumulado = valorFinal;
@@ -75,20 +87,24 @@ public class MinMax {
             
             if (cantHijos == 0){
                 acumulado = valorFinal;
+                
             }
 
             for(int i=0;i<cantHijos;i++){
+                valorAlfa = rama.getNodoPadre().getAlpha();
                 Nodo nodoHijo = nodosHijos.get(i);
                 valorMin = Max(nodoHijo,profundidad-1);
                 if(valorMin<acumulado){
                     acumulado = valorMin;
+                    rama.setBeta(acumulado);
+                }
+                if((valorAlfa>valorMin) && (valorAlfa !=-1)){
+                    break;
                 }
             }
             rama.setValor(acumulado);
         }
         
         return acumulado;
-    } 
-    
-    
+    }   
 }

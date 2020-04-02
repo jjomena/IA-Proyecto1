@@ -12,8 +12,8 @@ public class Nodo {
     public boolean isMax;
     public int nivel;
     public int valor=0;
-    public int alpha;
-    public int beta;
+    public int alpha=-1;
+    public int beta=-1;
     public Nodo nodoPadre=null;
     public ArrayList<Nodo> nodosHijos = new ArrayList<>();
     public Pieza pieza;

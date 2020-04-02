@@ -518,7 +518,7 @@ public class TableroGUI extends javax.swing.JFrame {
             Nodo jugadaGenerada = ctrArbol.ejecutarMovimiento();
             nodoRaiz = ctrArbol.getNodoRaiz();
             ctrArbol.imprimirArbol(nodoRaiz, 1);
-            //simularMovimientoComputador();
+            simularMovimientoComputador();
         }
     }//GEN-LAST:event_btnJugarActionPerformed
 
