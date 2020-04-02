@@ -1,4 +1,4 @@
-  package Controladores;
+   package Controladores;
 
 import Modelos.Arbol;
 import Modelos.Jugada;
@@ -18,9 +18,6 @@ public class ControladorArbol {
     public Arbol arbol=null;
     public ControladorTablero ctrTablero;
     public ArrayList<Posicion> movimientosPosibles;
-    //public ArrayList<Jugada> jugadas;
-//    public int profundidad = 2;
-//    public int nivelActual = 1;
     public char equipoEnJuego;
     public Posicion posicionGenerada;
     public Jugada movimientoPieza=null;
@@ -106,7 +103,7 @@ public class ControladorArbol {
             }
             //System.out.println("TABLERO REVERSADO DEL MOVIMIENTO");
             //ctrTablero.imprimirTablero(tableroJuego);
-            System.out.println("------------------------------");
+            //System.out.println("------------------------------");
             //System.out.println("-------FIN DE PIEZA------: "+pieza.getNombrePieza()+":"+pieza.getEquipo()+"\n");
             //System.out.println("Cambio de pieza");
         }
@@ -117,7 +114,7 @@ public class ControladorArbol {
         int movX;
         int movY;
         int size;
-        System.out.println("Movimientos posibles: "+movimientosPosibles.size());
+        //System.out.println("Movimientos posibles: "+movimientosPosibles.size());
         for(int i=0;i < movimientosPosibles.size();i++){
             mover = movimientosPosibles.get(i);
             movX = mover.getX();
@@ -164,7 +161,7 @@ public class ControladorArbol {
         }
         else{
             //System.out.println("Fin de la rama");
-            System.out.println("EQUIPO EN JUEGO "+equipoEnJuego);
+            //System.out.println("EQUIPO EN JUEGO "+equipoEnJuego);
             calcularFuncionEvaluacion(nodoHijo,equipo);
         }
     }
@@ -231,10 +228,10 @@ public class ControladorArbol {
                 }
             }
         }
-        ctrTablero.imprimirTablero(tableroCalcula); 
+        //ctrTablero.imprimirTablero(tableroCalcula); 
         valorFuncion = ptsFavor - ptsContra;
         nodo.setValor(valorFuncion);
-        System.out.println("Funcion Evaluacion: "+valorFuncion);
+        //System.out.println("Funcion Evaluacion: "+valorFuncion);
     }
     
     public Nodo ejecutarMovimiento(){
