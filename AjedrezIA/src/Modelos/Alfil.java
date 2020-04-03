@@ -71,7 +71,7 @@ public class Alfil extends Pieza{
                 estado = false;
             }
             posicionesPosibles[iterX][iterY] = estado;
-            if(nombrepieza != "NoPieza"){
+            if(!"NoPieza".equals(nombrepieza)){
                 estado = false;
             }
             iterX+=1;
