@@ -1,17 +1,7 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package Modelos;
 
-import Modelos.NoPieza;
-import Modelos.Pieza;
-
-/**
- *
- * @author actuaria
- */
 public class Casilla {
+    
     private char color;
     public Pieza pieza;
     
@@ -32,8 +22,5 @@ public class Casilla {
 
     public void setPieza(Pieza pieza) {
         this.pieza = pieza;
-    }
-    
-    
-    
+    } 
 }

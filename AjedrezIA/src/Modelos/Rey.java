@@ -22,19 +22,13 @@ public class Rey extends Pieza {
 
     @Override
     public boolean[][] posicionesPosibles(int x,int y,Tablero tablero) {
-        String nombrepieza;
         boolean [][] posicionesPosibles = new boolean [8][8];
         char equipo = this.isEquipo();
         for(int i = 0; i < 8; i++){
             for(int j = 0; j < 8; j++){
                 if (i == x || i == x+1 || i == x-1){
                     if(j == y || j == y+1 || j == y-1){
-                        if(tablero.getCasillas()[i][j].getPieza().getEquipo() == equipo ){
-                            posicionesPosibles[i][j] = false;
-                        }
-                        else{
-                            posicionesPosibles[i][j] = true;
-                        }
+                        posicionesPosibles[i][j] = tablero.getCasillas()[i][j].getPieza().getEquipo() != equipo;
                     }
                 }                   
             }
@@ -55,13 +49,7 @@ public class Rey extends Pieza {
          
          
            
-       if(!posicionesPosibles(PosInicialX,PosInicialY,tablero)[PosFinalX][PosFinalY]){
-           return false;
-       }
-       if (piezasDelMismoEquipo(tablero)[PosFinalX][PosFinalY]){
-           return false;
-       }
-        return true;
+        return posicionesPosibles(PosInicialX,PosInicialY,tablero)[PosFinalX][PosFinalY];
     }
 
     @Override

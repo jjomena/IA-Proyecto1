@@ -28,7 +28,7 @@ public class Alfil extends Pieza{
     public boolean[][] posicionesPosibles(int x,int y,Tablero tablero) {
         boolean [][] posicionesPosibles = new boolean [8][8];
         String nombrepieza;
-        boolean estado=true;
+        boolean estado;
         posicionesPosibles[x][y] = false;
         estado=true;
         char equipo = this.isEquipo();
@@ -71,7 +71,7 @@ public class Alfil extends Pieza{
                 estado = false;
             }
             posicionesPosibles[iterX][iterY] = estado;
-            if(nombrepieza != "NoPieza"){
+            if(!"NoPieza".equals(nombrepieza)){
                 estado = false;
             }
             iterX+=1;
@@ -94,33 +94,7 @@ public class Alfil extends Pieza{
         }
         return posicionesPosibles;
     }
-    
-       private boolean casillasIntermediasVacias(Posicion posicionNueva, Tablero tablero) {
-           int x1 = getPosicion().getX();
-           int y1 = getPosicion().getY();
-           int x2 = posicionNueva.getX();
-           int y2 = posicionNueva.getY();
-           int minX = Math.min(x1, x2);
-           int maxX = Math.max(x1, x2);
-           int minY = Math.min(y1,y2);
-           int maxY = Math.max(y1,y2);
-           
-           if(x1 - x2 == y1-y2)
-               for(int i = minX + 1; i< maxX; i++)
-                   if(tablero.getCasillas()[i][minY-minX + i].getPieza() instanceof NoPieza == false)
-                       return false;
-                  
-           if(x1 - x2 == y2 - y1)
-               for(int i = minX + 1; i< maxX; i++)
-                   if(tablero.getCasillas()[i][maxX + minY -i].getPieza() instanceof NoPieza == false)
-                       return false;
-                   
-           return true;
-                   
-    }
-    
-    
-    
+   
     @Override
     public boolean validarMovimiento(Posicion posicionInicial,Posicion posicionNueva, Tablero tablero){
         PosInicialX=posicionInicial.getX();
@@ -128,16 +102,7 @@ public class Alfil extends Pieza{
         PosFinalX= posicionNueva.getX();
         PosFinalY= posicionNueva.getY();
           
-       if(posicionesPosibles(PosInicialX,PosInicialY,tablero)[PosFinalX][PosFinalY]== false)
-           return false;
-       
-       else
-           if (piezasDelMismoEquipo(tablero)[PosFinalX][PosFinalY])
-                return false;
-           else
-              if (casillasIntermediasVacias(posicionNueva, tablero) == false)
-                  return false;
-        return true;
+        return posicionesPosibles(PosInicialX,PosInicialY,tablero)[PosFinalX][PosFinalY] != false;
     }
     
     @Override
@@ -207,18 +172,4 @@ public class Alfil extends Pieza{
         return valorPieza;
     }
 
-}
-               
-                
-       
-          
-           
-           
-           
-           
-           
-           
-           
-           
-           
-           
+}           
