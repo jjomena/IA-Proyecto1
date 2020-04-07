@@ -11,7 +11,7 @@ import Modelos.Tablero;
 import Modelos.ModeloRegistrarActividad;
 import Controladores.ControladorTablero;
 import Modelos.Arbol;
-import Modelos.Jugada;
+//import Modelos.Jugada;
 import Modelos.Nodo;
 import Modelos.Pieza;
 import Modelos.Posicion;
@@ -20,7 +20,7 @@ import java.awt.GridLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
-import java.util.concurrent.TimeUnit;
+//import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.BorderFactory;
@@ -35,17 +35,18 @@ import javax.swing.border.Border;
 public class TableroGUI extends javax.swing.JFrame {
 
     /*Variables del tablero*/
-    private JLabel[][] casillas = new JLabel[8][8];
+    private JLabel[][] casillas = new JLabel[8][8];;
     private final byte TAMANIO = 8;
     public Icon ImageIcon;
     private boolean isSelected = false;
     private boolean isActive = true;
-    private Pieza piezaActiva;
+    //private Pieza piezaActiva;
     private String nombrePieza="NoPieza";
     private char equipo; //Tipo de pieza
     public Tablero tablero;
+    public Tablero copiaTablero;
     public Arbol arbol;
-    public Nodo nodoRaiz;
+    //public Nodo nodoRaiz;
     /*variables del Jugador*/
     private String Jugador;
     private char colorJugador;
@@ -58,7 +59,7 @@ public class TableroGUI extends javax.swing.JFrame {
     ModeloRegistrarActividad modeloActividad = new ModeloRegistrarActividad();
     
     /*Variables de controladores*/
-    ControladorTablero ctrTablero = ControladorTablero.getInstance();
+    ControladorTablero ctrTablero = new ControladorTablero();
     ControladorArbol ctrArbol = new ControladorArbol();
 
     
@@ -503,21 +504,22 @@ public class TableroGUI extends javax.swing.JFrame {
         // TODO add your handling code here:
         activarDesactivarPanelFichas(false);
         isActive=false;
-        ctrArbol.crearArbol(tablero);
+        Tablero copiaTablero = ctrTablero.copiarTablero(tablero);
+//        ControladorArbol ctrArbol = null;
+//        Nodo nodoRaiz;
+        ctrArbol.crearArbol(copiaTablero);
+        Nodo nodoRaiz;
         nodoRaiz = ctrArbol.getNodoRaiz();
         nodoRaiz.setNivel(0);
         nodoRaiz.setIsMax(true);
         
         if(!turnoUsuario){
             if(colorJugador == 'B'){
-                ctrArbol.calcularMovimientos(tablero, 'N',nodoRaiz);
+                ctrArbol.calcularMovimientos(copiaTablero, 'N',nodoRaiz);
             }
             else{
-                ctrArbol.calcularMovimientos(tablero, 'B',nodoRaiz);
+                ctrArbol.calcularMovimientos(copiaTablero, 'B',nodoRaiz);
             }
-            //ctrArbol.ejecutarMovimiento();
-            //nodoRaiz = ctrArbol.getNodoRaiz();
-            //ctrArbol.imprimirArbol(nodoRaiz, 1);
             //simularMovimientoComputador();
         }
     }//GEN-LAST:event_btnJugarActionPerformed
@@ -554,9 +556,9 @@ public class TableroGUI extends javax.swing.JFrame {
     
     public void activarDesactivarCasillas(JLabel escaque){
         Border borderDesactivo = BorderFactory.createLineBorder(Color.BLACK, 1);
-        for (int i = 0; i < casillas.length; i++) {
+        for (JLabel[] casilla : casillas) {
             for (int j = 0; j < casillas.length; j++) {
-                casillas[i][j].setBorder(borderDesactivo);
+                casilla[j].setBorder(borderDesactivo);
             }
         }
         Border borderActivo = BorderFactory.createLineBorder(Color.YELLOW, 3);
@@ -565,7 +567,7 @@ public class TableroGUI extends javax.swing.JFrame {
     
     public void activarPosiblesJugadas(){
         Border borderActivo = BorderFactory.createLineBorder(Color.BLUE, 3);
-        Posicion mover = new Posicion();
+        Posicion mover;
         int movX;
         int movY;
         for(int i=0;i < movimientosPosibles.size();i++){
@@ -578,7 +580,7 @@ public class TableroGUI extends javax.swing.JFrame {
     
     public void desactivarPosiblesJugadas(){
         Border borderDesactivo = BorderFactory.createLineBorder(Color.BLACK, 1);
-        Posicion mover = new Posicion();
+        Posicion mover;
         int movX;
         int movY;
         for(int i=0;i < movimientosPosibles.size();i++){
@@ -657,21 +659,20 @@ public class TableroGUI extends javax.swing.JFrame {
             activarDesactivarCasillas(casillas[i][j]);
             ctrTablero.moverPieza(tablero.getCasillas()[i][j].getPieza(),tablero);
             if(ctrTablero.getEstadoFinal()){
-                Pieza piezaActiva = ctrTablero.getPiezaContenida();
-                simularMovimiento(piezaActiva);
-                ctrTablero.restablecerEstadoInicio();
-            }
-            
-            else{
                 if(ctrTablero.esMisma()){
                     desactivarPosiblesJugadas();
                 }
                 else{
-                    movimientosPosibles = ctrTablero.movimientosPosibles(tablero.getCasillas()[i][j].getPieza(), tablero); 
-                    if(movimientosPosibles != null){
-                        activarPosiblesJugadas();
-                    }
+                    Pieza piezaActiva = ctrTablero.getPiezaContenida();
+                    simularMovimiento(piezaActiva);
                 }
+                //ctrTablero.restablecerEstadoInicio();
+            }        
+            else{
+                movimientosPosibles = ctrTablero.movimientosPosibles(tablero.getCasillas()[i][j].getPieza(), tablero); 
+                if(movimientosPosibles != null){
+                    activarPosiblesJugadas();
+                } 
             }
         }
     }
@@ -709,10 +710,13 @@ public class TableroGUI extends javax.swing.JFrame {
     
     
     public void simularMovimientoComputador(){
+        System.out.println("Tablero que llega al simulador");
+        ctrTablero.imprimirTablero(copiaTablero);
         Nodo jugadaGenerada;
         Pieza pieza;
         Posicion posInicial;
         Posicion movimiento;
+        //ControladorArbol ctrArbol=null;
         jugadaGenerada = ctrArbol.ejecutarMovimiento();
         pieza = jugadaGenerada.getPieza();
         char tipopieza = pieza.getCaracterPieza();
@@ -731,12 +735,21 @@ public class TableroGUI extends javax.swing.JFrame {
         tablero.getCasillas()[posFinalx][posFinaly]
                     .setPieza(ctrTablero.crearPieza(posFinalx,posFinaly,pieza.getNombrePieza(),pieza.getEquipo()));
         ctrTablero.restablecerEstadoInicio();
+//        System.out.println("Tablero en el PC despues de movimiento");
+//        ctrTablero.imprimirTablero(tablero);
         intercambiarTurnoUsuario();
     }
          
     public void intercambiarTurnoUsuario(){
+        //System.out.println("Tablero en el Intercambio despues de movimiento");
+        //ctrTablero.imprimirTablero(tablero);
         turnoUsuario = !turnoUsuario; 
         if(!turnoUsuario){
+            //System.out.println("Tablero en el PC antes de movimiento");
+            //ctrTablero.imprimirTablero(tablero);
+            copiaTablero = ctrTablero.copiarTablero(tablero);
+            //ControladorArbol ctrArbol;
+            Nodo nodoRaiz;
             ctrArbol.crearArbol(tablero);
             nodoRaiz = ctrArbol.getNodoRaiz();
             nodoRaiz.setNivel(0);

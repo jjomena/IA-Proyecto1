@@ -28,42 +28,22 @@ public class Caballo extends Pieza {
             for(int j = 0; j < 8; j++){
                 if (i == x+2){
                     if(j == y+1 || j == y-1){
-                        if(tablero.getCasillas()[i][j].getPieza().getEquipo() == equipo ){
-                            posicionesPosibles[i][j] = false;
-                        }
-                        else{
-                            posicionesPosibles[i][j] = true;
-                        }
+                        posicionesPosibles[i][j] = tablero.getCasillas()[i][j].getPieza().getEquipo() != equipo;
                     }
                 }   
                 if (i == x+1){
                     if(j == y+2 || j == y-2){
-                        if(tablero.getCasillas()[i][j].getPieza().getEquipo() == equipo ){
-                            posicionesPosibles[i][j] = false;
-                        }
-                        else{
-                            posicionesPosibles[i][j] = true;
-                        }
+                        posicionesPosibles[i][j] = tablero.getCasillas()[i][j].getPieza().getEquipo() != equipo;
                     }
                 }
                 if (i == x-1){
                     if(j == y+2 || j == y-2){
-                        if(tablero.getCasillas()[i][j].getPieza().getEquipo() == equipo ){
-                            posicionesPosibles[i][j] = false;
-                        }
-                        else{
-                            posicionesPosibles[i][j] = true;
-                        }
+                        posicionesPosibles[i][j] = tablero.getCasillas()[i][j].getPieza().getEquipo() != equipo;
                     }
                 }
                 if (i == x-2){
                     if(j == y+1 || j == y-1){
-                        if(tablero.getCasillas()[i][j].getPieza().getEquipo() == equipo ){
-                            posicionesPosibles[i][j] = false;
-                        }
-                        else{
-                            posicionesPosibles[i][j] = true;
-                        }
+                        posicionesPosibles[i][j] = tablero.getCasillas()[i][j].getPieza().getEquipo() != equipo;
                     }
                 }
             }
@@ -80,13 +60,7 @@ public class Caballo extends Pieza {
        PosFinalY= posicionNueva.getY();
          
            
-       if(posicionesPosibles(PosInicialX,PosInicialY,tablero)[PosFinalX][PosFinalY]== false)
-           return false;
-       
-       else
-           if (piezasDelMismoEquipo(tablero)[PosFinalX][PosFinalY])
-                return false;
-        return true;
+        return posicionesPosibles(PosInicialX,PosInicialY,tablero)[PosFinalX][PosFinalY] != false;
     }
 
     @Override
@@ -94,6 +68,7 @@ public class Caballo extends Pieza {
         return "Caballo";
     }
     
+    @Override
     public ArrayList<Posicion> casillasIntermedias(Posicion posicionInicial,Posicion posicionNueva){
         PosInicialX=posicionInicial.getX();
         PosInicialY=posicionInicial.getY();

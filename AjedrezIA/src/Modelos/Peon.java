@@ -29,34 +29,19 @@ public class Peon extends Pieza {
             if (x-1 >= 0) {
                 nombrepieza = tablero.getCasillas()[x-1][y].getPieza().getNombrePieza();
                 if("NoPieza".equals(nombrepieza)){
-                    if(tablero.getCasillas()[x-1][y].getPieza().getEquipo() == equipo ){
-                        posicionesPosibles[x-1][y] = false;
-                    }
-                    else{
-                        posicionesPosibles[x-1][y] = true;
-                    }
+                    posicionesPosibles[x-1][y] = tablero.getCasillas()[x-1][y].getPieza().getEquipo() != equipo;
                 }
                 if(0 <= y-1){
                     nombrepieza = tablero.getCasillas()[x-1][y-1].getPieza().getNombrePieza();
                     if(!"NoPieza".equals(nombrepieza)){
-                        if(tablero.getCasillas()[x-1][y-1].getPieza().getEquipo() == equipo ){
-                            posicionesPosibles[x-1][y-1] = false;
-                        }
-                        else{
-                            posicionesPosibles[x-1][y-1] = true;
-                        }
+                        posicionesPosibles[x-1][y-1] = tablero.getCasillas()[x-1][y-1].getPieza().getEquipo() != equipo;
                        
                     }
                 }
                 if(y+1 <= 7){
                     nombrepieza = tablero.getCasillas()[x-1][y+1].getPieza().getNombrePieza();
                     if(!"NoPieza".equals(nombrepieza)){
-                        if(tablero.getCasillas()[x-1][y+1].getPieza().getEquipo() == equipo ){
-                            posicionesPosibles[x-1][y+1] = false;
-                        }
-                        else{
-                            posicionesPosibles[x-1][y+1] = true;
-                        } 
+                        posicionesPosibles[x-1][y+1] = tablero.getCasillas()[x-1][y+1].getPieza().getEquipo() != equipo; 
                     }
                 }
   
@@ -65,23 +50,13 @@ public class Peon extends Pieza {
             if (x+1 <= 7) {
                 nombrepieza = tablero.getCasillas()[x+1][y].getPieza().getNombrePieza();
                 if("NoPieza".equals(nombrepieza)){
-                    if(tablero.getCasillas()[x+1][y].getPieza().getEquipo() == equipo ){
-                            posicionesPosibles[x+1][y] = false;
-                    }
-                    else{
-                        posicionesPosibles[x+1][y] = true;
-                    }
+                    posicionesPosibles[x+1][y] = tablero.getCasillas()[x+1][y].getPieza().getEquipo() != equipo;
                 }
                 
                 if(0 <= y-1){
                     nombrepieza = tablero.getCasillas()[x+1][y-1].getPieza().getNombrePieza();
                     if(!"NoPieza".equals(nombrepieza)){
-                        if(tablero.getCasillas()[x+1][y-1].getPieza().getEquipo() == equipo ){
-                            posicionesPosibles[x+1][y-1] = false;
-                        }
-                        else{
-                            posicionesPosibles[x+1][y-1] = true;
-                        }
+                        posicionesPosibles[x+1][y-1] = tablero.getCasillas()[x+1][y-1].getPieza().getEquipo() != equipo;
                         
                     }
                 }
@@ -89,12 +64,7 @@ public class Peon extends Pieza {
                 if(y+1 <= 7){
                     nombrepieza = tablero.getCasillas()[x+1][y+1].getPieza().getNombrePieza();
                     if(!"NoPieza".equals(nombrepieza)){
-                        if(tablero.getCasillas()[x+1][y+1].getPieza().getEquipo() == equipo ){
-                            posicionesPosibles[x+1][y+1] = false;
-                        }
-                        else{
-                            posicionesPosibles[x+1][y+1] = true;
-                        }
+                        posicionesPosibles[x+1][y+1] = tablero.getCasillas()[x+1][y+1].getPieza().getEquipo() != equipo;
                     }
                 }
             }
@@ -139,11 +109,7 @@ public class Peon extends Pieza {
          PosFinalX = posicionNueva.getX();
          PosFinalY = posicionNueva.getY();
          
-         if(posicionesPosibles(PosInicialX,PosInicialY,tablero)[PosFinalX][PosFinalY]== false){
-             return false;
-         }
-           
-       return true;
+       return posicionesPosibles(PosInicialX,PosInicialY,tablero)[PosFinalX][PosFinalY] != false;
     }
 
     @Override

@@ -24,7 +24,7 @@ public class Torre extends Pieza {
      public boolean[][] posicionesPosibles(int x,int y,Tablero tablero) {
         boolean [][] posicionesPosibles = new boolean [8][8];
         String nombrepieza;
-        boolean estado=true;
+        boolean estado;
         posicionesPosibles[x][y] = false;
         estado=true;
         char equipo = this.isEquipo();
@@ -119,18 +119,15 @@ public class Torre extends Pieza {
           PosInicialY=posicionInicial.getY();
           PosFinalX = posicionNueva.getX();
           PosFinalY = posicionNueva.getY();
-         
-           
-       if(posicionesPosibles(PosInicialX,PosInicialY,tablero)[PosFinalX][PosFinalY]== false)
-           return false;
-       
 //       else
 //           if (piezasDelMismoEquipo(tablero)[PosFinalX][PosFinalY])
 //                return false;
 //           else
 //              if (casillasIntermediasVacias(posicionNueva, tablero) == false)
 //                  return false;
-        return true;
+
+           
+        return posicionesPosibles(PosInicialX,PosInicialY,tablero)[PosFinalX][PosFinalY] != false;
     }
 
     @Override

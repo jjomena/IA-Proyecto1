@@ -123,7 +123,7 @@ public class Reina extends Pieza {
                 estado = false;
             }
             posicionesPosibles[iterX][iterY] = estado;
-            if(nombrepieza != "NoPieza"){
+            if(!"NoPieza".equals(nombrepieza)){
                 estado = false;
             }
             iterX+=1;
@@ -138,7 +138,7 @@ public class Reina extends Pieza {
                 estado = false;
             }
             posicionesPosibles[iterX][iterY] = estado;
-            if(nombrepieza != "NoPieza"){
+            if(!"NoPieza".equals(nombrepieza)){
                 estado = false;
             }
             iterX+=1;
@@ -156,12 +156,8 @@ public class Reina extends Pieza {
         PosInicialY=posicionInicial.getY();
         PosFinalX = posicionNueva.getX();
         PosFinalY = posicionNueva.getY();
-         
-         
-           
-       if(posicionesPosibles(PosInicialX,PosInicialY,tablero)[PosFinalX][PosFinalY]== false)
-           return false;
-        return true;
+            
+        return posicionesPosibles(PosInicialX,PosInicialY,tablero)[PosFinalX][PosFinalY] != false;
     }
     
     @Override

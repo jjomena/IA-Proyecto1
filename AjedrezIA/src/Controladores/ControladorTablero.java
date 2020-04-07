@@ -30,23 +30,23 @@ public class ControladorTablero {
     public static ArrayList<Posicion> movimientos; //Movimientos a Ralizar
     public ArrayList<Posicion> movimientosPosibles;
     
-    private static ControladorTablero INSTANCE;
+    //private static ControladorTablero INSTANCE;
     
-    private ControladorTablero(){
+    public ControladorTablero(){
     }
     
-    public static ControladorTablero getInstance(){
-        if(INSTANCE==null){
-            INSTANCE = new ControladorTablero();
-        }
-        return INSTANCE;
-    }
+//    public static ControladorTablero getInstance(){
+//        if(INSTANCE==null){
+//            INSTANCE = new ControladorTablero();
+//        }
+//        return INSTANCE;
+//    }
     
     
     public Pieza crearPieza(int x,int y,String nombrePieza,char equipo){
         Posicion pos = new Posicion();
         pos.setPosicion(x, y);
-        Pieza pieza = null;
+        Pieza pieza;
         if( null == nombrePieza){
             NoPieza nopieza= new NoPieza();
             pieza  = nopieza;
@@ -90,8 +90,8 @@ public class ControladorTablero {
     
     public void moverPieza(Pieza pieza,Tablero tablero){
         String nombrePieza = pieza.getNombrePieza();
+        //System.out.println("Nombre de la Pieza: "+nombrePieza);
         if(estadoInicio==false){
-            esMisma = false;
             estadoFinal=false;
             casillaInicio=pieza.getPosicion(); 
             if("NoPieza".equals(nombrePieza)){
@@ -103,33 +103,34 @@ public class ControladorTablero {
                 piezaContenida=pieza;
             }
         }
-        else if (estadoInicio){
+        else{
             casillaFin=pieza.getPosicion();
-                if(casillaInicio.getX() != casillaFin.getX() || 
-                    casillaInicio.getY() != casillaFin.getY()){
-                    esMisma = false;
-                    if(piezaContenida.validarMovimiento(casillaInicio,casillaFin, tablero)){
-                        //System.out.println("Movimiento valido");
-                        estadoInicio=false;
-                        movimientos = piezaContenida.casillasIntermedias(casillaInicio, casillaFin);
-                        estadoFinal=true;
-                        
-                    }
-                    else{
-                        JOptionPane.showMessageDialog(null, "Movimiento Invalido", "Validar Movimiento"
-                        , JOptionPane.WARNING_MESSAGE);
-                        estadoInicio=false;
-                    }
+            if(casillaInicio.getX() != casillaFin.getX() || 
+                casillaInicio.getY() != casillaFin.getY()){
+                esMisma = false;
+                if(piezaContenida.validarMovimiento(casillaInicio,casillaFin, tablero)){
+                    estadoInicio=false;
+                    movimientos = piezaContenida.casillasIntermedias(casillaInicio, casillaFin);
+                    estadoFinal=true;
+
                 }
-                else if(casillaInicio == casillaFin ){
-                    esMisma = true;
+                else{
+                    JOptionPane.showMessageDialog(null, "Movimiento Invalido", "Validar Movimiento"
+                    , JOptionPane.WARNING_MESSAGE);
                     estadoInicio=false;
                 }
+            }
+            else{
+                esMisma = true;
+                estadoInicio=false;
+                estadoFinal = true;
+            }
         }
     }
     
     public ArrayList<Posicion> movimientosPosibles(Pieza pieza,Tablero tablero){
-        boolean [][] posicionesPosibles = new boolean [8][8];
+        //boolean [][] posicionesPosibles = new boolean [8][8];
+        boolean [][] posicionesPosibles;
         casillaInicio=pieza.getPosicion();
         if(estadoInicio){   
             posicionesPosibles = pieza.posicionesPosibles(casillaInicio.getX(), casillaInicio.getY(),tablero);
@@ -165,7 +166,6 @@ public class ControladorTablero {
     
     public void restablecerEstadoInicio(){
         estadoInicio = false;
-        estadoFinal = false;
     }
     
     public boolean esMisma(){
