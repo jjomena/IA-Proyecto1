@@ -520,8 +520,10 @@ public class TableroGUI extends javax.swing.JFrame {
             else{
                 ctrArbol.calcularMovimientos(copiaTablero, 'B',nodoRaiz);
             }
-            //simularMovimientoComputador();
+            simularMovimientoComputador();
         }
+        String descripcion = "--- SE INICIA EL JUEGO ---";
+        agregarActividad("Sistema",descripcion); 
     }//GEN-LAST:event_btnJugarActionPerformed
 
     private void btnJuegoNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnJuegoNuevoActionPerformed
@@ -666,7 +668,6 @@ public class TableroGUI extends javax.swing.JFrame {
                     Pieza piezaActiva = ctrTablero.getPiezaContenida();
                     simularMovimiento(piezaActiva);
                 }
-                //ctrTablero.restablecerEstadoInicio();
             }        
             else{
                 movimientosPosibles = ctrTablero.movimientosPosibles(tablero.getCasillas()[i][j].getPieza(), tablero); 
@@ -686,6 +687,7 @@ public class TableroGUI extends javax.swing.JFrame {
         if(movimientos.size()>0){
             char tipopieza = pieza.getCaracterPieza();
             char equipo = pieza.getEquipo();
+            String nombrePieza = pieza.getNombrePieza();        
             PintarPieza('B','N',posInicialx,posInicialy);
             tablero.getCasillas()[posInicialx][posInicialy]
                     .setPieza(ctrTablero.crearPieza(posInicialx,posInicialy,"NoPieza",'X'));
@@ -700,18 +702,28 @@ public class TableroGUI extends javax.swing.JFrame {
                 //timer();
                 //PintarPieza('B','N',posFinalx,posFinaly);
             }
+            String piezaComida = tablero.getCasillas()[posFinalx][posFinaly].getPieza().getNombrePieza();
+            String descripcion;
+            if(!"NoPieza".equals(piezaComida)){
+                descripcion = "Cazar pieza: " + piezaComida;  
+            }
+            else{
+                descripcion = " Movimiento = "+nombrePieza+
+                    " ("+posInicialx+","+posInicialy+")"+"-"+"("+posFinalx+","+posFinaly+")";
+            }
             PintarPieza(equipo,tipopieza,posFinalx,posFinaly);
             tablero.getCasillas()[posFinalx][posFinaly]
                     .setPieza(ctrTablero.crearPieza(posFinalx,posFinaly,pieza.getNombrePieza(),pieza.getEquipo()));
             ctrTablero.restablecerEstadoInicio();
+            agregarActividad(Jugador,descripcion);
             intercambiarTurnoUsuario();
         }
     }
     
     
     public void simularMovimientoComputador(){
-        System.out.println("Tablero que llega al simulador");
-        ctrTablero.imprimirTablero(copiaTablero);
+        //System.out.println("Tablero que llega al simulador");
+        //ctrTablero.imprimirTablero(copiaTablero);
         Nodo jugadaGenerada;
         Pieza pieza;
         Posicion posInicial;
@@ -721,6 +733,7 @@ public class TableroGUI extends javax.swing.JFrame {
         pieza = jugadaGenerada.getPieza();
         char tipopieza = pieza.getCaracterPieza();
         char equipoJuego = pieza.getEquipo();
+        String nombrePieza = pieza.getNombrePieza();
         posInicial = jugadaGenerada.getPosInicial();
         int i = posInicial.getX() ;
         int j = posInicial.getY();
@@ -731,24 +744,26 @@ public class TableroGUI extends javax.swing.JFrame {
         int posFinaly;
         posFinalx = movimiento.getX();
         posFinaly = movimiento.getY();
+        String piezaComida = tablero.getCasillas()[posFinalx][posFinaly].getPieza().getNombrePieza();
+        String descripcion;
+        if(!"NoPieza".equals(piezaComida)){
+            descripcion = "Cazar pieza: " + piezaComida;  
+        }
+        else{
+            descripcion = " Movimiento = "+nombrePieza+
+                " ("+i+","+j+")"+"-"+"("+posFinalx+","+posFinaly+")";
+        }
         PintarPieza(equipoJuego,tipopieza,posFinalx,posFinaly);
         tablero.getCasillas()[posFinalx][posFinaly]
                     .setPieza(ctrTablero.crearPieza(posFinalx,posFinaly,pieza.getNombrePieza(),pieza.getEquipo()));
         ctrTablero.restablecerEstadoInicio();
-//        System.out.println("Tablero en el PC despues de movimiento");
-//        ctrTablero.imprimirTablero(tablero);
+        agregarActividad("Sistema",descripcion);
         intercambiarTurnoUsuario();
     }
          
     public void intercambiarTurnoUsuario(){
-        //System.out.println("Tablero en el Intercambio despues de movimiento");
-        //ctrTablero.imprimirTablero(tablero);
         turnoUsuario = !turnoUsuario; 
         if(!turnoUsuario){
-            //System.out.println("Tablero en el PC antes de movimiento");
-            //ctrTablero.imprimirTablero(tablero);
-            copiaTablero = ctrTablero.copiarTablero(tablero);
-            //ControladorArbol ctrArbol;
             Nodo nodoRaiz;
             ctrArbol.crearArbol(tablero);
             nodoRaiz = ctrArbol.getNodoRaiz();
@@ -822,11 +837,8 @@ public class TableroGUI extends javax.swing.JFrame {
            default : 
               // Declaraciones
         }
-        //falta decir de que equipo es (lo del color)
         casillas[x][y].setIcon(ImageIcon);
         tablero.getCasillas()[x][y].setPieza(ctrTablero.crearPieza(x,y,nombrePieza,color));
-        String descripcion = "Se agrego "+nombrePieza;
-        agregarActividad("Sistema",descripcion);
         super.revalidate();
         super.repaint();
     }
