@@ -77,8 +77,8 @@ public class ControladorArbol {
             tableroJuego = movimientoPieza.getTabblero();
             //nivel = padre.getNivel();
             //System.out.println("Nivel padre: "+nivel);
-            System.out.println("TABLERO ANTES DEL MOVIMIENTO");
-            ctrTablero.imprimirTablero(tableroJuego);
+            //System.out.println("TABLERO ANTES DEL MOVIMIENTO");
+            //ctrTablero.imprimirTablero(tableroJuego);
             
             posX = pieza.getPosicion().getX();
             posY = pieza.getPosicion().getY();
@@ -103,8 +103,8 @@ public class ControladorArbol {
                 tableroJuego.getCasillas()[posX][posY]
                     .setPieza(ctrTablero.crearPieza(posX,posY,pieza.getNombrePieza(),pieza.getEquipo()));
             }
-            System.out.println("TABLERO REVERSADO DEL MOVIMIENTO");
-            ctrTablero.imprimirTablero(tableroJuego);
+            //System.out.println("TABLERO REVERSADO DEL MOVIMIENTO");
+            //ctrTablero.imprimirTablero(tableroJuego);
             //System.out.println("------------------------------");
             //System.out.println("-------FIN DE PIEZA------: "+pieza.getNombrePieza()+":"+pieza.getEquipo()+"\n");
             //System.out.println("Cambio de pieza");
@@ -149,8 +149,8 @@ public class ControladorArbol {
         nodoHijo.setPieza(pieza);
         nodoHijo.setPosInicial(posInicial);
         nodoHijo.setPosFinal(mover);
-        System.out.println("TABLERO DESPUES DEL MOVIMIENTO");
-        ctrTablero.imprimirTablero(tab); 
+        //System.out.println("TABLERO DESPUES DEL MOVIMIENTO");
+        //ctrTablero.imprimirTablero(tab); 
         if(profundidad <= maximoNivel){
             if(equipo == 'B'){
                 equipo = 'N';
@@ -162,9 +162,9 @@ public class ControladorArbol {
             calcularMovimientos(tab,equipo,nodoHijo);
         }
         else{
-            System.out.println("Fin de la rama");
+            //System.out.println("Fin de la rama");
             //System.out.println("EQUIPO EN JUEGO "+equipoEnJuego);
-            //calcularFuncionEvaluacion(nodoHijo,equipo);
+            calcularFuncionEvaluacion(nodoHijo,equipo);
         }
     }
     
