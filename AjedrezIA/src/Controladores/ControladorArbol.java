@@ -187,8 +187,12 @@ public class ControladorArbol {
                 pieza = tableroCalcula.getCasillas()[i][j].getPieza();
                 nombre = pieza.getNombrePieza();
                 equipoPieza = pieza.getEquipo();
+                int cantMovPosibles;
+                ArrayList<Posicion> movimientosPosibles = ctrTablero.movimientosPosibles(pieza, tableroCalcula);
+                cantMovPosibles = movimientosPosibles.size();
                 if(!"NoPieza".equals(nombre)){
                     valorPieza = pieza.getValorPieza();
+                    valorPieza = valorPieza + cantMovPosibles; //Permite agregar los posibles movimientos
                     if(equipoEnJuego == equipoPieza){
                         ptsFavor = ptsFavor + valorPieza;
                     }

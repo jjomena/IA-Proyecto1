@@ -529,6 +529,13 @@ public class TableroGUI extends javax.swing.JFrame {
     private void btnJuegoNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnJuegoNuevoActionPerformed
         // TODO add your handling code here:
         activarDesactivarPanelFichas(true);
+        for(int i=0;i<8;i++){
+            for(int j=0;j<8;j++){
+                PintarPieza('B','N',i,j);
+                tablero.getCasillas()[i][j]
+                        .setPieza(ctrTablero.crearPieza(i,j,"NoPieza",'X'));
+            }
+        }
     }//GEN-LAST:event_btnJuegoNuevoActionPerformed
 
    
