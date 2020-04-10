@@ -182,6 +182,7 @@ public class ControladorArbol {
         int ptsFavor=0;
         int ptsContra=0;
         int valorFuncion;
+        int alfilAFavor=0;
         for (int i=0;i<8;i++){
             for(int j=0;j<8;j++){
                 pieza = tableroCalcula.getCasillas()[i][j].getPieza();
@@ -191,6 +192,9 @@ public class ControladorArbol {
                 ArrayList<Posicion> movimientosPosibles = ctrTablero.movimientosPosibles(pieza, tableroCalcula);
                 cantMovPosibles = movimientosPosibles.size();
                 if(!"NoPieza".equals(nombre)){
+                    if(("Alfil".equals(nombre)) && (equipoEnJuego == equipoPieza)){
+                        alfilAFavor +=1;
+                    }
                     valorPieza = pieza.getValorPieza();
                     valorPieza = valorPieza + cantMovPosibles; //Permite agregar los posibles movimientos
                     if(equipoEnJuego == equipoPieza){
@@ -202,6 +206,10 @@ public class ControladorArbol {
                 }
             }
         }
+        if(alfilAFavor == 2){
+            int bonusExtra = 20;
+            ptsFavor = ptsFavor + bonusExtra; 
+        }
         valorFuncion = ptsFavor - ptsContra;
         nodo.setValor(valorFuncion);
     }
@@ -210,7 +218,7 @@ public class ControladorArbol {
         int valorCalculado;
         int valorHijo;
         Nodo raiz = getNodoRaiz();
-        MinMax minmax = new MinMax(raiz,3);
+        MinMax minmax = new MinMax(raiz,maximoNivel+1);
         valorCalculado = minmax.calculoMinMax();
         ArrayList<Nodo> nodosHijos;
         nodosHijos = raiz.getNodosHijos();
