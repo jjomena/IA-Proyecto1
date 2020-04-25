@@ -20,6 +20,7 @@ import java.awt.GridLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 //import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -32,7 +33,7 @@ import javax.swing.border.Border;
  *
  * @author Joaquin
  */
-public class TableroGUI extends javax.swing.JFrame {
+public class TableroGUI extends javax.swing.JFrame{
 
     /*Variables del tablero*/
     private JLabel[][] casillas = new JLabel[8][8];;
@@ -705,9 +706,9 @@ public class TableroGUI extends javax.swing.JFrame {
                 posTemporal = movimientos.get(h);
                 posFinalx = posTemporal.getX();
                 posFinaly = posTemporal.getY();
-                //PintarPieza(equipo,tipopieza,posFinalx,posFinaly); 
-                //timer();
-                //PintarPieza('B','N',posFinalx,posFinaly);
+                PintarPieza(equipo,tipopieza,posFinalx,posFinaly);
+                Thread.sleep(1000);      
+                PintarPieza('B','N',posFinalx,posFinaly);
             }
             String piezaComida = tablero.getCasillas()[posFinalx][posFinaly].getPieza().getNombrePieza();
             String descripcion;
@@ -727,15 +728,23 @@ public class TableroGUI extends javax.swing.JFrame {
         }
     }
     
+
+    public void runSimulation() {
+    long t=System.currentTimeMillis();
+    //while (true) {
+        try{
+            t+=808;
+            Thread.sleep(Math.max(0, t-System.currentTimeMillis()));
+        }catch(InterruptedException ex){
+        }
+    //}
+  }
     
     public void simularMovimientoComputador(){
-        //System.out.println("Tablero que llega al simulador");
-        //ctrTablero.imprimirTablero(copiaTablero);
         Nodo jugadaGenerada;
         Pieza pieza;
         Posicion posInicial;
         Posicion movimiento;
-        //ControladorArbol ctrArbol=null;
         jugadaGenerada = ctrArbol.ejecutarMovimiento();
         pieza = jugadaGenerada.getPieza();
         char tipopieza = pieza.getCaracterPieza();
@@ -926,4 +935,5 @@ public class TableroGUI extends javax.swing.JFrame {
     private javax.swing.JLabel torreBlanco;
     private javax.swing.JLabel torreOscuro;
     // End of variables declaration//GEN-END:variables
+
 }

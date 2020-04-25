@@ -48,7 +48,6 @@ public class ControladorArbol {
                 if(!"NoPieza".equals(nombre)){
                     if(equipoPieza == equipo){
                         ArrayList<Posicion> movimientosPosibles = ctrTablero.movimientosPosibles(pieza, tablero);
-                        //activarPosiblesJugadas();
                         Jugada jugada = new Jugada(pieza,movimientosPosibles,tablero);
                         jugadas.add(jugada);
                     }
