@@ -10,7 +10,6 @@ import Modelos.Reina;
 import Modelos.Rey;
 import Modelos.Tablero;
 import Modelos.Torre;
-import Vistas.TableroGUI;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
@@ -199,9 +198,7 @@ public class ControladorTablero {
     public Tablero copiarTablero(Tablero tablero){
         Tablero copiaTablero = new Tablero();
         for(int i=0;i<8;i++){
-            for(int j=0;j<8;j++){
-                copiaTablero.getCasillas()[i][j] = tablero.getCasillas()[i][j];
-            }
+            System.arraycopy(tablero.getCasillas()[i], 0, copiaTablero.getCasillas()[i], 0, 8);
         }
         return copiaTablero; 
     }   
