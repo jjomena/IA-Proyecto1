@@ -19,6 +19,10 @@ import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 //import java.util.concurrent.TimeUnit;
@@ -62,6 +66,11 @@ public class TableroGUI extends javax.swing.JFrame{
     /*Variables de controladores*/
     ControladorTablero ctrTablero = new ControladorTablero();
     ControladorArbol ctrArbol = new ControladorArbol();
+    //
+    String rutaArchivo = "./src/Files/ResumenJuego.txt";
+    BufferedWriter bw;
+    File archivoResumen = new File(rutaArchivo);
+    
 
     
 
@@ -525,6 +534,7 @@ public class TableroGUI extends javax.swing.JFrame{
         }
         String descripcion = "--- SE INICIA EL JUEGO ---";
         agregarActividad("Sistema",descripcion); 
+       
     }//GEN-LAST:event_btnJugarActionPerformed
 
     private void btnJuegoNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnJuegoNuevoActionPerformed
@@ -702,12 +712,12 @@ public class TableroGUI extends javax.swing.JFrame{
             Posicion posTemporal;
             int posFinalx=0;
             int posFinaly=0;
+            int tamMov = movimientos.size();
             for(int h=0;h<movimientos.size();h++){
                 posTemporal = movimientos.get(h);
                 posFinalx = posTemporal.getX();
                 posFinaly = posTemporal.getY();
-                PintarPieza(equipo,tipopieza,posFinalx,posFinaly);
-                Thread.sleep(1000);      
+                PintarPieza(equipo,tipopieza,posFinalx,posFinaly);    
                 PintarPieza('B','N',posFinalx,posFinaly);
             }
             String piezaComida = tablero.getCasillas()[posFinalx][posFinaly].getPieza().getNombrePieza();
@@ -729,16 +739,7 @@ public class TableroGUI extends javax.swing.JFrame{
     }
     
 
-    public void runSimulation() {
-    long t=System.currentTimeMillis();
-    //while (true) {
-        try{
-            t+=808;
-            Thread.sleep(Math.max(0, t-System.currentTimeMillis()));
-        }catch(InterruptedException ex){
-        }
-    //}
-  }
+
     
     public void simularMovimientoComputador(){
         Nodo jugadaGenerada;
@@ -862,6 +863,33 @@ public class TableroGUI extends javax.swing.JFrame{
     public void agregarActividad(String usuario, String descripcion){
         Actividad actividad = new Actividad(usuario,descripcion);
         modeloActividad.agregarActividad(actividad);
+        
+        if (!archivoResumen.exists()) {
+            try {
+                archivoResumen.createNewFile();
+            } catch (IOException ex) {
+                Logger.getLogger(TableroGUI.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        FileWriter fw = null;
+        try {
+            fw = new FileWriter(archivoResumen.getAbsoluteFile(),true);
+        } catch (IOException ex) {
+            Logger.getLogger(TableroGUI.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        BufferedWriter bw = new BufferedWriter(fw);
+        String contenido = usuario+": "+descripcion;
+        try {
+            bw.write(contenido);
+            bw.newLine();
+        } catch (IOException ex) {
+            Logger.getLogger(TableroGUI.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        try {
+            bw.close();
+        } catch (IOException ex) {
+            Logger.getLogger(TableroGUI.class.getName()).log(Level.SEVERE, null, ex);
+        }   
     }
     
     public void eliminarActividad(int index){
