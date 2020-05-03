@@ -73,5 +73,10 @@ public class Rey extends Pieza {
     public int getValorPieza() {
         return valorPieza;
     }
+    
+    public ArrayList<Posicion>Jaque(int x,int y){
+        ArrayList<Posicion> PosicionesJaque = new ArrayList<>();
+        return PosicionesJaque; 
+    }
 
 }

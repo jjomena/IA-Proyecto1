@@ -20,8 +20,13 @@ import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.concurrent.TimeUnit;
 //import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -38,7 +43,7 @@ import javax.swing.border.Border;
  *
  * @author Joaquin
  */
-public class TableroGUI extends javax.swing.JFrame {
+public class TableroGUI extends javax.swing.JFrame{
 
     /*Variables del tablero*/
     private JLabel[][] casillas = new JLabel[8][8];;
@@ -67,6 +72,11 @@ public class TableroGUI extends javax.swing.JFrame {
     /*Variables de controladores*/
     ControladorTablero ctrTablero = new ControladorTablero();
     ControladorArbol ctrArbol = new ControladorArbol();
+    //
+    String rutaArchivo = "./src/Files/ResumenJuego.txt";
+    BufferedWriter bw;
+    File archivoResumen = new File(rutaArchivo);
+    
 
     private String jugadas = "";
     private String estadoJuego = "Has ganado"; 
@@ -578,11 +588,19 @@ public class TableroGUI extends javax.swing.JFrame {
         }
         String descripcion = "--- SE INICIA EL JUEGO ---";
         agregarActividad("Sistema",descripcion); 
+       
     }//GEN-LAST:event_btnJugarActionPerformed
 
     private void btnJuegoNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnJuegoNuevoActionPerformed
         // TODO add your handling code here:
         activarDesactivarPanelFichas(true);
+        for(int i=0;i<8;i++){
+            for(int j=0;j<8;j++){
+                PintarPieza('B','N',i,j);
+                tablero.getCasillas()[i][j]
+                        .setPieza(ctrTablero.crearPieza(i,j,"NoPieza",'X'));
+            }
+        }
     }//GEN-LAST:event_btnJuegoNuevoActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -864,19 +882,19 @@ public class TableroGUI extends javax.swing.JFrame {
             char tipopieza = pieza.getCaracterPieza();
             char equipo = pieza.getEquipo();
             String nombrePieza = pieza.getNombrePieza();        
-            PintarPieza('B','N',posInicialx,posInicialy, false);
+            PintarPieza('B','N',posInicialx,posInicialy);
             tablero.getCasillas()[posInicialx][posInicialy]
                     .setPieza(ctrTablero.crearPieza(posInicialx,posInicialy,"NoPieza",'X'));
             Posicion posTemporal;
             int posFinalx=0;
             int posFinaly=0;
+            int tamMov = movimientos.size();
             for(int h=0;h<movimientos.size();h++){
                 posTemporal = movimientos.get(h);
                 posFinalx = posTemporal.getX();
                 posFinaly = posTemporal.getY();
-                //PintarPieza(equipo,tipopieza,posFinalx,posFinaly); 
-                //timer();
-                //PintarPieza('B','N',posFinalx,posFinaly);
+                PintarPieza(equipo,tipopieza,posFinalx,posFinaly);    
+                PintarPieza('B','N',posFinalx,posFinaly);
             }
             String piezaComida = tablero.getCasillas()[posFinalx][posFinaly].getPieza().getNombrePieza();
             String descripcion;
@@ -887,7 +905,7 @@ public class TableroGUI extends javax.swing.JFrame {
                 descripcion = " Movimiento = "+nombrePieza+
                     " ("+posInicialx+","+posInicialy+")"+"-"+"("+posFinalx+","+posFinaly+")";
             }
-            PintarPieza(equipo,tipopieza,posFinalx,posFinaly, false);
+            PintarPieza(equipo,tipopieza,posFinalx,posFinaly);
             tablero.getCasillas()[posFinalx][posFinaly]
                     .setPieza(ctrTablero.crearPieza(posFinalx,posFinaly,pieza.getNombrePieza(),pieza.getEquipo()));
             ctrTablero.restablecerEstadoInicio();
@@ -896,6 +914,8 @@ public class TableroGUI extends javax.swing.JFrame {
         }
     }
     
+
+
     
     public void simularMovimientoComputador(){
         solicitarEmpateLeyComputador();
@@ -905,7 +925,6 @@ public class TableroGUI extends javax.swing.JFrame {
         Pieza pieza;
         Posicion posInicial;
         Posicion movimiento;
-        //ControladorArbol ctrArbol=null;
         jugadaGenerada = ctrArbol.ejecutarMovimiento();
         pieza = jugadaGenerada.getPieza();
         char tipopieza = pieza.getCaracterPieza();
@@ -915,7 +934,7 @@ public class TableroGUI extends javax.swing.JFrame {
         int i = posInicial.getX() ;
         int j = posInicial.getY();
 //        System.out.println(i + " " + j);
-        PintarPieza('B','N',i,j, false);
+        PintarPieza('B','N',i,j);
         tablero.getCasillas()[i][j].setPieza(ctrTablero.crearPieza(i,j,"NoPieza",'X'));
         movimiento = jugadaGenerada.getPosFinal();
         int posFinalx;
@@ -933,7 +952,7 @@ public class TableroGUI extends javax.swing.JFrame {
         }
         
         
-        PintarPieza(equipoJuego,tipopieza,posFinalx,posFinaly, false);
+        PintarPieza(equipoJuego,tipopieza,posFinalx,posFinaly);
         tablero.getCasillas()[posFinalx][posFinaly]
                     .setPieza(ctrTablero.crearPieza(posFinalx,posFinaly,pieza.getNombrePieza(),pieza.getEquipo()));
         ctrTablero.restablecerEstadoInicio();
@@ -1003,7 +1022,7 @@ public class TableroGUI extends javax.swing.JFrame {
         }
     }
     
-    public final void PintarPieza(char color, char piece, int x, int y, boolean  d){ 
+    public final void PintarPieza(char color, char piece, int x, int y){ 
         switch(piece)
         {
            case 'R' :
@@ -1072,6 +1091,33 @@ public class TableroGUI extends javax.swing.JFrame {
         jugadas += usuario + " " + descripcion + "\n";
         Actividad actividad = new Actividad(usuario,descripcion);
         modeloActividad.agregarActividad(actividad);
+        
+        if (!archivoResumen.exists()) {
+            try {
+                archivoResumen.createNewFile();
+            } catch (IOException ex) {
+                Logger.getLogger(TableroGUI.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        FileWriter fw = null;
+        try {
+            fw = new FileWriter(archivoResumen.getAbsoluteFile(),true);
+        } catch (IOException ex) {
+            Logger.getLogger(TableroGUI.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        BufferedWriter bw = new BufferedWriter(fw);
+        String contenido = usuario+": "+descripcion;
+        try {
+            bw.write(contenido);
+            bw.newLine();
+        } catch (IOException ex) {
+            Logger.getLogger(TableroGUI.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        try {
+            bw.close();
+        } catch (IOException ex) {
+            Logger.getLogger(TableroGUI.class.getName()).log(Level.SEVERE, null, ex);
+        }   
     }
     
     public void eliminarActividad(int index){
@@ -1176,4 +1222,5 @@ public class TableroGUI extends javax.swing.JFrame {
     private javax.swing.JLabel torreBlanco;
     private javax.swing.JLabel torreOscuro;
     // End of variables declaration//GEN-END:variables
+
 }
