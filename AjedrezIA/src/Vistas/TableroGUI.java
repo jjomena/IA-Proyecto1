@@ -11,6 +11,7 @@ import Modelos.Tablero;
 import Modelos.ModeloRegistrarActividad;
 import Controladores.ControladorTablero;
 import Modelos.Arbol;
+import Modelos.GenerarArchivo;
 //import Modelos.Jugada;
 import Modelos.Nodo;
 import Modelos.Pieza;
@@ -24,13 +25,18 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Random;
 import java.util.concurrent.TimeUnit;
 //import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.swing.BorderFactory;
 import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.border.Border;
 
 /**
@@ -72,12 +78,9 @@ public class TableroGUI extends javax.swing.JFrame{
     File archivoResumen = new File(rutaArchivo);
     
 
-    
-
-    
-    
-    
-    
+    private String jugadas = "";
+    private String estadoJuego = "Has ganado"; 
+    private boolean finalizo = false;
 
     /**
      * Creates new form Tablero
@@ -86,6 +89,7 @@ public class TableroGUI extends javax.swing.JFrame{
         this.Jugador = "";
         initComponents();
         LogJuego.setModel(modeloActividad);
+        jLabel1.setVisible(false);
     }
     
     public void agregarComponentes(){
@@ -125,6 +129,10 @@ public class TableroGUI extends javax.swing.JFrame{
         etJugador = new javax.swing.JLabel();
         labelJugador = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -294,7 +302,7 @@ public class TableroGUI extends javax.swing.JFrame{
                     .addGroup(panelFichasLayout.createSequentialGroup()
                         .addGap(55, 55, 55)
                         .addComponent(jLabel3)))
-                .addContainerGap(21, Short.MAX_VALUE))
+                .addContainerGap(13, Short.MAX_VALUE))
         );
         panelFichasLayout.setVerticalGroup(
             panelFichasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -308,7 +316,7 @@ public class TableroGUI extends javax.swing.JFrame{
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panelFichasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(caballoBlanco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(caballoOscuro, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(caballoOscuro, javax.swing.GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panelFichasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(peonBlanco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -325,7 +333,7 @@ public class TableroGUI extends javax.swing.JFrame{
                 .addGroup(panelFichasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(torreBlanco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(torreOscuro, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(7, Short.MAX_VALUE))
         );
 
         btnJugar.setText("JUGAR");
@@ -353,7 +361,7 @@ public class TableroGUI extends javax.swing.JFrame{
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 313, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -371,55 +379,101 @@ public class TableroGUI extends javax.swing.JFrame{
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel6.setText("HISTORIAL DE JUEGO");
 
+        jLabel1.setText("jLabel1");
+
+        jButton2.setText("Abandonar");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
+        jButton3.setText("Solicitar Empate");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
+        jButton4.setText("Tablas por ley");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(28, 28, 28)
-                .addComponent(TableroJuego, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(31, 31, 31)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(TableroJuego, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(31, 31, 31)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(btnJugar)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnJuegoNuevo))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(etJugador)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel6)
-                                    .addComponent(labelJugador))))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addGap(18, 18, 18)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(btnJugar)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(btnJuegoNuevo))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(etJugador)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel6)
+                                            .addComponent(labelJugador))))
+                                .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(18, 18, 18))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(53, 53, 53)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, 182, Short.MAX_VALUE)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, 182, Short.MAX_VALUE)
+                                .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addComponent(panelFichas, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(32, 32, 32))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnJugar)
-                            .addComponent(btnJuegoNuevo))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(etJugador)
-                            .addComponent(labelJugador))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel6)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(TableroJuego, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(76, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(panelFichas, javax.swing.GroupLayout.PREFERRED_SIZE, 480, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(TableroJuego, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(19, 19, 19)
+                                .addComponent(jLabel1))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(btnJugar)
+                                    .addComponent(btnJuegoNuevo))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(etJugador)
+                                    .addComponent(labelJugador))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel6)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(panelFichas, javax.swing.GroupLayout.PREFERRED_SIZE, 480, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(25, 25, 25))
         );
 
@@ -549,6 +603,128 @@ public class TableroGUI extends javax.swing.JFrame{
         }
     }//GEN-LAST:event_btnJuegoNuevoActionPerformed
 
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        this.finalizo = true;
+        this.estadoJuego = "Has perdido por abandono";
+        FinalJuego d = new FinalJuego(false, jugadas, this, estadoJuego);
+        d.setVisible(true);
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+//        mostrar esto cuando la compu quiere empate mutuo
+//        int respuesta = JOptionPane.showConfirmDialog(this, "Solicito empate mutuo, aceptas?", "Empate mutuo", 1);
+//        System.out.println(respuesta);
+        Random rand = new Random(); 
+  
+        // Generate random integers in range 0 to 1 
+        int rand_int1 = rand.nextInt(2);
+        if (rand_int1 == 1) {
+            // no dar empate
+           this.finalizo = true;
+           this.estadoJuego = "Has empatado por acuerdo mutuo";
+           JOptionPane.showMessageDialog(null, "Han aceptado el empate");
+           FinalJuego d = new FinalJuego(false, jugadas, this, estadoJuego);
+           d.setVisible(true);
+        } else {
+            JOptionPane.showMessageDialog(null, "No ahorita, el juego continua");
+        }
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // validar las fichas que hay
+        // validar los movimientos hechos misma posicion 3 veces, últimos 5 movimientoa sin capturas
+        // validar que no esta en jaque pero no tiene movimientos validos
+        if (validarFichas()) {
+            finalizo = true;
+            estadoJuego = "Has empatado por ley, falta de fichas";
+        } else {
+            if (validarMovimientos()) {
+                finalizo = true;
+                estadoJuego = "Has empatado por ley, sin capturas";
+            } else {
+                if (validarTablasXNoJaque()) {
+                    finalizo = true;
+                    estadoJuego = "Has empatado por ley, sin jaque";
+                }
+            }
+        }
+        
+        if (finalizo) {
+            FinalJuego d = new FinalJuego(false, jugadas, this, estadoJuego);
+            d.setVisible(true);
+        }
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+   private boolean validarFichas() {
+       ArrayList<String> equipo1 = new ArrayList<>();
+       ArrayList<String> equipo2 = new ArrayList<>();
+       for (int i = 0; i < 8; i++) {
+           for (int j = 0; j < 8; j++) {
+               System.out.println(tablero.getCasillas()[i][j].pieza.getNombrePieza() + " " + tablero.getCasillas()[i][j].pieza.getEquipo());
+               if (tablero.getCasillas()[i][j].pieza.getEquipo() == 'B') {
+                   equipo1.add(tablero.getCasillas()[i][j].pieza.getNombrePieza());
+               } else {
+                   if (tablero.getCasillas()[i][j].pieza.getEquipo() == 'N') {
+                      equipo2.add(tablero.getCasillas()[i][j].pieza.getNombrePieza());
+                  }
+               }
+           }
+       }
+       if (equipo1.size() == 1 && equipo2.size() == 1) {
+           if (equipo1.get(0).equals("Rey") && equipo2.get(0).equals("Rey")) {
+               System.out.println("rey contra rey");
+               return true;
+           }
+       }
+       if (equipo1.size() == 1 && equipo2.size() == 2 || equipo2.size() == 1 && equipo1.size() == 2) {
+           if (equipo1.indexOf("Rey") != -1 && 
+                   ((equipo2.indexOf("Rey") != -1 && equipo2.indexOf("Alfil") != -1) || 
+                   (equipo2.indexOf("Rey") != -1 && equipo2.indexOf("Caballo") != -1))) {
+               System.out.println("rey contra dos");
+               return true;
+           }
+           if (equipo2.indexOf("Rey") != -1 && 
+                   ((equipo1.indexOf("Rey") != -1 && equipo1.indexOf("Alfil") != -1) || 
+                   (equipo1.indexOf("Rey") != -1 && equipo1.indexOf("Caballo") != -1))) {
+               System.out.println("rey contra dos");
+               return true;
+           }
+       }
+       
+       if (equipo1.size() == 2 && equipo2.size() == 2) {
+           if (equipo1.indexOf("Rey") != -1 && equipo1.indexOf("Alfil") != -1 && equipo2.indexOf("Alfil") != -1 && equipo2.indexOf("Rey") != -1) {
+               System.out.println("rey y alfin x2");
+               return true;
+           }
+       }
+       return false;
+   }
+   
+   private boolean validarMovimientos() {
+       int contadorMovimientos = 0;
+       for (int i = modeloActividad.getSize()-1; i > 0; i--) {
+           System.out.println("validar " + modeloActividad.getElementAt(i));
+           Pattern regex = Pattern.compile("\\b" + Pattern.quote("Movimiento") + "\\b", Pattern.CASE_INSENSITIVE);
+           Matcher match = regex.matcher(modeloActividad.getElementAt(i)+"");
+           if (match.find()) {
+               System.out.println("tiene movimiento");
+               contadorMovimientos++;
+               if (contadorMovimientos == 5) {
+                   return true;
+               }
+           }else {
+               System.out.println("no tiene");
+               contadorMovimientos = 0;
+               return false;
+           }
+       }
+       
+       return false;
+   }
+   
+   private boolean validarTablasXNoJaque() {
+       return false;
+   }
    
     public void activarDesactivarPiezas(JLabel pieza){
         if(isActive){
@@ -742,6 +918,9 @@ public class TableroGUI extends javax.swing.JFrame{
 
     
     public void simularMovimientoComputador(){
+        solicitarEmpateLeyComputador();
+        //System.out.println("Tablero que llega al simulador");
+        //ctrTablero.imprimirTablero(copiaTablero);
         Nodo jugadaGenerada;
         Pieza pieza;
         Posicion posInicial;
@@ -754,6 +933,7 @@ public class TableroGUI extends javax.swing.JFrame{
         posInicial = jugadaGenerada.getPosInicial();
         int i = posInicial.getX() ;
         int j = posInicial.getY();
+//        System.out.println(i + " " + j);
         PintarPieza('B','N',i,j);
         tablero.getCasillas()[i][j].setPieza(ctrTablero.crearPieza(i,j,"NoPieza",'X'));
         movimiento = jugadaGenerada.getPosFinal();
@@ -770,6 +950,8 @@ public class TableroGUI extends javax.swing.JFrame{
             descripcion = " Movimiento = "+nombrePieza+
                 " ("+i+","+j+")"+"-"+"("+posFinalx+","+posFinaly+")";
         }
+        
+        
         PintarPieza(equipoJuego,tipopieza,posFinalx,posFinaly);
         tablero.getCasillas()[posFinalx][posFinaly]
                     .setPieza(ctrTablero.crearPieza(posFinalx,posFinaly,pieza.getNombrePieza(),pieza.getEquipo()));
@@ -778,6 +960,50 @@ public class TableroGUI extends javax.swing.JFrame{
         intercambiarTurnoUsuario();
     }
          
+    public void simularMovimiento() {
+
+        try {
+            jLabel1.setVisible(true);
+            jLabel1.setSize(500, 500);
+//            jLabel1.setIcon(new ImageIcon(getClass().getResource("/perdedor2.gif")));
+            FinalJuego f = new FinalJuego(false, jugadas, this, estadoJuego);
+            f.setVisible(true);
+            System.out.println("ewerwaerw");
+            //Se espera 1 segundo
+            Thread.sleep(6000);
+            System.out.println("ewerwaerw");
+            jLabel1.setVisible(false);
+            f.setVisible(false);
+            repaint();
+        } catch (InterruptedException ex) {
+            Logger.getLogger(TableroGUI.class.getName()).log(Level.SEVERE, null, ex);
+        }
+          
+    }
+    
+//    private ArrayList<Integer> restarCampos(int inicio, int fin){
+//        int diferencia = inicio - fin;
+//        System.out.println("Diferencia: " + diferencia);
+//        ArrayList<Integer> posiciones = new ArrayList<>();
+//        for (int i = 0; i < diferencia; i++) {
+//            System.out.println("inicio " + inicio + "fin " + fin);
+//            inicio--;
+//            posiciones.add(inicio);
+//            
+//        }
+//        return posiciones;
+//    }
+//    
+//    private ArrayList<Integer> sumarCampos(int inicio, int fin){
+//        int diferencia = fin - inicio;
+//        ArrayList<Integer> posiciones = new ArrayList<>();
+//        for (int i = 0; i < diferencia; i++) {
+//            inicio++;
+//            posiciones.add(inicio);
+//        }
+//        return posiciones;
+//    }
+    
     public void intercambiarTurnoUsuario(){
         turnoUsuario = !turnoUsuario; 
         if(!turnoUsuario){
@@ -802,7 +1028,7 @@ public class TableroGUI extends javax.swing.JFrame{
            case 'R' :
               nombrePieza = "Rey";
               if(color == 'B'){
-                  ImageIcon = reyBlanco.getIcon(); 
+                  ImageIcon = reyBlanco.getIcon();
               } else{
                   ImageIcon = reyOscuro.getIcon(); 
               }
@@ -858,9 +1084,11 @@ public class TableroGUI extends javax.swing.JFrame{
         tablero.getCasillas()[x][y].setPieza(ctrTablero.crearPieza(x,y,nombrePieza,color));
         super.revalidate();
         super.repaint();
+
     }
        
     public void agregarActividad(String usuario, String descripcion){
+        jugadas += usuario + " " + descripcion + "\n";
         Actividad actividad = new Actividad(usuario,descripcion);
         modeloActividad.agregarActividad(actividad);
         
@@ -900,7 +1128,10 @@ public class TableroGUI extends javax.swing.JFrame{
         modeloActividad.eliminarTodasActividades();
     }
     
-      
+    
+    public void mensajeGanador(){
+        
+    }
     
     /**
      * @param args the command line arguments
@@ -938,6 +1169,30 @@ public class TableroGUI extends javax.swing.JFrame{
         });
     }
 
+    
+    private void solicitarEmpateLeyComputador() {
+        if (validarFichas()) {
+            finalizo = true;
+            estadoJuego = "Has empatado por ley, falta de fichas";
+        } else {
+            if (validarMovimientos()) {
+                finalizo = true;
+                estadoJuego = "Has empatado por ley, sin capturas";
+            } else {
+                if (validarTablasXNoJaque()) {
+                    finalizo = true;
+                    estadoJuego = "Has empatado por ley, sin jaque";
+                }
+            }
+        }
+        
+        if (finalizo) {
+            JOptionPane.showMessageDialog(null, "Hay empate por ley");
+            FinalJuego d = new FinalJuego(false, jugadas, this, estadoJuego);
+            d.setVisible(true);
+        }
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JList<String> LogJuego;
     private javax.swing.JPanel TableroJuego;
@@ -948,6 +1203,10 @@ public class TableroGUI extends javax.swing.JFrame{
     private javax.swing.JLabel caballoBlanco;
     private javax.swing.JLabel caballoOscuro;
     private javax.swing.JLabel etJugador;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
