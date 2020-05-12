@@ -124,3 +124,49 @@ SADSA:  Movimiento = Peon (6,1)-(5,1)
 Sistema: Cazar pieza: Caballo
 SADSA:  Movimiento = Peon (5,1)-(4,1)
 Sistema:  Movimiento = Caballo (3,4)-(1,3)
+Joaquin: Se agrego Caballo
+Joaquin: Se agrego Alfil
+Joaquin: Se agrego Peon
+Joaquin: Se agrego Peon
+Joaquin: Se agrego Torre
+Joaquin: Se agrego Caballo
+Joaquin: Se agrego Peon
+Joaquin: Se agrego Peon
+Joaquin: Se agrego Torre
+Joaquin: Se agrego Reina
+Joaquin: Se agrego Rey
+Joaquin: Se agrego Reina
+Joaquin: Se agrego Rey
+Sistema: --- SE INICIA EL JUEGO ---
+Joaquin:  Movimiento = Caballo (5,3)-(3,4)
+Sistema:  Movimiento = Reina (0,2)-(2,4)
+Joaquin:  Movimiento = Caballo (3,4)-(1,5)
+Sistema: Cazar pieza: Caballo
+Joaquin:  Movimiento = Reina (7,4)-(0,4)
+Sistema: Cazar pieza: Reina
+Joaquin:  Movimiento = Rey (7,3)-(6,2)
+Sistema:  Movimiento = Alfil (0,0)-(4,4)
+Joaquin:  Movimiento = Rey (6,2)-(6,3)
+Sistema: Cazar pieza: Peon
+Joaquin:  Movimiento = Rey (6,3)-(7,4)
+Sistema:  Movimiento = Torre (5,6)-(7,6)
+Joaquin:  Movimiento = Rey (7,4)-(6,4)
+Sistema: Cazar pieza: Torre
+Joaquin:  Movimiento = Rey (6,4)-(5,5)
+Sistema:  Movimiento = Alfil (7,1)-(4,4)
+Joaquin:  Movimiento = Rey (5,5)-(4,5)
+Sistema:  Movimiento = Rey (0,4)-(0,3)
+Joaquin: Cazar pieza: Peon
+Sistema: Cazar pieza: Rey
+Joaquin: Se agrego Caballo
+Joaquin: Se agrego Alfil
+Joaquin: Se agrego Peon
+Joaquin: Se agrego Peon
+Joaquin: Se agrego Peon
+Joaquin: Se agrego Peon
+Joaquin: Se agrego Caballo
+Sistema: --- SE INICIA EL JUEGO ---
+Joaquin:  Movimiento = Peon (C6)-(D6)
+Sistema:  Movimiento = Caballo (G4)-(E3)
+Joaquin:  Movimiento = Caballo (B2)-(D3)
+Sistema: Cazar pieza: Peon
