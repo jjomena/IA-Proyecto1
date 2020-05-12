@@ -89,3 +89,38 @@ Joaquin:  Movimiento = Torre (5,6)-(5,0)
 Sistema:  Movimiento = Torre (0,3)-(0,0)
 Joaquin:  Movimiento = Torre (5,0)-(5,4)
 Sistema:  Movimiento = Torre (0,0)-(0,1)
+SFASF: Se agrego Caballo
+SFASF: Se agrego Alfil
+Sistema: --- SE INICIA EL JUEGO ---
+SFASF:  Movimiento = Caballo (4,3)-(3,1)
+Sistema:  Movimiento = Caballo (3,1)-(1,0)
+ASDAS: Se agrego Caballo
+ASDAS: Se agrego Alfil
+Sistema: --- SE INICIA EL JUEGO ---
+ASDAS:  Movimiento = Caballo (5,3)-(4,5)
+Sistema:  Movimiento = Caballo (4,5)-(2,4)
+ADAS: Se agrego Caballo
+ADAS: Se agrego Peon
+ADAS: Se agrego Alfil
+ADAS: Se agrego Torre
+ASDA: Se agrego Caballo
+ASDA: Se agrego Peon
+ASDA: Se agrego Caballo
+Sistema: --- SE INICIA EL JUEGO ---
+ASDA: Cazar pieza: Peon
+Sistema:  Movimiento = Caballo (2,3)-(0,2)
+SADSA: Se agrego Caballo
+SADSA: Se agrego Caballo
+SADSA: Se agrego Peon
+SADSA: Se agrego Peon
+SADSA: Se agrego Peon
+SADSA: Se agrego Peon
+Sistema: --- SE INICIA EL JUEGO ---
+SADSA:  Movimiento = Peon (5,6)-(4,6)
+Sistema: Cazar pieza: Peon
+SADSA:  Movimiento = Caballo (5,3)-(3,4)
+Sistema:  Movimiento = Caballo (2,3)-(4,2)
+SADSA:  Movimiento = Peon (6,1)-(5,1)
+Sistema: Cazar pieza: Caballo
+SADSA:  Movimiento = Peon (5,1)-(4,1)
+Sistema:  Movimiento = Caballo (3,4)-(1,3)
