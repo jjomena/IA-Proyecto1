@@ -893,8 +893,8 @@ public class TableroGUI extends javax.swing.JFrame{
                 posTemporal = movimientos.get(h);
                 posFinalx = posTemporal.getX();
                 posFinaly = posTemporal.getY();
-                PintarPieza(equipo,tipopieza,posFinalx,posFinaly);    
-                PintarPieza('B','N',posFinalx,posFinaly);
+//                PintarPieza(equipo,tipopieza,posFinalx,posFinaly);    
+//                PintarPieza('B','N',posFinalx,posFinaly);
             }
             String piezaComida = tablero.getCasillas()[posFinalx][posFinaly].getPieza().getNombrePieza();
             String descripcion;

@@ -59,3 +59,33 @@ asdas:  Movimiento = Alfil (4,1)-(5,2)
 Sistema:  Movimiento = Alfil (1,1)-(0,0)
 asdas:  Movimiento = Alfil (5,2)-(6,3)
 Sistema:  Movimiento = Alfil (0,0)-(1,1)
+Joaquin: Se agrego Caballo
+Joaquin: Se agrego Alfil
+Joaquin: Se agrego Peon
+Joaquin: Se agrego Peon
+Joaquin: Se agrego Torre
+Joaquin: Se agrego Caballo
+Joaquin: Se agrego Alfil
+Joaquin: Se agrego Peon
+Joaquin: Se agrego Peon
+Sistema: --- SE INICIA EL JUEGO ---
+Joaquin:  Movimiento = Alfil (5,1)-(1,5)
+Sistema:  Movimiento = Alfil (0,0)-(4,4)
+Joaquin:  Movimiento = Caballo (5,3)-(3,4)
+Sistema:  Movimiento = Alfil (4,4)-(1,7)
+Joaquin:  Movimiento = Peon (5,6)-(4,6)
+Sistema: Cazar pieza: Alfil
+Joaquin: Se agrego Torre
+Joaquin: Se agrego Torre
+Sistema: --- SE INICIA EL JUEGO ---
+Joaquin:  Movimiento = Torre (4,3)-(4,5)
+Sistema:  Movimiento = Torre (1,3)-(0,3)
+Joaquin: Se agrego Torre
+Joaquin: Se agrego Torre
+Sistema: --- SE INICIA EL JUEGO ---
+Joaquin:  Movimiento = Torre (5,3)-(5,6)
+Sistema:  Movimiento = Torre (1,3)-(0,3)
+Joaquin:  Movimiento = Torre (5,6)-(5,0)
+Sistema:  Movimiento = Torre (0,3)-(0,0)
+Joaquin:  Movimiento = Torre (5,0)-(5,4)
+Sistema:  Movimiento = Torre (0,0)-(0,1)
