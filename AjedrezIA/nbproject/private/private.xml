@@ -4,6 +4,9 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
 <<<<<<< HEAD
+            <file>file:/C:/Users/joaqu/Documents/IA/IA-Proyecto1/AjedrezIA/src/Vistas/TableroGUI.java</file>
+=======
+<<<<<<< HEAD
             <file>file:/Users/kristalduran/Documents/Akurey/Projects/IA-Proyecto1/AjedrezIA/src/Modelos/ModeloRegistrarActividad.java</file>
             <file>file:/Users/kristalduran/Documents/Akurey/Projects/IA-Proyecto1/AjedrezIA/src/ajedrezia/AjedrezIA.java</file>
             <file>file:/Users/kristalduran/Documents/Akurey/Projects/IA-Proyecto1/AjedrezIA/src/Modelos/Peon.java</file>
@@ -41,6 +44,7 @@
             <file>file:/C:/Users/joaqu/Documents/IA/IA-Proyecto1/AjedrezIA/src/Modelos/Pieza.java</file>
             <file>file:/C:/Users/joaqu/Documents/IA/IA-Proyecto1/AjedrezIA/src/Controladores/ControladorArbol.java</file>
 >>>>>>> a37211b2014c0990259d14f6ad08f6b5dff46349
+>>>>>>> 5316f309cb46698e7cbe3d3d80b0db0efc283061
         </group>
     </open-files>
 </project-private>

@@ -1,0 +1,15 @@
+Joaquin Se agrego Caballo
+Joaquin Se agrego Alfil
+Joaquin Se agrego Peon
+Joaquin Se agrego Peon
+Joaquin Se agrego Torre
+Joaquin Se agrego Caballo
+Joaquin Se agrego Alfil
+Joaquin Se agrego Peon
+Joaquin Se agrego Peon
+Sistema --- SE INICIA EL JUEGO ---
+Joaquin  Movimiento = Alfil (5,1)-(1,5)
+Sistema  Movimiento = Alfil (0,0)-(4,4)
+Joaquin  Movimiento = Caballo (5,3)-(3,4)
+Sistema  Movimiento = Alfil (4,4)-(1,7)
+Joaquin  Movimiento = Peon (5,6)-(4,6)
