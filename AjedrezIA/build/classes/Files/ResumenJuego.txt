@@ -1,0 +1,283 @@
+k: Se agrego Rey
+k: Se agrego Peon
+k: Se agrego Caballo
+Sistema: --- SE INICIA EL JUEGO ---
+k:  Movimiento = Rey (5,2)-(4,3)
+Sistema:  Movimiento = Caballo (2,1)-(0,0)
+k: Cazar pieza: Peon
+Sistema:  Movimiento = Caballo (0,0)-(1,2)
+k:  Movimiento = Rey (3,3)-(2,3)
+Sistema:  Movimiento = Caballo (1,2)-(0,0)
+k:  Movimiento = Rey (2,3)-(1,4)
+Sistema:  Movimiento = Caballo (0,0)-(1,2)
+k:  Movimiento = Rey (1,4)-(2,3)
+Sistema:  Movimiento = Caballo (1,2)-(0,0)
+k: Se agrego Rey
+k: Se agrego Peon
+k: Se agrego Peon
+k: Se agrego Reina
+Sistema: --- SE INICIA EL JUEGO ---
+k:  Movimiento = Rey (6,2)-(5,2)
+Sistema: Cazar pieza: Rey
+k:  Movimiento = Peon (7,7)-(6,7)
+Sistema:  Movimiento = Reina (5,2)-(5,4)
+k:  Movimiento = Peon (6,7)-(5,7)
+Sistema:  Movimiento = Reina (5,4)-(4,5)
+k:  Movimiento = Peon (5,7)-(4,7)
+Sistema:  Movimiento = Reina (4,5)-(3,4)
+k: Se agrego Rey
+k: Se agrego Peon
+k: Se agrego Reina
+k: Se agrego Peon
+k: Se agrego Peon
+k: Se agrego Rey
+Sistema: --- SE INICIA EL JUEGO ---
+k:  Movimiento = Rey (5,3)-(4,3)
+Sistema: Cazar pieza: Rey
+k:  Movimiento = Peon (7,7)-(6,7)
+Sistema:  Movimiento = Reina (4,3)-(5,2)
+k:  Movimiento = Peon (6,7)-(5,7)
+Sistema:  Movimiento = Reina (5,2)-(4,2)
+k:  Movimiento = Peon (5,7)-(4,7)
+Sistema:  Movimiento = Reina (4,2)-(3,3)
+l: Se agrego Rey
+l: Se agrego Rey
+l: Se agrego Peon
+l: Se agrego Peon
+Sistema: --- SE INICIA EL JUEGO ---
+l:  Movimiento = Rey (5,3)-(4,2)
+Sistema:  Movimiento = Peon (1,3)-(2,3)
+l:  Movimiento = Peon (6,5)-(5,5)
+Sistema:  Movimiento = Rey (1,6)-(0,5)
+l:  Movimiento = Peon (5,5)-(4,5)
+Sistema:  Movimiento = Rey (0,5)-(0,4)
+f: Se agrego Rey
+f: Se agrego Peon
+Sistema: --- SE INICIA EL JUEGO ---
+f:  Movimiento = Rey (5,3)-(4,3)
+Sistema:  Movimiento = Peon (2,3)-(3,3)
+f:  Movimiento = Rey (4,3)-(3,2)
+Sistema:  Movimiento = Peon (3,3)-(4,3)
+f: Cazar pieza: Peon
+f:  Movimiento = Rey (4,3)-(3,2)
+f:  Movimiento = Rey (3,2)-(4,3)
+f: Se agrego Rey
+f: Se agrego Rey
+f: Se agrego Peon
+f: Se agrego Peon
+f: Se agrego Caballo
+Sistema: --- SE INICIA EL JUEGO ---
+f:  Movimiento = Peon (6,5)-(5,5)
+Sistema:  Movimiento = Caballo (2,1)-(3,3)
+f:  Movimiento = Rey (7,0)-(6,0)
+Sistema:  Movimiento = Rey (0,7)-(0,6)
+Sistema: --- SE INICIA EL JUEGO ---
+f:  Movimiento = Rey (6,0)-(5,0)
+Sistema:  Movimiento = Rey (0,6)-(0,5)
+f:  Movimiento = Rey (5,0)-(4,0)
+Sistema:  Movimiento = Rey (0,5)-(0,4)
+f:  Movimiento = Rey (4,0)-(3,0)
+Sistema:  Movimiento = Rey (0,4)-(0,3)
+f:  Movimiento = Rey (3,0)-(2,0)
+Sistema:  Movimiento = Rey (0,3)-(0,2)
+f:  Movimiento = Rey (2,0)-(1,1)
+Sistema: Cazar pieza: Rey
+k: Se agrego Rey
+k: Se agrego Peon
+Sistema: --- SE INICIA EL JUEGO ---
+k:  Movimiento = Rey (6,2)-(5,1)
+Sistema:  Movimiento = Peon (3,4)-(4,4)
+k: Se agrego Rey
+k: Se agrego Peon
+k: Se agrego Peon
+Sistema: --- SE INICIA EL JUEGO ---
+k:  Movimiento = Rey (7,7)-(6,7)
+Sistema:  Movimiento = Peon (3,3)-(4,3)
+k:  Movimiento = Rey (6,7)-(5,7)
+Sistema:  Movimiento = Peon (4,3)-(5,3)
+k: Se agrego Rey
+k: Se agrego Peon
+Sistema: --- SE INICIA EL JUEGO ---
+k:  Movimiento = Rey (7,6)-(7,7)
+Sistema:  Movimiento = Peon (2,3)-(3,3)
+k:  Movimiento = Rey (7,7)-(6,7)
+Sistema:  Movimiento = Peon (3,3)-(4,3)
+k:  Movimiento = Rey (6,7)-(5,7)
+Sistema:  Movimiento = Peon (4,3)-(5,3)
+k: Se agrego Rey
+k: Se agrego Peon
+k: Se agrego Peon
+k: Se agrego Alfil
+Sistema: --- SE INICIA EL JUEGO ---
+k:  Movimiento = Rey (6,1)-(5,2)
+Sistema:  Movimiento = Alfil (3,5)-(4,4)
+k:  Movimiento = Rey (5,2)-(4,1)
+Sistema:  Movimiento = Alfil (4,4)-(3,5)
+k: Se agrego Rey
+k: Se agrego Peon
+k: Se agrego Peon
+k: Se agrego Caballo
+Sistema: --- SE INICIA EL JUEGO ---
+k:  Movimiento = Rey (7,7)-(6,7)
+Sistema:  Movimiento = Caballo (2,2)-(0,1)
+k:  Movimiento = Peon (6,4)-(5,4)
+Sistema:  Movimiento = Caballo (0,1)-(1,3)
+k:  Movimiento = Peon (5,4)-(4,4)
+Sistema:  Movimiento = Caballo (1,3)-(2,5)
+k:  Movimiento = Rey (6,7)-(5,7)
+Sistema: Cazar pieza: Peon
+k:  Movimiento = Rey (5,7)-(4,7)
+Sistema:  Movimiento = Caballo (4,4)-(5,2)
+k:  Movimiento = Rey (4,7)-(4,6)
+Sistema:  Movimiento = Caballo (5,2)-(4,4)
+k:  Movimiento = Rey (4,6)-(4,5)
+Sistema: Cazar pieza: Rey
+k: Se agrego Rey
+k: Se agrego Peon
+k: Se agrego Caballo
+Sistema: --- SE INICIA EL JUEGO ---
+k:  Movimiento = Rey (7,7)-(6,7)
+Sistema:  Movimiento = Caballo (0,7)-(1,5)
+k:  Movimiento = Rey (6,7)-(5,7)
+Sistema:  Movimiento = Caballo (1,5)-(3,4)
+k:  Movimiento = Rey (5,7)-(4,7)
+Sistema:  Movimiento = Caballo (3,4)-(4,2)
+k: Se agrego Rey
+k: Se agrego Reina
+k: Se agrego Caballo
+k: Se agrego Caballo
+k: Se agrego Peon
+k: Se agrego Peon
+k: Se agrego Peon
+Sistema: --- SE INICIA EL JUEGO ---
+k:  Movimiento = Peon (5,7)-(4,7)
+k: Se agrego Rey
+k: Se agrego Peon
+k: Se agrego Peon
+Sistema: --- SE INICIA EL JUEGO ---
+k: Se agrego Rey
+k: Se agrego Torre
+Sistema: --- SE INICIA EL JUEGO ---
+k:  Movimiento = Rey (6,1)-(5,0)
+Sistema:  Movimiento = Torre (3,7)-(0,7)
+k: Se agrego Rey
+k: Se agrego Peon
+Sistema: --- SE INICIA EL JUEGO ---
+k:  Movimiento = Rey (6,3)-(5,2)
+Sistema:  Movimiento = Peon (3,6)-(4,6)
+k:  Movimiento = Rey (5,2)-(6,3)
+Sistema:  Movimiento = Peon (4,6)-(5,6)
+k:  Movimiento = Rey (6,3)-(7,4)
+Sistema:  Movimiento = Peon (5,6)-(6,6)
+k:  Movimiento = Rey (7,4)-(7,5)
+Sistema: Cazar pieza: Rey
+k: Se agrego Rey
+k: Se agrego Peon
+Sistema: --- SE INICIA EL JUEGO ---
+k:  Movimiento = Rey (7,3)-(7,4)
+Sistema:  Movimiento = Peon (5,3)-(6,3)
+k:  Movimiento = Rey (7,4)-(6,4)
+Sistema:  Movimiento = Peon (6,3)-(7,3)
+k: Cazar pieza: Peon
+k: Se agrego Rey
+k: Se agrego Peon
+Sistema: --- SE INICIA EL JUEGO ---
+k:  Movimiento = Rey (6,5)-(5,5)
+Sistema:  Movimiento = Peon (3,4)-(4,4)
+k: Se agrego Rey
+k: Se agrego Peon
+Sistema: --- SE INICIA EL JUEGO ---
+k:  Movimiento = Rey (6,5)-(5,5)
+Sistema:  Movimiento = Peon (3,4)-(4,4)
+k: Se agrego Rey
+k: Se agrego Peon
+Sistema: --- SE INICIA EL JUEGO ---
+k:  Movimiento = Rey (6,5)-(5,5)
+Sistema:  Movimiento = Peon (3,4)-(4,4)
+k:  Movimiento = Rey (5,5)-(4,5)
+Sistema:  Movimiento = Peon (4,4)-(5,4)
+k:  Movimiento = Rey (4,5)-(3,6)
+Sistema:  Movimiento = Peon (5,4)-(6,4)
+k:  Movimiento = Rey (3,6)-(4,6)
+Sistema:  Movimiento = Peon (6,4)-(7,4)
+k:  Movimiento = Rey (4,6)-(5,7)
+k:  Movimiento = Rey (5,7)-(6,6)
+k:  Movimiento = Rey (6,6)-(7,5)
+k: Cazar pieza: Peon
+k: Se agrego Rey
+k: Se agrego Peon
+Sistema: --- SE INICIA EL JUEGO ---
+k:  Movimiento = Rey (6,1)-(5,1)
+Sistema:  Movimiento = Peon (3,0)-(4,0)
+k:  Movimiento = Rey (5,1)-(4,1)
+Sistema:  Movimiento = Peon (4,0)-(5,0)
+k: Se agrego Rey
+k: Se agrego Peon
+k: Se agrego Caballo
+k: Se agrego Peon
+Sistema: --- SE INICIA EL JUEGO ---
+k:  Movimiento = Rey (5,4)-(4,4)
+Sistema:  Movimiento = Caballo (4,0)-(2,1)
+k:  Movimiento = Peon (4,7)-(3,7)
+Sistema:  Movimiento = Caballo (2,1)-(0,0)
+k:  Movimiento = Peon (3,7)-(2,7)
+Sistema:  Movimiento = Caballo (0,0)-(1,2)
+k:  Movimiento = Peon (2,7)-(1,7)
+Sistema:  Movimiento = Caballo (1,2)-(0,0)
+k:  Movimiento = Peon (1,7)-(0,7)
+Sistema:  Movimiento = Caballo (0,0)-(1,2)
+k: Se agrego Rey
+k: Se agrego Peon
+k: Se agrego Peon
+Sistema: --- SE INICIA EL JUEGO ---
+k:  Movimiento = Rey (5,4)-(4,4)
+Sistema:  Movimiento = Peon (2,3)-(3,3)
+k:  Movimiento = Peon (7,7)-(6,7)
+Sistema: Cazar pieza: Rey
+k:  Movimiento = Peon (6,7)-(5,7)
+Sistema:  Movimiento = Peon (4,4)-(5,4)
+k:  Movimiento = Peon (5,7)-(4,7)
+Sistema:  Movimiento = Peon (5,4)-(6,4)
+j: Se agrego Rey
+j: Se agrego Peon
+j: Se agrego Peon
+Sistema: --- SE INICIA EL JUEGO ---
+j:  Movimiento = Rey (6,4)-(5,4)
+Sistema:  Movimiento = Peon (3,3)-(4,3)
+j:  Movimiento = Peon (7,7)-(6,7)
+j:  Movimiento = Peon (6,7)-(5,7)
+k: Se agrego Rey
+k: Se agrego Peon
+k: Se agrego Peon
+k: Se agrego Peon
+Sistema: --- SE INICIA EL JUEGO ---
+k:  Movimiento = Rey (5,4)-(4,4)
+Sistema:  Movimiento = Peon (2,3)-(3,3)
+k:  Movimiento = Peon (7,7)-(6,7)
+Sistema: Cazar pieza: Rey
+k: Se agrego Rey
+k: Se agrego Peon
+k: Se agrego Peon
+Sistema: --- SE INICIA EL JUEGO ---
+k:  Movimiento = Rey (5,4)-(4,4)
+Sistema:  Movimiento = Peon (2,3)-(3,3)
+k:  Movimiento = Peon (7,7)-(6,7)
+Sistema: Cazar pieza: Rey
+k: Se agrego Rey
+k: Se agrego Peon
+k: Se agrego Peon
+k: Se agrego Peon
+k: Se agrego Peon
+Sistema: --- SE INICIA EL JUEGO ---
+k:  Movimiento = Rey (5,4)-(4,4)
+Sistema:  Movimiento = Peon (2,3)-(3,3)
+k:  Movimiento = Peon (7,7)-(6,7)
+Sistema: Cazar pieza: Rey
+k: Se agrego Rey
+k: Se agrego Peon
+k: Se agrego Peon
+Sistema: --- SE INICIA EL JUEGO ---
+k:  Movimiento = Rey (5,4)-(4,4)
+Sistema:  Movimiento = Peon (2,3)-(3,3)
+k: Cazar pieza: Rey
+Sistema:  Movimiento = Peon (4,4)-(5,4)
