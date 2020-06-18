@@ -84,6 +84,9 @@ public class TableroGUI extends javax.swing.JFrame{
     
     private Pieza reyJaqueUsuario = null;
     private Pieza piezaAmenazante = null;
+    
+    private Pieza reyJaqueSistema = null;
+    private Pieza piezaAmenazanteUsuario = null;
 
     /**
      * Creates new form Tablero
@@ -769,7 +772,6 @@ public class TableroGUI extends javax.swing.JFrame{
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
 //        mostrar esto cuando la compu quiere empate mutuo
 //        int respuesta = JOptionPane.showConfirmDialog(this, "Solicito empate mutuo, aceptas?", "Empate mutuo", 1);
-//        System.out.println(respuesta);
         Random rand = new Random(); 
   
         // Generate random integers in range 0 to 1 
@@ -817,8 +819,7 @@ public class TableroGUI extends javax.swing.JFrame{
        ArrayList<ArrayList<String>> equipos = new ArrayList<>();
        for (int i = 0; i < 8; i++) {
            for (int j = 0; j < 8; j++) {
-//               System.out.println(tablero.getCasillas()[i][j].pieza.getNombrePieza() + " " + tablero.getCasillas()[i][j].pieza.getEquipo());
-               if (tablero.getCasillas()[i][j].pieza.getEquipo() == 'B') {
+             if (tablero.getCasillas()[i][j].pieza.getEquipo() == 'B') {
                    equipo1.add(tablero.getCasillas()[i][j].pieza.getNombrePieza());
                } else {
                    if (tablero.getCasillas()[i][j].pieza.getEquipo() == 'N') {
@@ -864,13 +865,18 @@ public class TableroGUI extends javax.swing.JFrame{
                return true;
            }
        }
+       
+       if(equipo1.indexOf("Rey") == -1 && equipo2.indexOf("Rey") == -1){
+            estadoJuego = "Empate por falta reys";
+            FinalJuego d = new FinalJuego(false, jugadas, this, estadoJuego);
+            d.setVisible(true);
+       }
        return false;
    }
    
    private boolean validarMovimientos() {
        int contadorMovimientos = 0;
        for (int i = modeloActividad.getSize()-1; i > 0; i--) {
-           System.out.println("validar " + modeloActividad.getElementAt(i));
            Pattern regex = Pattern.compile("\\b" + Pattern.quote("Movimiento") + "\\b", Pattern.CASE_INSENSITIVE);
            Matcher match = regex.matcher(modeloActividad.getElementAt(i)+"");
            if (match.find()) {
@@ -889,10 +895,34 @@ public class TableroGUI extends javax.swing.JFrame{
        return false;
    }
    
-   private boolean validarTablasXNoJaque() {
-       return false;
-   }
+    private boolean validarTablasXNoJaque() {
+        return false;
+    }
    
+    public void validarSiMequitaronRey(char equipoValidar){
+        ArrayList<ArrayList<String>> equipos = definirEquipos();
+        ArrayList<String> equipoOponente;
+        ArrayList<String> miEquipo;
+        if (equipoValidar == 'B') {
+            equipoOponente = equipos.get(0);
+            miEquipo = equipos.get(1);
+        } else {
+            miEquipo = equipos.get(0);
+            equipoOponente = equipos.get(1);
+        }
+        
+        if(equipoOponente.indexOf("Rey") == -1 ){
+            estadoJuego = "Ganaste";
+            FinalJuego d = new FinalJuego(false, jugadas, this, estadoJuego);
+            d.setVisible(true);
+       } else {
+            if(miEquipo.indexOf("Rey") == -1 ){
+            estadoJuego = "Perdiste";
+            FinalJuego d = new FinalJuego(false, jugadas, this, estadoJuego);
+            d.setVisible(true);
+       }
+        }
+    }
     public void activarDesactivarPiezas(JLabel pieza){
         if(isActive){
             Border borderDesactivo = BorderFactory.createLineBorder(Color.BLACK, 1);
@@ -1009,7 +1039,6 @@ public class TableroGUI extends javax.swing.JFrame{
     }
     
     public final void agregarPieza(String x,String y) throws InterruptedException{
-        System.out.println("agregar pieza");
         int i = Integer.parseInt(x);
         int j= Integer.parseInt(y);
         
@@ -1040,7 +1069,21 @@ public class TableroGUI extends javax.swing.JFrame{
         }
     }
     
-    public void validarJaque(Pieza fichaMovida) {
+    public void validarSiQuedeEnJaque(Pieza fichaMovida, int usuario){
+        ArrayList<Pieza> equipoContrinCante = new ArrayList<>();
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                if (tablero.getCasillas()[i][j].pieza.getEquipo() != fichaMovida.getEquipo() && (fichaMovida.getEquipo() == 'B' || fichaMovida.getEquipo() == 'N')) {
+                    equipoContrinCante.add(tablero.getCasillas()[i][j].pieza);
+                }
+            }
+        }
+        for (Pieza pieza : equipoContrinCante) {
+            validarJaque(pieza, usuario);
+        }
+    }
+    
+    public void validarJaque(Pieza fichaMovida, int usuario) {
         //definir equipos completos
         ArrayList<ArrayList<String>> equipos = definirEquipos();
         char oponente;
@@ -1072,19 +1115,24 @@ public class TableroGUI extends javax.swing.JFrame{
             for (Posicion movimientosPosible : movimientosPosiblesNew) {
                 for (Pieza rey : posicionesRey) {
                     if (rey.getPosicion().getX() == movimientosPosible.getX() && rey.getPosicion().getY() == movimientosPosible.getY()) {
-                        JOptionPane.showMessageDialog(null, "Estas en Jaque");
-                        reyJaqueUsuario = rey;
-                        piezaAmenazante = fichaMovida;
+                        if (usuario == 1) {
+                            JOptionPane.showMessageDialog(null, "Estas en Jaque");
+                            reyJaqueUsuario = rey;
+                            piezaAmenazante = fichaMovida;
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Pusiste en Jaque al oponente");
+                            reyJaqueSistema = rey;
+                            piezaAmenazanteUsuario = fichaMovida;
+                        }
+                        
                     }
                 }
             }
             // definir si uno de estos pone en peligro al rey
         }
-        
     }
     
     public ArrayList<Posicion> movimientosPosiblesPiezasXXXX(Pieza pieza){
-        System.out.println("Movimientos posibles " + pieza.getNombrePieza());
         ArrayList<Posicion> movimientosPosiblesNew = new ArrayList<>();
         //boolean [][] posicionesPosibles = new boolean [8][8];
         boolean [][] posicionesPosibles;
@@ -1093,7 +1141,6 @@ public class TableroGUI extends javax.swing.JFrame{
             for(int j = 0; j < 8; j++){
                 Posicion posCambiante = new Posicion();
                 if(posicionesPosibles[i][j]){
-                    System.out.println("("+i+","+j+")");
                     posCambiante.setX(i);
                     posCambiante.setY(j);
                     movimientosPosiblesNew.add(posCambiante);
@@ -1131,7 +1178,7 @@ public class TableroGUI extends javax.swing.JFrame{
             String piezaComida = tablero.getCasillas()[posFinalx][posFinaly].getPieza().getNombrePieza();
             String descripcion;
             if(!"NoPieza".equals(piezaComida)){
-                descripcion = "Cazar pieza: " + piezaComida;  
+                descripcion = "Cazar pieza: " + piezaComida;
             }
             else{
                 descripcion = " Movimiento = "+nombrePieza+
@@ -1142,37 +1189,71 @@ public class TableroGUI extends javax.swing.JFrame{
                     .setPieza(ctrTablero.crearPieza(posFinalx,posFinaly,pieza.getNombrePieza(),pieza.getEquipo()));
             ctrTablero.restablecerEstadoInicio();
             agregarActividad(Jugador,descripcion);
-            System.out.println("\n\n\n\n\n\nPieza user " + nombrePieza+"\n\n\n\n\n");
+            if(!"NoPieza".equals(piezaComida)){
+                System.err.println("comida");
+                validarSiMequitaronRey(tablero.getCasillas()[posFinalx][posFinaly].getPieza().getEquipo());
+            }
             // valorar si el rey del contrincante quedo en peligro y avisarle
-//            validarJaque(pieza);
             if (reyJaqueUsuario != null) {
-                System.out.println("jaque");
                 Pieza piezaComidaO = null;
                 if (!"NoPieza".equals(piezaComida)) {
                     piezaComidaO = tablero.getCasillas()[posFinalx][posFinaly].getPieza();
                 }
-                if(!salirJaque(pieza, piezaComidaO)){
+                if(!salirJaque(pieza, piezaComidaO, 1)){
                     estadoJuego = "Jaque Mate";
                     FinalJuego d = new FinalJuego(false, jugadas, this, estadoJuego);
                     d.setVisible(true);
                 }
             }
-            intercambiarTurnoUsuario();
+            validarSiQuedeEnJaque(pieza,1);
+            validarJaque(pieza, 0);
+            if(reyJaqueUsuario == null){
+                intercambiarTurnoUsuario();
+            }
         }
     }
     
-    public boolean salirJaque(Pieza piezaMovida, Pieza piezaComida){
+    public boolean salirJaque(Pieza piezaMovida, Pieza piezaComida, int usuario){
         if (piezaComida != null) {
-            if (piezaComida.equals(piezaAmenazante)) {
+            if (piezaComida.equals(piezaAmenazante) && usuario == 1 || piezaComida.equals(piezaAmenazanteUsuario) && usuario == 0) {
+                if (usuario == 1) {
+                    piezaAmenazante = null;
+                    reyJaqueUsuario = null;
+                }else{
+                    piezaAmenazanteUsuario = null;
+                    reyJaqueSistema = null;
+                }
                 return true;
             }
         }
-        if (piezaMovida.equals(reyJaqueUsuario)) {
-            System.err.println("aja");
+        if (piezaMovida.equals(reyJaqueUsuario) && usuario == 1 || piezaMovida.equals(reyJaqueSistema)&& usuario == 0) {
+            if (usuario == 1) {
+                piezaAmenazante = null;
+                reyJaqueUsuario = null;
+            }else{
+                piezaAmenazanteUsuario = null;
+                reyJaqueSistema = null;
+            }
             return true;
         } else {
+            if (usuario == 1) {
+                piezaAmenazante = null;
+                reyJaqueUsuario = null;
+            }else{
+                piezaAmenazanteUsuario = null;
+                reyJaqueSistema = null;
+            }
+            validarSiQuedeEnJaque(piezaMovida, usuario);
+            if (usuario == 1) {
+                if (reyJaqueUsuario == null) {
+                    return true;
+                }
+            }else{
+                if (reyJaqueSistema == null) {
+                    return true;
+                }
+            }
             return false;
-            // validar que la ficha movida ya no pone en jaque la var 
         }
     }
     
@@ -1216,8 +1297,23 @@ public class TableroGUI extends javax.swing.JFrame{
         tablero.getCasillas()[posFinalx][posFinaly]
                     .setPieza(ctrTablero.crearPieza(posFinalx,posFinaly,pieza.getNombrePieza(),pieza.getEquipo()));
         ctrTablero.restablecerEstadoInicio();
-        agregarActividad("Sistema",descripcion);
-        validarJaque(tablero.getCasillas()[posFinalx][posFinaly].getPieza());
+        if(!"NoPieza".equals(piezaComida)){
+            validarSiMequitaronRey(tablero.getCasillas()[posFinalx][posFinaly].getPieza().getEquipo());
+        }
+//        agregarActividad("Sistema",descripcion);
+        if (reyJaqueSistema != null) {
+            Pieza piezaComidaO = null;
+            if (!"NoPieza".equals(piezaComida)) {
+                piezaComidaO = tablero.getCasillas()[posFinalx][posFinaly].getPieza();
+            }
+            if(!salirJaque(pieza, piezaComidaO, 1)){
+                estadoJuego = "Jaque Mate";
+                FinalJuego d = new FinalJuego(false, jugadas, this, estadoJuego);
+                d.setVisible(true);
+            }
+        }
+        validarJaque(tablero.getCasillas()[posFinalx][posFinaly].getPieza(), 1);
+        validarSiQuedeEnJaque(tablero.getCasillas()[posFinalx][posFinaly].getPieza(),0);
         intercambiarTurnoUsuario();
     }
          
@@ -1241,29 +1337,6 @@ public class TableroGUI extends javax.swing.JFrame{
         }
           
     }
-    
-//    private ArrayList<Integer> restarCampos(int inicio, int fin){
-//        int diferencia = inicio - fin;
-//        System.out.println("Diferencia: " + diferencia);
-//        ArrayList<Integer> posiciones = new ArrayList<>();
-//        for (int i = 0; i < diferencia; i++) {
-//            System.out.println("inicio " + inicio + "fin " + fin);
-//            inicio--;
-//            posiciones.add(inicio);
-//            
-//        }
-//        return posiciones;
-//    }
-//    
-//    private ArrayList<Integer> sumarCampos(int inicio, int fin){
-//        int diferencia = fin - inicio;
-//        ArrayList<Integer> posiciones = new ArrayList<>();
-//        for (int i = 0; i < diferencia; i++) {
-//            inicio++;
-//            posiciones.add(inicio);
-//        }
-//        return posiciones;
-//    }
     
     public void intercambiarTurnoUsuario(){
         turnoUsuario = !turnoUsuario; 
