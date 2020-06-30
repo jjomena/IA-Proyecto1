@@ -490,3 +490,7 @@ k:  Movimiento = Rey (3,4)-(4,4)
 k:  Movimiento = Rey (4,4)-(5,4)
 k:  Movimiento = Rey (5,4)-(6,4)
 k: Cazar pieza: Peon
+k: Se agrego Alfil
+k: Se agrego Peon
+Sistema: --- SE INICIA EL JUEGO ---
+k: Cazar pieza: Peon

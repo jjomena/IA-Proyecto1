@@ -3,13 +3,6 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-            <file>file:/C:/Users/joaqu/Documents/IA/IA-Proyecto1/AjedrezIA/src/Vistas/TableroGUI.java</file>
-=======
-<<<<<<< HEAD
->>>>>>> 904317fa9f364a2c6c6e402a27bf96b0dc637785
             <file>file:/Users/kristalduran/Documents/Akurey/Projects/IA-Proyecto1/AjedrezIA/src/Modelos/ModeloRegistrarActividad.java</file>
             <file>file:/Users/kristalduran/Documents/Akurey/Projects/IA-Proyecto1/AjedrezIA/src/ajedrezia/AjedrezIA.java</file>
             <file>file:/Users/kristalduran/Documents/Akurey/Projects/IA-Proyecto1/AjedrezIA/src/Modelos/Peon.java</file>
@@ -41,19 +34,8 @@
             <file>file:/Users/kristalduran/Documents/Akurey/Projects/IA-Proyecto1/AjedrezIA/src/Modelos/Tablero.java</file>
             <file>file:/Users/kristalduran/Documents/Akurey/Projects/IA-Proyecto1/AjedrezIA/src/Excepciones/ExcepcionTurnoEquivocado.java</file>
             <file>file:/Users/kristalduran/Documents/Akurey/Projects/IA-Proyecto1/AjedrezIA/src/Modelos/LeerArchivo.java</file>
+            <file>file:/Users/kristalduran/Documents/Akurey/Projects/IA-Proyecto1/AjedrezIA/src/Files/ResumenJuego.txt</file>
             <file>file:/Users/kristalduran/Documents/Akurey/Projects/IA-Proyecto1/AjedrezIA/src/Vistas/FinalJuego.java</file>
-<<<<<<< HEAD
-=======
-=======
-            <file>file:/C:/Users/joaqu/Documents/IA/IA-Proyecto1/AjedrezIA/src/Controladores/ControladorTablero.java</file>
-            <file>file:/C:/Users/joaqu/Documents/IA/IA-Proyecto1/AjedrezIA/src/Modelos/MinMax.java</file>
-            <file>file:/C:/Users/joaqu/Documents/IA/IA-Proyecto1/AjedrezIA/src/Vistas/TableroGUI.java</file>
-            <file>file:/C:/Users/joaqu/Documents/IA/IA-Proyecto1/AjedrezIA/src/Modelos/Alfil.java</file>
-            <file>file:/C:/Users/joaqu/Documents/IA/IA-Proyecto1/AjedrezIA/src/Modelos/Pieza.java</file>
-            <file>file:/C:/Users/joaqu/Documents/IA/IA-Proyecto1/AjedrezIA/src/Controladores/ControladorArbol.java</file>
->>>>>>> a37211b2014c0990259d14f6ad08f6b5dff46349
->>>>>>> 5316f309cb46698e7cbe3d3d80b0db0efc283061
->>>>>>> 904317fa9f364a2c6c6e402a27bf96b0dc637785
         </group>
     </open-files>
 </project-private>

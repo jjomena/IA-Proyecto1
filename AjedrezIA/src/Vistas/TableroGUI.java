@@ -913,7 +913,7 @@ public class TableroGUI extends javax.swing.JFrame{
         
         if(equipoOponente.indexOf("Rey") == -1 ){
             estadoJuego = "Ganaste";
-            FinalJuego d = new FinalJuego(false, jugadas, this, estadoJuego);
+            FinalJuego d = new FinalJuego(true, jugadas, this, estadoJuego);
             d.setVisible(true);
        } else {
             if(miEquipo.indexOf("Rey") == -1 ){
